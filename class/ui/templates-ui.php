@@ -30,7 +30,6 @@ class TemplatesUI extends MasterUI{
                     <th>
                         <td>No</td>
                         <td>Name</td>
-                        <td>Form List</td>
                         <td>Updated By</td>
                         <td>Updated Date</td>
                         <td>Action</td>
@@ -50,7 +49,7 @@ class TemplatesUI extends MasterUI{
         echo $this->view;
     }
 
-    private function verifyData($username, $password){
+    public function verifyData($username, $password){
         return true;
     }
     public function login($username, $password){

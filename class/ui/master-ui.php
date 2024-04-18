@@ -5,4 +5,12 @@ class MasterUI {
         
     }
 
+    function verifyData($username, $password){
+
+    }
+
+    function getAllData(){
+        
+    }
+
 }

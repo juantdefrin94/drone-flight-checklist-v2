@@ -20,50 +20,46 @@ class FormsUI extends MasterUI{
                 <a href="">Forms</a>
                 <a href="">Templates</a>
                 <a href="">Submission</a>
-                <a href="">Logout</a>
+                <a href="index.php">Logout</a>
             </div>
             <div>
                 Form List
                 <button>Create New Form</button>
                 <input type="text" placeholder="Search...">
                 <table>
-                    <th>
-                        <td>No</td>
-                        <td>Type</td>
-                        <td>Name</td>
-                        <td>Updated By</td>
-                        <td>Updated Date</td>
-                        <td>Action</td>
-                    </th>
-                </table>
-            </div>
-           </div>
-        </body>
-        </html>
+                    <tr>
+                        <th>No</th>
+                        <th>Name</th>
+                        <th>Type</th>
+                        <th>Updated By</th>
+                        <th>Updated Date</th>
+                        <th>Action</th>
+                    </tr>
     HTML;
 
     public function __construct($db){
         $this->db = $db;
+        
+    }
+
+    public function getAllData(){
+        $formList = $this->db->fetchAllForms();
+        $this->view .= $formList;
     }
 
     public function getView(){
+        $this->view .= <<<HTML
+                </table>
+                </div>
+            </div>
+            </body>
+            </html>
+        HTML;
         echo $this->view;
     }
 
-    private function verifyData($username, $password){
+    public function verifyData($username, $password){
         return true;
     }
-    public function login($username, $password){
-        $verified = $this->verifyData($username, $password);
-        if($verified){
-            $validated = $this->db->validateLogin($username, $password);
-            if($validated){
-                return true;
-            }
-        }
-        return false;
-    }
-
-    
 
 }

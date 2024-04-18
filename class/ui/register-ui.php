@@ -45,7 +45,7 @@ class RegisterUI extends MasterUI{
                     <div><input class="" type="submit" value="Register"></div>
                 </form>
                 <div>
-                    Already Have An Accpunt? <span><a onclick="">Login here</a></span> 
+                    Already Have An Accpunt? <span><a href="index.php?view=login">Login here</a></span> 
                 </div>
             </div>
         </body>
@@ -60,7 +60,7 @@ class RegisterUI extends MasterUI{
         echo $this->view;
     }
 
-    private function verifyData($username, $password){
+    public function verifyData($username, $password){
         return true;
     }
     public function login($username, $password){

@@ -1,6 +1,8 @@
 <?php
 
 require_once 'class/ui/master-ui.php';
+
+date_default_timezone_set('Asia/Jakarta');
 class LoginUI extends MasterUI{
 
     private $db = null;
@@ -19,8 +21,8 @@ class LoginUI extends MasterUI{
                 <div class="image-container">
                     <img class="background-login" src="assets/login-background.png" alt="">
                 </div>
-                <form class="login-container" method="POST" action="action/login.php">
-                    <div class="login-title">Drone</br>Checking System</div>
+                <form class="login-container" method="POST">
+                    <div class="login-title">Drone<br>Checking System</div>
                     <div class="login-title-no-bold ">Login to Your Account</div>
                     <div class="label-input-container">
                         <label for="" class="label-input">Username</label>
@@ -39,7 +41,7 @@ class LoginUI extends MasterUI{
                     <div><input class="login-button" type="submit" value="Log In"></div>
                 </form>
                 <div>
-                    Don't have account? <span><a onclick="">Register here</a></span> 
+                    Don't have account? <span><a href="index.php?view=register">Register here</a></span> 
                 </div>
             </div>
         </body>
@@ -52,20 +54,29 @@ class LoginUI extends MasterUI{
 
     public function getView(){
         echo $this->view;
+        $this->login();
     }
 
-    private function verifyData($username, $password){
+    public function verifyData($username, $password){
         return true;
     }
-    public function login($username, $password){
-        $verified = $this->verifyData($username, $password);
-        if($verified){
-            $validated = $this->db->validateLogin($username, $password);
-            if($validated){
-                return true;
+    public function login(){
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+            $username = $_POST['username'];
+            $password = $_POST['password'];
+            $verified = $this->verifyData($username, $password);
+            $userhash = hash("sha512", $username);
+            $passwordHash = hash("sha512", $password);
+            $currTime = hash("sha512", getDate()['hour']);
+            if($verified){
+                $validated = $this->db->validateLogin($username, $passwordHash);
+                if($validated){
+                    header("Location: index.php?view=forms&user=$userhash|$currTime");
+                    exit;
+                }
             }
+            return false;
         }
-        return false;
     }
 
     

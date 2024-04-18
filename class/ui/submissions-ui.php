@@ -47,7 +47,7 @@ class SubmissionsUI extends MasterUI{
         echo $this->view;
     }
 
-    private function verifyData($username, $password){
+    public function verifyData($username, $password){
         return true;
     }
     public function login($username, $password){

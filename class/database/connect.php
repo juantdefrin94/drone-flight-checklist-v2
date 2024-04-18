@@ -8,10 +8,10 @@ class Connect{
     private $conn = null;
 
     public function __construct(){
-        $this->getConnection();        
+        $this->createConnection();    
     }
 
-    private function getConnection(){
+    private function createConnection(){
         if($this->conn == null){
             $newConn = new mysqli($this->servername, $this->username, $this->password, $this->dbname);
             // Check connection
@@ -20,6 +20,10 @@ class Connect{
             }
             $this->conn = $newConn;
         }
+        return $this->conn;
+    }
+
+    public function getConnection(){
         return $this->conn;
     }
 
