@@ -5,7 +5,11 @@ class MasterUI {
         
     }
 
-    function verifyData($username, $password){
+    function verifyLogin($username, $password){
+
+    }
+
+    function verifyData($id, $json){
 
     }
 

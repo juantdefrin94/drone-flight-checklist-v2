@@ -57,14 +57,14 @@ class LoginUI extends MasterUI{
         $this->login();
     }
 
-    public function verifyData($username, $password){
+    public function verifyLogin($username, $password){
         return true;
     }
     public function login(){
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $username = $_POST['username'];
             $password = $_POST['password'];
-            $verified = $this->verifyData($username, $password);
+            $verified = $this->verifyLogin($username, $password);
             $userhash = hash("sha512", $username);
             $passwordHash = hash("sha512", $password);
             $currTime = hash("sha512", getDate()['hour']);
