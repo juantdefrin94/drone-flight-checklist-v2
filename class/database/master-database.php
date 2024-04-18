@@ -53,4 +53,7 @@ class MasterDatabase {
         return $resString;
     }
 
+    function updateForm($id, $json, $updatedBy, $updatedDate){
+        return true;
+    }
 }

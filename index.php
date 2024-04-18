@@ -3,6 +3,7 @@
 include 'class/ui/login-ui.php';
 include 'class/ui/register-ui.php';
 include 'class/ui/forms-ui.php';
+include 'class/ui/forms-view-ui.php';
 include 'class/ui/templates-ui.php';
 include 'class/ui/submissions-ui.php';
 include 'class/database/master-database.php';
@@ -26,6 +27,10 @@ if (isset($_GET['view'])) {
             break;
         case 'register':
             $masterUI = new RegisterUI($masterDatabase);
+            $masterUI->getView();
+            break;
+        case 'viewForms':
+            $masterUI = new FormsViewUI($masterDatabase);
             $masterUI->getView();
             break;
         default:
