@@ -13,6 +13,10 @@ class MasterUI {
 
     }
 
+    function verifyTemplate($json, $assessmsnetId, $preId, $postId){
+
+    }
+
     function getAllData(){
         
     }

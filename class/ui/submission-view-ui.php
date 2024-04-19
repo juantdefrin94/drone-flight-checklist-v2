@@ -1,7 +1,7 @@
 <?php
 
 require_once 'class/ui/master-ui.php';
-class FormsViewUI extends MasterUI{
+class SubmissionsViewUI extends MasterUI{
 
     private $db = null;
     private $view = <<<HTML
@@ -22,16 +22,14 @@ class FormsViewUI extends MasterUI{
                     </nav>
                     
                     <div>
-                        <h3>Form Name</h3>
+                        <h3>Submission Name</h3>
                         <input type="text">
                     </div>
                     
                     <div>
-                        <select>
-                            <option value="assessment">Assessment</option>
-                            <option value="pre">Pre-Flight</option>
-                            <option value="post">Post-Flight</option>
-                        </select>
+                        <button>Assesment</button>
+                        <button>Pre-Flight</button>
+                        <button>Post-Flight</button>
                     </div>
 
                     <div>
@@ -55,15 +53,6 @@ class FormsViewUI extends MasterUI{
                                     </div>
                                 </div> -->
                             </div>
-                            <div class="button-new-field" style="text-align: center; margin-top: 20px">
-                                <button id="add-new-field">
-                                    <b>
-                                        <div class="button-container">
-                                            <span class="plus-icon"><i class='fa-solid fa-plus fa-lg' style='color:#ffffff; margin-right: 15px'></i></span>Add New Field
-                                        </div>
-                                    </b>
-                                </button>
-                            </div>
 
                             <!-- <button>Pre-Flight and Post-Flight Form</button> -->
                             <!-- <div class="right-button">
@@ -71,10 +60,6 @@ class FormsViewUI extends MasterUI{
                                 <input type="submit" value="Complete">
                             </div> -->
                         </form>
-                    </div>
-
-                    <div class="save-container">
-                        <button id="save-button" type="button" class="button-save">Save Form</button>
                     </div>
                 </div>  
             </body>
@@ -93,17 +78,6 @@ class FormsViewUI extends MasterUI{
 
     public function getView(){
         echo $this->view;
-    }
-
-    public function verifyData($id, $json){
-        return true;
-    }
-
-    public function saveForm($id, $json, $updatedBy, $updatedDate){
-        $verify = $this->verifyData($id, $json);
-        if ($verify) {
-            $this->db->updateForm($id, $json);
-        }
     }
 
 }
