@@ -1,9 +1,7 @@
 <?php
 
-require_once 'class/ui/master-ui.php';
-
 date_default_timezone_set('Asia/Jakarta');
-class LoginUI extends MasterUI{
+class LoginUI{
 
     private $db = null;
     private $view = <<<HTML
@@ -57,7 +55,7 @@ class LoginUI extends MasterUI{
         $this->login();
     }
 
-    public function verifyLogin($username, $password){
+    private function verifyLogin($username, $password){
         return true;
     }
     public function login(){

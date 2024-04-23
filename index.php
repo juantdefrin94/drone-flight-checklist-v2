@@ -28,31 +28,29 @@ if (isset($_GET['view'])) {
             break;
         case 'forms':
             $masterUI = new FormsUI($masterDatabase);
-            $masterUI->getAllData();
             $masterUI->getView();
             break;
         case 'viewForms':
-            $masterUI = new FormsViewUI($masterDatabase);
+            $id = $_GET['id'];
+            $masterUI = new FormsViewUI($masterDatabase, $id);
             $masterUI->getView();
             break;
         case 'templates':
             $masterUI = new TemplatesUI($masterDatabase);
-            $masterUI->getAllData();
             $masterUI->getView();
             break;
         case 'viewTemplates':
-            $masterUI = new TemplatesViewUI($masterDatabase);
-            $masterUI->getAllData();
+            $id = $_GET['id'];
+            $masterUI = new TemplatesViewUI($masterDatabase, $id);
             $masterUI->getView();
             break;
         case 'submissions':
             $masterUI = new SubmissionsUI($masterDatabase);
-            $masterUI->getAllData();
             $masterUI->getView();
             break;
         case 'viewSubmissions':
-            $masterUI = new SubmissionsViewUI($masterDatabase);
-            $masterUI->getAllData();
+            $id = $_GET['id'];
+            $masterUI = new SubmissionsViewUI($masterDatabase, $id);
             $masterUI->getView();
             break;
         default:

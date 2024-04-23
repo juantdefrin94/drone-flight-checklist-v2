@@ -1,7 +1,6 @@
 <?php
 
-require_once 'class/ui/master-ui.php';
-class SubmissionsUI extends MasterUI{
+class SubmissionsUI{
 
     private $db = null;
     private $view = <<<HTML
@@ -41,24 +40,23 @@ class SubmissionsUI extends MasterUI{
 
     public function __construct($db){
         $this->db = $db;
+        $this->getAllData();
+    }
+
+    private function getAllData(){
+        $submissionList = $this->db->fetchAllSubmission();
+        $this->view .= $submissionList;
     }
 
     public function getView(){
+        $this->view .= <<<HTML
+                </table>
+                </div>
+            </div>
+            </body>
+            </html>
+        HTML;
         echo $this->view;
-    }
-
-    public function verifyData($username, $password){
-        return true;
-    }
-    public function login($username, $password){
-        $verified = $this->verifyData($username, $password);
-        if($verified){
-            $validated = $this->db->validateLogin($username, $password);
-            if($validated){
-                return true;
-            }
-        }
-        return false;
     }
 
     

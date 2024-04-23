@@ -1,7 +1,6 @@
 <?php
 
-require_once 'class/ui/master-ui.php';
-class SubmissionsViewUI extends MasterUI{
+class SubmissionsViewUI{
 
     private $db = null;
     private $view = <<<HTML
@@ -66,14 +65,14 @@ class SubmissionsViewUI extends MasterUI{
         </html>
     HTML;
 
-    public function __construct($db){
+    public function __construct($db, $id){
         $this->db = $db;
-        
+        $this->getSubmissionView($id);
     }
 
-    public function getAllData(){
-        $formList = $this->db->fetchAllForms();
-        $this->view .= $formList;
+    private function getSubmissionView($id){
+        $submissionList = $this->db->fetchDetailSubmission($id);
+        $this->view .= $submissionList;
     }
 
     public function getView(){

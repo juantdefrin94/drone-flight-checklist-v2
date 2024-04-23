@@ -1,7 +1,6 @@
 <?php
 
-require_once 'class/ui/master-ui.php';
-class TemplatesUI extends MasterUI{
+class TemplatesUI{
 
     private $db = null;
     private $view = <<<HTML
@@ -43,24 +42,23 @@ class TemplatesUI extends MasterUI{
 
     public function __construct($db){
         $this->db = $db;
+        $this->getAllData();
+    }
+
+    private function getAllData(){
+        $formList = $this->db->fetchAllTemplate();
+        $this->view .= $formList;
     }
 
     public function getView(){
+        $this->view .= <<<HTML
+                </table>
+                </div>
+            </div>
+            </body>
+            </html>
+        HTML;
         echo $this->view;
-    }
-
-    public function verifyData($username, $password){
-        return true;
-    }
-    public function login($username, $password){
-        $verified = $this->verifyData($username, $password);
-        if($verified){
-            $validated = $this->db->validateLogin($username, $password);
-            if($validated){
-                return true;
-            }
-        }
-        return false;
     }
 
     

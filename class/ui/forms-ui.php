@@ -1,7 +1,6 @@
 <?php
 
-require_once 'class/ui/master-ui.php';
-class FormsUI extends MasterUI{
+class FormsUI{
 
     private $db = null;
     private $view = <<<HTML
@@ -39,10 +38,10 @@ class FormsUI extends MasterUI{
 
     public function __construct($db){
         $this->db = $db;
-        
+        $this->getAllData();
     }
 
-    public function getAllData(){
+    private function getAllData(){
         $formList = $this->db->fetchAllForms();
         $this->view .= $formList;
     }
@@ -56,10 +55,6 @@ class FormsUI extends MasterUI{
             </html>
         HTML;
         echo $this->view;
-    }
-
-    public function verifyData($username, $password){
-        return true;
     }
 
 }
