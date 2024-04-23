@@ -1,7 +1,6 @@
 <?php
 
-require_once 'class/ui/master-ui.php';
-class TemplatesViewUI extends MasterUI{
+class TemplatesViewUI{
 
     private $db = null;
     private $view = <<<HTML
@@ -55,28 +54,28 @@ class TemplatesViewUI extends MasterUI{
         </html>
     HTML;
 
-    public function __construct($db){
+    public function __construct($db, $id){
         $this->db = $db;
-        
+        $this->getTemplateView($id);
     }
 
-    public function getAllData(){
-        $formList = $this->db->fetchAllForms();
-        $this->view .= $formList;
+    private function getTemplateView($id){
+        $templateList = $this->db->fetchDetailTemplate($id);
+        $this->view .= $templateList;
     }
 
     public function getView(){
         echo $this->view;
     }
 
-    public function verifyTemplate($json, $assessmsnetId, $preId, $postId){
+    private function verifyData($id, $templateName, $assessmsnetId, $preId, $postId){
         return true;
     }
 
-    public function saveTemplate($id, $assessmsnetId, $preId, $postId, $json){
-        $verify = $this->verifyTemplate($json, $assessmsnetId, $preId, $postId);
+    public function saveTemplate($id, $templateName, $assessmsnetId, $preId, $postId){
+        $verify = $this->verifyData($id, $templateName, $assessmsnetId, $preId, $postId);
         if ($verify) {
-            $this->db->updateTemplate($id, $json);
+            $this->db->saveTemplate($id, $templateName, $assessmsnetId, $preId, $postId);
         }
     }
 

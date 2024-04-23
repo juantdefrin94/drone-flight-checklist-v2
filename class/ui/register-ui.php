@@ -1,7 +1,5 @@
 <?php
-
-require_once 'class/ui/master-ui.php';
-class RegisterUI extends MasterUI{
+class RegisterUI{
 
     private $db = null;
     private $view = <<<HTML
@@ -60,13 +58,13 @@ class RegisterUI extends MasterUI{
         echo $this->view;
     }
 
-    public function verifyData($username, $password){
+    public function verifyRegister($email, $username, $password, $confirmPassword){
         return true;
     }
-    public function login($username, $password){
-        $verified = $this->verifyData($username, $password);
+    public function register($email, $username, $password, $confirmPassword){
+        $verified = $this->verifyRegister($email, $username, $password, $confirmPassword);
         if($verified){
-            $validated = $this->db->validateLogin($username, $password);
+            $validated = $this->db->validateRegister($email, $username, $password);
             if($validated){
                 return true;
             }
