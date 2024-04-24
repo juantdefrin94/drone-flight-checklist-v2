@@ -32,12 +32,27 @@ class MasterDatabase {
         }
     }
 
-    function validateUnique($email, $username, $password){
-        return true;
+    function validateUnique($username){
+        $sql = "SELECT * FROM user WHERE username='$username'";
+        $result = $this->conn->query($sql);
+
+        if ($result->num_rows === 1) {
+            // not unique
+            // mysqli_close($this->conn);
+            return 'Username already exists';
+        }else{
+            // unique
+            // mysqli_close($this->conn);
+            return 'unique';
+        }
     }
 
-    function registUser($email, $username, $password){
-        return true;
+    function registUser($email, $username, $password){;
+        $sql = "INSERT INTO `user`(`username`, `email`, `password`) VALUES ('$username','$email','$password')";
+        if ($this->conn->query($sql) === TRUE){
+            return true;
+        }
+        return false;
     }
 
     function fetchAllForms(){
@@ -50,14 +65,14 @@ class MasterDatabase {
             $no = 1;
             while($row = mysqli_fetch_assoc($result)) {
                 $num = $no % 2 == 0 ? 'even' : 'odd';
-                $resString .= "<tr class='table-data ". $num . "' id='data-" . $row['id'] . "'><td>" . $no . "</td>" . "<td>" . $row["form_name"] . "</td>" . "<td>" . $row["form_type"] . "</td>" . "<td>" . $row["updated_by"] . "</td>" . "<td>" . $row["updated_date"] . "</td>" . "<td><a href='../views/flight-form.php?mode=edit&id=". $row['id'] . "&name=" . $row["form_name"] . "'><i id='edit-".$row['id'] . "' class='fa-solid fa-pen-to-square action-icon'></i></a><i id='delete-".$row['id'] . "' class='fa-solid fa-trash action-icon delete-data'></i></td>" . "</tr>";
+                $resString .= "<tr class='table-data ". $num . "' id='data-" . $row['id'] . "'><td>" . $no . "</td>" . "<td>" . $row["formName"] . "</td>" . "<td>" . $row["formType"] . "</td>" . "<td>" . $row["updatedBy"] . "</td>" . "<td>" . $row["updatedDate"] . "</td>" . "<td><a href='../views/flight-form.php?mode=edit&id=". $row['id'] . "&name=" . $row["formName"] . "'><i id='edit-".$row['id'] . "' class='fa-solid fa-pen-to-square action-icon'></i></a><i id='delete-".$row['id'] . "' class='fa-solid fa-trash action-icon delete-data'></i></td>" . "</tr>";
                 $no = $no + 1;
             }
         } else {
             return '<tr class="table-data"><td colspan="5">No Data Available</td></tr>';
         }
 
-        mysqli_close($this->conn);
+        // mysqli_close($this->conn);
         return $resString;
     }
 
@@ -87,14 +102,14 @@ class MasterDatabase {
             $no = 1;
             while($row = mysqli_fetch_assoc($result)) {
                 $num = $no % 2 == 0 ? 'even' : 'odd';
-                $resString .= "<tr class='table-data ". $num . "' id='data-" . $row['id'] . "'><td>" . $no . "</td>" . "<td>" . $row["form_name"] . "</td>" . "<td>" . $row["form_type"] . "</td>" . "<td>" . $row["updated_by"] . "</td>" . "<td>" . $row["updated_date"] . "</td>" . "<td><a href='../views/flight-form.php?mode=edit&id=". $row['id'] . "&name=" . $row["form_name"] . "'><i id='edit-".$row['id'] . "' class='fa-solid fa-pen-to-square action-icon'></i></a><i id='delete-".$row['id'] . "' class='fa-solid fa-trash action-icon delete-data'></i></td>" . "</tr>";
+                $resString .= "<tr class='table-data ". $num . "' id='data-" . $row['id'] . "'><td>" . $no . "</td>" . "<td>" . $row["templateName"] . "</td>" . "<td>" . $row["updatedBy"] . "</td>" . "<td>" . $row["updatedDate"] . "</td>" . "<td><a href=''><i id='edit-".$row['id'] . "' class='fa-solid fa-pen-to-square action-icon'></i></a><i id='delete-".$row['id'] . "' class='fa-solid fa-trash action-icon delete-data'></i></td>" . "</tr>";
                 $no = $no + 1;
             }
         } else {
-            return '<tr class="table-data"><td colspan="5">No Data Available</td></tr>';
+            return '<tr class="table-data"><td colspan="4">No Data Available</td></tr>';
         }
 
-        mysqli_close($this->conn);
+        // mysqli_close($this->conn);
         return $resString;
     }
 
@@ -115,7 +130,24 @@ class MasterDatabase {
     }
 
     function fetchAllSubmission(){
-        return "data";
+        $sql = "SELECT * FROM `submission` ORDER BY submittedDate DESC";
+        $result = mysqli_query($this->conn, $sql);
+        $resString = "";
+
+        if (mysqli_num_rows($result) > 0) {
+            // output data of each row
+            $no = 1;
+            while($row = mysqli_fetch_assoc($result)) {
+                $num = $no % 2 == 0 ? 'even' : 'odd';
+                $resString .= "<tr class='table-data ". $num . "' id='data-" . $row['id'] . "'><td>" . $no . "</td>" . "<td>" . $row["submissionName"] . "</td>" . "<td>" . $row["submittedBy"] . "</td>" . "<td>" . $row["submittedDate"] . "</td>" . "</tr>";
+                $no = $no + 1;
+            }
+        } else {
+            return '<tr class="table-data"><td colspan="4">No Data Available</td></tr>';
+        }
+
+        // mysqli_close($this->conn);
+        return $resString;
     }
 
     function fetchDetailSubmission($id){

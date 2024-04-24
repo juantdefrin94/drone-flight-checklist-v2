@@ -16,9 +16,9 @@ class FormsUI{
         <body>
            <div>
             <div>
-                <a href="">Forms</a>
-                <a href="">Templates</a>
-                <a href="">Submission</a>
+                <a href="index.php?view=forms&user=309d186d7aa0aa99baf5f215c86122edf1f2c7526ccfa80560a6828acdf7d1c902bd29e47abcea682e16dcbcdc0e58e559034b0279dafe5ff8c2da79218ca9e7">Forms</a>
+                <a href="index.php?view=templates&user=309d186d7aa0aa99baf5f215c86122edf1f2c7526ccfa80560a6828acdf7d1c902bd29e47abcea682e16dcbcdc0e58e559034b0279dafe5ff8c2da79218ca9e7">Templates</a>
+                <a href="index.php?view=submissions&user=309d186d7aa0aa99baf5f215c86122edf1f2c7526ccfa80560a6828acdf7d1c902bd29e47abcea682e16dcbcdc0e58e559034b0279dafe5ff8c2da79218ca9e7">Submission</a>
                 <a href="index.php">Logout</a>
             </div>
             <div>
@@ -55,6 +55,7 @@ class FormsUI{
             </html>
         HTML;
         echo $this->view;
+        die();
     }
 
 }

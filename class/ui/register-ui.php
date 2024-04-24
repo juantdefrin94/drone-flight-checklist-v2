@@ -17,7 +17,7 @@ class RegisterUI{
                 <div class="image-container">
                     <img class="background-login" src="assets/login-background.png" alt="">
                 </div>
-                <form class="login-container" method="POST" action="action/login.php">
+                <form class="login-container" method="POST">
                     <div class="login-title-no-bold ">Register Your Account</div>
                     <div class="label-input-container">
                         <label for="" class="label-input">Email</label>
@@ -40,6 +40,13 @@ class RegisterUI{
                             <input class="input-style" type="password" name="password" placeholder="**********">
                         </div>
                     </div>
+                    <div class="label-input-container">
+                        <label for="" class="label-input">Confirm Password</label>
+                        <div class="container-input">
+                            <i class='fa-solid fa-lock fa-lg' style='color:#d69883; margin-right:10px;'></i>
+                            <input class="input-style" type="password" name="confirmPassword" placeholder="**********">
+                        </div>
+                    </div>
                     <div><input class="" type="submit" value="Register"></div>
                 </form>
                 <div>
@@ -56,22 +63,39 @@ class RegisterUI{
 
     public function getView(){
         echo $this->view;
+        $this->register();
     }
 
     public function verifyRegister($email, $username, $password, $confirmPassword){
-        return true;
-    }
-    public function register($email, $username, $password, $confirmPassword){
-        $verified = $this->verifyRegister($email, $username, $password, $confirmPassword);
-        if($verified){
-            $validated = $this->db->validateRegister($email, $username, $password);
-            if($validated){
-                return true;
-            }
+        if ($email == '' || $username == '' || $password == '' || $confirmPassword == '') {
+            return "Please fill all data"; 
         }
-        return false;
+        else if ($password !== $confirmPassword){
+            return "Password and confirm password is not match";
+        }
+        return 'success';
     }
-
-    
-
+    private function register(){
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+            $email = $_POST['email'];
+            $username = $_POST['username'];
+            $password = $_POST['password'];
+            $confirmPassword = $_POST['confirmPassword'];
+            $verified = $this->verifyRegister($email, $username, $password, $confirmPassword);
+            if($verified == 'success'){
+                $passwordHash = hash("sha512", $password);  
+                $isUnique = $this->db->validateUnique($username);
+                if($isUnique == 'unique'){
+                    $successRegist = $this->db->registUser($email, $username, $passwordHash);
+                    if ($successRegist) {
+                        header("Location: index.php?view=login");
+                        exit;
+                    }
+                }
+                echo "<script>alert('$isUnique');</script>"; 
+                return false;
+            }
+            echo "<script>alert('$verified');</script>"; 
+        } 
+    }
 }

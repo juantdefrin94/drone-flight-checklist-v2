@@ -56,7 +56,10 @@ class LoginUI{
     }
 
     private function verifyLogin($username, $password){
-        return true;
+        if ($username == '' || $password == '') {
+            return 'Please fill all data';
+        }
+        return 'success';
     }
     public function login(){
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -65,14 +68,15 @@ class LoginUI{
             $verified = $this->verifyLogin($username, $password);
             $userhash = hash("sha512", $username);
             $passwordHash = hash("sha512", $password);
-            $currTime = hash("sha512", getDate()['hour']);
-            if($verified){
+            // $currTime = hash("sha512", getDate()['hour']);
+            if($verified == 'success'){
                 $validated = $this->db->validateLogin($username, $passwordHash);
                 if($validated){
-                    header("Location: index.php?view=forms&user=$userhash|$currTime");
+                    header("Location: index.php?view=forms&user=$userhash");
                     exit;
                 }
             }
+            echo "<script>alert('$verified');</script>"; 
             return false;
         }
     }
