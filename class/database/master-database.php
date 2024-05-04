@@ -18,17 +18,19 @@ class MasterDatabase {
         if ($result->num_rows === 1) {
             // output data of each row
             $row = mysqli_fetch_assoc($result);
-            if($row['username'] === $username && $row['password'] === $password){
-                $_SESSION['username'] = $username;
-                $_SESSION['password'] = $password;
-
-                mysqli_close($this->conn);
-                return true;
+            if($row['username'] === $username){
+                if($row['password'] === $password){
+                    $_SESSION['username'] = $username;
+                    $_SESSION['password'] = $password;
+    
+                    return "success";
+                }else{
+                    return "incorrect password";
+                }
             }
         }else{
             //incorrect
-            mysqli_close($this->conn);
-            return false;
+            return "username is not exist";
         }
     }
 
@@ -38,11 +40,9 @@ class MasterDatabase {
 
         if ($result->num_rows === 1) {
             // not unique
-            // mysqli_close($this->conn);
             return 'Username already exists';
         }else{
             // unique
-            // mysqli_close($this->conn);
             return 'unique';
         }
     }
@@ -72,7 +72,8 @@ class MasterDatabase {
             return '<tr class="table-data"><td colspan="5">No Data Available</td></tr>';
         }
 
-        // mysqli_close($this->conn);
+        
+
         return $resString;
     }
 
@@ -81,7 +82,10 @@ class MasterDatabase {
     }
 
     function fetchDetailForm($id){
-        return "string";
+        if($id != 0){
+
+        }
+        return "";
     }
 
     function updateForm($id, $json, $updatedBy, $updatedDate){
@@ -108,8 +112,6 @@ class MasterDatabase {
         } else {
             return '<tr class="table-data"><td colspan="4">No Data Available</td></tr>';
         }
-
-        // mysqli_close($this->conn);
         return $resString;
     }
 

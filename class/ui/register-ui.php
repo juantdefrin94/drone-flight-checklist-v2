@@ -66,7 +66,7 @@ class RegisterUI{
         $this->register();
     }
 
-    public function verifyRegister($email, $username, $password, $confirmPassword){
+    public function validateForm($email, $username, $password, $confirmPassword){
         if ($email == '' || $username == '' || $password == '' || $confirmPassword == '') {
             return "Please fill all data"; 
         }
@@ -81,7 +81,7 @@ class RegisterUI{
             $username = $_POST['username'];
             $password = $_POST['password'];
             $confirmPassword = $_POST['confirmPassword'];
-            $verified = $this->verifyRegister($email, $username, $password, $confirmPassword);
+            $verified = $this->validateForm($email, $username, $password, $confirmPassword);
             if($verified == 'success'){
                 $passwordHash = hash("sha512", $password);  
                 $isUnique = $this->db->validateUnique($username);
