@@ -55,7 +55,7 @@ class LoginUI{
         $this->login();
     }
 
-    private function verifyLogin($username, $password){
+    private function validateForm($username, $password){
         if ($username == '' || $password == '') {
             return 'Please fill all data';
         }
@@ -65,13 +65,13 @@ class LoginUI{
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $username = $_POST['username'];
             $password = $_POST['password'];
-            $verified = $this->verifyLogin($username, $password);
+            $verified = $this->validateForm($username, $password);
             $userhash = hash("sha512", $username);
             $passwordHash = hash("sha512", $password);
             // $currTime = hash("sha512", getDate()['hour']);
             if($verified == 'success'){
                 $validated = $this->db->validateLogin($username, $passwordHash);
-                if($validated){
+                if($validated == "success"){
                     header("Location: index.php?view=forms&user=$userhash");
                     exit;
                 }

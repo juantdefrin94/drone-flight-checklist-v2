@@ -16,15 +16,23 @@ class FormsUI{
         <body>
            <div>
             <div>
-                <a href="index.php?view=forms&user=309d186d7aa0aa99baf5f215c86122edf1f2c7526ccfa80560a6828acdf7d1c902bd29e47abcea682e16dcbcdc0e58e559034b0279dafe5ff8c2da79218ca9e7">Forms</a>
-                <a href="index.php?view=templates&user=309d186d7aa0aa99baf5f215c86122edf1f2c7526ccfa80560a6828acdf7d1c902bd29e47abcea682e16dcbcdc0e58e559034b0279dafe5ff8c2da79218ca9e7">Templates</a>
-                <a href="index.php?view=submissions&user=309d186d7aa0aa99baf5f215c86122edf1f2c7526ccfa80560a6828acdf7d1c902bd29e47abcea682e16dcbcdc0e58e559034b0279dafe5ff8c2da79218ca9e7">Submission</a>
+    HTML;
+
+    public function __construct($db){
+        $this->db = $db;
+        $user = $_GET['user'];
+        $this->view .= "<a href='index.php?view=forms&user=$user'>Forms</a>";
+        $this->view .= "<a href='index.php?view=templates&user=$user'>Templates</a>";
+        $this->view .= "<a href='index.php?view=submissions&user=$user'>Submission</a>";
+        $this->view .= <<<HTML
                 <a href="index.php">Logout</a>
             </div>
             <div>
                 Form List
-                <button>Create New Form</button>
-                <input type="text" placeholder="Search...">
+        HTML;
+        $this->view .= "<a href='index.php?view=viewForms&user=$user&id=0'>Create New Form</a>";
+        $this->view .= <<<HTML
+            <input type="text" placeholder="Search...">
                 <table>
                     <tr>
                         <th>No</th>
@@ -34,10 +42,8 @@ class FormsUI{
                         <th>Updated Date</th>
                         <th>Action</th>
                     </tr>
-    HTML;
-
-    public function __construct($db){
-        $this->db = $db;
+        HTML;
+                
         $this->getAllData();
     }
 

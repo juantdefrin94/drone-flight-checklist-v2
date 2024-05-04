@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 24 Apr 2024 pada 06.44
+-- Waktu pembuatan: 03 Bulan Mei 2024 pada 08.25
 -- Versi server: 10.4.19-MariaDB
 -- Versi PHP: 8.0.7
 
@@ -41,9 +41,9 @@ CREATE TABLE `form` (
 --
 
 INSERT INTO `form` (`id`, `formName`, `formType`, `updatedBy`, `updatedDate`, `formData`) VALUES
-(1, 'test1', 'assessment', 'juantdefrin', '2002-04-09 00:00:00', '{}'),
-(2, 'test2', 'pre', 'juantdefrin', '2002-04-09 00:00:00', '{}'),
-(3, 'test3', 'post', 'juantdefrin', '2002-04-09 00:00:00', '{}');
+(1, 'test1', 'assessment', 'juantdefrin', '2002-04-09 00:00:00', '{\"question1\":{\"question\":\"pertanyaan form 1\",\"type\":\"text\",\"option\":[],\"required\":true},\"question2\":{\"question\":\"pertanyaan form 2\",\"type\":\"checklist\",\"option\":[\"checklist1\",\"checklist2\",\"checklist3\"],\"required\":true},\"question3\":{\"question\":\"pertanyaan form 3\",\"type\":\"multiple\",\"option\":[\"multiple1\",\"multiple2\",\"multiple3\"],\"required\":true},\"question4\":{\"question\":\"pertanyaan form 4\",\"type\":\"longtext\",\"option\":[],\"required\":true}}'),
+(2, 'test2', 'pre', 'juantdefrin', '2002-04-09 00:00:00', '{\"question1\":{\"question\":\"pertanyaan form 1\",\"type\":\"text\",\"option\":[],\"required\":true},\"question2\":{\"question\":\"pertanyaan form 2\",\"type\":\"checklist\",\"option\":[\"checklist1\",\"checklist2\",\"checklist3\"],\"required\":true},\"question3\":{\"question\":\"pertanyaan form 3\",\"type\":\"multiple\",\"option\":[\"multiple1\",\"multiple2\",\"multiple3\"],\"required\":true},\"question4\":{\"question\":\"pertanyaan form 4\",\"type\":\"longtext\",\"option\":[],\"required\":true}}'),
+(3, 'test3', 'post', 'juantdefrin', '2002-04-09 00:00:00', '{\"question1\":{\"question\":\"pertanyaan form 1\",\"type\":\"text\",\"option\":[],\"required\":true},\"question2\":{\"question\":\"pertanyaan form 2\",\"type\":\"checklist\",\"option\":[\"checklist1\",\"checklist2\",\"checklist3\"],\"required\":true},\"question3\":{\"question\":\"pertanyaan form 3\",\"type\":\"multiple\",\"option\":[\"multiple1\",\"multiple2\",\"multiple3\"],\"required\":true},\"question4\":{\"question\":\"pertanyaan form 4\",\"type\":\"longtext\",\"option\":[],\"required\":true}}');
 
 -- --------------------------------------------------------
 
@@ -55,9 +55,17 @@ CREATE TABLE `submission` (
   `id` int(11) NOT NULL,
   `submissionName` varchar(255) NOT NULL,
   `templateId` int(11) NOT NULL,
-  `submissionDate` int(11) NOT NULL,
-  `formData` int(11) NOT NULL
+  `submittedBy` varchar(255) NOT NULL,
+  `submittedDate` datetime NOT NULL,
+  `formData` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL CHECK (json_valid(`formData`))
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data untuk tabel `submission`
+--
+
+INSERT INTO `submission` (`id`, `submissionName`, `templateId`, `submittedBy`, `submittedDate`, `formData`) VALUES
+(1, 'Submission_1', 1, 'juantdefrin', '2024-04-09 00:00:00', '[{\"type\":\"assessment\",\"answer\":[{\"questionName\":\"question1\",\"answer\":\"answer1\",\"dataChanged\":\"YYYY/MM/DD HH:MM:SS\"},{\"questionName\":\"question2\",\"answer\":\"answer2\",\"dataChanged\":\"YYYY/MM/DD HH:MM:SS\"}]},{\"type\":\"pre\",\"answer\":[{\"flightNum\":1,\"data\":[{\"questionName\":\"question1\",\"answer\":\"pre1 flight 1\",\"dataChanged\":\"YYYY/MM/DD HH:MM:SS\"},{\"questionName\":\"question2\",\"answer\":\"pre2 flight 1\",\"dataChanged\":\"YYYY/MM/DD HH:MM:SS\"}]},{\"flightNum\":2,\"data\":[{\"questionName\":\"question1\",\"answer\":\"pre1 flight 2\",\"dataChanged\":\"YYYY/MM/DD HH:MM:SS\"},{\"questionName\":\"question2\",\"answer\":\"pre2 flight\",\"dataChanged\":\"YYYY/MM/DD HH:MM:SS\"}]}]},{\"type\":\"post\",\"answer\":[{\"flightNum\":1,\"data\":[{\"questionName\":\"question1\",\"answer\":\"post1 flight 1\",\"dataChanged\":\"YYYY/MM/DD HH:MM:SS\"},{\"questionName\":\"question2\",\"answer\":\"post2 flight 1\",\"dataChanged\":\"YYYY/MM/DD HH:MM:SS\"}]},{\"flightNum\":2,\"data\":[{\"questionName\":\"question1\",\"answer\":\"post1 flight 2\",\"dataChanged\":\"YYYY/MM/DD HH:MM:SS\"},{\"questionName\":\"question2\",\"answer\":\"post2 flight\",\"dataChanged\":\"YYYY/MM/DD HH:MM:SS\"}]}]}]');
 
 -- --------------------------------------------------------
 
@@ -70,15 +78,17 @@ CREATE TABLE `template` (
   `templateName` varchar(255) NOT NULL,
   `assessnentId` int(11) NOT NULL,
   `preId` int(11) NOT NULL,
-  `postId` int(11) NOT NULL
+  `postId` int(11) NOT NULL,
+  `updatedBy` varchar(255) NOT NULL,
+  `updatedDate` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data untuk tabel `template`
 --
 
-INSERT INTO `template` (`id`, `templateName`, `assessnentId`, `preId`, `postId`) VALUES
-(1, 'template_test_1', 1, 2, 3);
+INSERT INTO `template` (`id`, `templateName`, `assessnentId`, `preId`, `postId`, `updatedBy`, `updatedDate`) VALUES
+(1, 'template_test_1', 1, 2, 3, 'juantdefrin', '2024-04-25 14:23:42');
 
 -- --------------------------------------------------------
 
@@ -141,7 +151,7 @@ ALTER TABLE `form`
 -- AUTO_INCREMENT untuk tabel `submission`
 --
 ALTER TABLE `submission`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT untuk tabel `template`
