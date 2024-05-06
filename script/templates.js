@@ -10,7 +10,7 @@ $(document).ready(function () {
             let idString = $tableData[i].id;
             let id = idString.split("-")[1];
             $('#' + idString).on("click", function(){
-                $('#form-id').val(id);
+                $('#template-id').val(id);
                 $('#modal').css("display", "block");
             })
         }
