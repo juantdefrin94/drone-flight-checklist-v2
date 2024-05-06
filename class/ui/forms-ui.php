@@ -24,8 +24,8 @@ class FormsUI{
                     <button>Yes</button>
                 </form>
             </div>
-           <div>
             <div>
+                <div>
     HTML;
 
     public function __construct($db){

@@ -132,7 +132,11 @@ class MasterDatabase {
     }
 
     function deleteTemplate($id){
-        return true;
+        $sql = "DELETE FROM `template` WHERE id = $id";
+        if ($this->conn->query($sql) === true) {
+            return true;
+        }
+        return false;
     }
 
     function fetchAllSubmission(){
