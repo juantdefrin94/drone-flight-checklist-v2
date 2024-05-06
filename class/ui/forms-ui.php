@@ -11,9 +11,19 @@ class FormsUI{
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
             <link rel="stylesheet" href="">
             <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+            <script src="script/forms.js"></script>
             <title>Form List Page</title>
         </head>
         <body>
+            <div id="modal" style="display: none;">
+                Are you sure want to delete this data?
+                <form method="POST">
+                    <input type="text" name="formId" id="form-id" style="display: none;">
+                    <a href='index.php?view=forms&user=0360f0640c7b9a551d66578beebeb33a54f8957b70fe3df5137475ae994536df4ebec9abdf7e1e94eaeb65fc4d23055db9ec713df967aaa027299f850b0df998'>No</a>
+                    <button>Yes</button>
+                </form>
+            </div>
            <div>
             <div>
     HTML;
@@ -61,7 +71,23 @@ class FormsUI{
             </html>
         HTML;
         echo $this->view;
-        die();
+        $this->deleteConfirm();
+    }
+
+    private function deleteConfirm(){
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+           $formId = $_POST['formId'];
+           if ($formId != 0) {
+                $deleteSuccess = $this->db->deleteForm($formId);
+                if ($deleteSuccess) {
+                    echo "<script>alert('Delete Successful');</script>";
+                    header("Location: index.php?view=forms&user=0360f0640c7b9a551d66578beebeb33a54f8957b70fe3df5137475ae994536df4ebec9abdf7e1e94eaeb65fc4d23055db9ec713df967aaa027299f850b0df998");
+                }
+                else {
+                    echo "<script>alert('Something Wrong');</script>";
+                } 
+           }
+        }
     }
 
 }

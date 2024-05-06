@@ -93,7 +93,11 @@ class MasterDatabase {
     }
 
     function deleteForm($id){
-
+        $sql = "DELETE FROM `form` WHERE id = $id";
+        if ($this->conn->query($sql) === true) {
+            return true;
+        }
+        return false;
     }
 
     function fetchAllTemplate(){
