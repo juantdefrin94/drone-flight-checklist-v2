@@ -66,13 +66,13 @@ class LoginUI{
             $username = $_POST['username'];
             $password = $_POST['password'];
             $verified = $this->validateForm($username, $password);
-            $userhash = hash("sha512", $username);
+            $userEncode = base64_encode($username);
             $passwordHash = hash("sha512", $password);
             // $currTime = hash("sha512", getDate()['hour']);
             if($verified == 'success'){
                 $validated = $this->db->validateLogin($username, $passwordHash);
                 if($validated == "success"){
-                    header("Location: index.php?view=forms&user=$userhash");
+                    header("Location: index.php?view=forms&user=$userEncode");
                     exit;
                 }
             }

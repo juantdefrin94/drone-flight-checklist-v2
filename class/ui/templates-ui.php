@@ -20,15 +20,15 @@ class TemplatesUI{
                 Are you sure want to delete this data?
                 <form method="POST">
                     <input type="text" name="templateId" id="template-id" style="display: none;">
-                    <a href='index.php?view=templates&user=0360f0640c7b9a551d66578beebeb33a54f8957b70fe3df5137475ae994536df4ebec9abdf7e1e94eaeb65fc4d23055db9ec713df967aaa027299f850b0df998'>No</a>
+                    <a href='index.php?view=templates&user=anVhbnRkZWZyaW4='>No</a>
                     <button>Yes</button>
                 </form>
             </div>
             <div>
                 <div>
-                    <a href="index.php?view=forms&user=309d186d7aa0aa99baf5f215c86122edf1f2c7526ccfa80560a6828acdf7d1c902bd29e47abcea682e16dcbcdc0e58e559034b0279dafe5ff8c2da79218ca9e7">Forms</a>
-                    <a href="index.php?view=templates&user=309d186d7aa0aa99baf5f215c86122edf1f2c7526ccfa80560a6828acdf7d1c902bd29e47abcea682e16dcbcdc0e58e559034b0279dafe5ff8c2da79218ca9e7">Templates</a>
-                    <a href="index.php?view=submissions&user=309d186d7aa0aa99baf5f215c86122edf1f2c7526ccfa80560a6828acdf7d1c902bd29e47abcea682e16dcbcdc0e58e559034b0279dafe5ff8c2da79218ca9e7">Submission</a>
+                    <a href="index.php?view=forms&user=anVhbnRkZWZyaW4=">Forms</a>
+                    <a href="index.php?view=templates&user=anVhbnRkZWZyaW4=">Templates</a>
+                    <a href="index.php?view=submissions&user=anVhbnRkZWZyaW4=">Submission</a>
                     <a href="index.php">Logout</a>
                 </div>
                 <div>
@@ -74,7 +74,7 @@ class TemplatesUI{
                 $deleteSuccess = $this->db->deleteTemplate($templateId);
                 if ($deleteSuccess) {
                     echo "<script>alert('Delete Successful');</script>";
-                    header("Location: index.php?view=templates&user=0360f0640c7b9a551d66578beebeb33a54f8957b70fe3df5137475ae994536df4ebec9abdf7e1e94eaeb65fc4d23055db9ec713df967aaa027299f850b0df998");
+                    header("Location: index.php?view=templates&user=anVhbnRkZWZyaW4=");
                 }
                 else {
                     echo "<script>alert('Something Wrong');</script>";

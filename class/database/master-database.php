@@ -2,6 +2,8 @@
 
 include_once 'class/database/connect.php';
 
+date_default_timezone_set('Asia/Jakarta');
+
 class MasterDatabase {
 
     private $conn = null;
@@ -88,8 +90,20 @@ class MasterDatabase {
         return "";
     }
 
-    function updateForm($id, $json, $updatedBy, $updatedDate){
-        return true;
+    function saveForm($id, $formName, $formType, $user, $json){
+        $user = base64_decode($user);
+        $currentDateTime = new DateTime();
+        $date = $currentDateTime->format("Y-m-d H:i:s");
+
+        echo "<script>alert('$id');</script>";
+        if($id == 0){
+            $sql = "INSERT INTO `form`(`id`, `formName`, `formType`, `updatedBy`, `updatedDate`, `formData`) VALUES (NULL,'$formName','$formType','$user','$date','$json')";
+
+            if ($this->conn->query($sql) === TRUE){
+                return true;
+            }
+            return false;
+        }
     }
 
     function deleteForm($id){

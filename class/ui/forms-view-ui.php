@@ -1,4 +1,5 @@
 <?php
+ob_start();
 
 class FormsViewUI{
 
@@ -18,74 +19,72 @@ class FormsViewUI{
             <body>
                 <div>
                     <nav>
-                        <a href="index.php?view=forms&user=0360f0640c7b9a551d66578beebeb33a54f8957b70fe3df5137475ae994536df4ebec9abdf7e1e94eaeb65fc4d23055db9ec713df967aaa027299f850b0df998'"><i class='fa-solid fa-arrow-left-long fa-lg' style='color:#bb9d93; margin-right:30px;'></i></a>
-                        <h1></h1>
-                    </nav>
-                    
-                    <div>
-                        <h3>Form Name</h3>
-                        <input type="text">
-                    </div>
-                    
-                    <div>
-                        <select>
-                            <option value="assessment">Assessment</option>
-                            <option value="pre">Pre-Flight</option>
-                            <option value="post">Post-Flight</option>
-                        </select>
-                    </div>
-
-                    <div>
-                        <form>
-                            <div id="container-field">
-                                
-                            <select name="" id=""></select>
-                                <!-- <div class="field-box">
-                                    <div class="header-field">
-                                        Statement
-                                        <input type="text" class="title-field-input-text">
-                                    </div>
-                                    <div class="header-field">
-                                        Type of Answer
-                                            <option value="text" selected>Text</option>
-                                            <option value="multiple">Multiple Choice</option>
-                                            <option value="checklist">Checklist</option>
-                                            <option value="longtext">Long Text</option>
-                                        </select>
-                                    </div>
-                                    <div class="delete-margin">
-                                        <button class="delete-field"><i class='fa-regular fa-circle-xmark fa-2x' style='color:#ffffff'></i></button>
-                                    </div>
-                                </div> -->
-                            </div>
-                            <div class="button-new-field" style="text-align: center; margin-top: 20px">
-                                <button id="add-new-field">
-                                    <b>
-                                        <div class="button-container">
-                                            <span class="plus-icon"><i class='fa-solid fa-plus fa-lg' style='color:#ffffff; margin-right: 15px'></i></span>Add New Field
-                                        </div>
-                                    </b>
-                                </button>
-                            </div>
-
-                            <!-- <button>Pre-Flight and Post-Flight Form</button> -->
-                            <!-- <div class="right-button">
-                                <input type="submit" value="Save" />
-                                <input type="submit" value="Complete">
-                            </div> -->
-                        </form>
-                    </div>
-
-                    <div class="save-container">
-                        <button id="save-button" type="button" class="button-save">Save Form</button>
-                    </div>
-                </div>  
-            </body>
-        </html>
     HTML;
 
     public function __construct($db, $id){
         $this->db = $db;
+        $user = $_GET['user'];
+        $this->view .= "<a href='index.php?view=forms&user=$user'><i class='fa-solid fa-arrow-left-long fa-lg' style='color:#bb9d93; margin-right:30px;'></i></a>";
+        $this->view .= <<<HTML
+                <h1></h1>
+                        </nav>
+                        <div>
+                            <form method="POST">
+                                <h3>Form Name</h3>
+                                <input type="text" name="form-name">
+                                <div>
+                                    <select id="form-type-dropdown">
+                                        <option value="assessment">Assessment</option>
+                                        <option value="pre">Pre-Flight</option>
+                                        <option value="post">Post-Flight</option>
+                                    </select>
+                                    <input type="text" name="form-type" id="form-type" style="display: none">
+                                </div>
+                                <div id="container-field">
+                                    <!-- <div class="field-box">
+                                        <div class="header-field">
+                                            Statement
+                                            <input type="text" class="title-field-input-text">
+                                        </div>
+                                        <div class="header-field">
+                                            Type of Answer
+                                                <option value="text" selected>Text</option>
+                                                <option value="multiple">Multiple Choice</option>
+                                                <option value="checklist">Checklist</option>
+                                                <option value="longtext">Long Text</option>
+                                            </select>
+                                        </div>
+                                        <div class="delete-margin">
+                                            <button class="delete-field"><i class='fa-regular fa-circle-xmark fa-2x' style='color:#ffffff'></i></button>
+                                        </div>
+                                    </div> -->
+                                </div>
+                                <div class="button-new-field" style="text-align: center; margin-top: 20px">
+                                    <button id="add-new-field">
+                                        <b>
+                                            <div class="button-container">
+                                                <span class="plus-icon"><i class='fa-solid fa-plus fa-lg' style='color:#ffffff; margin-right: 15px'></i></span>Add New Field
+                                            </div>
+                                        </b>
+                                    </button>
+                                </div>
+
+                                <!-- <button>Pre-Flight and Post-Flight Form</button> -->
+                                <!-- <div class="right-button">
+                                    <input type="submit" value="Save" />
+                                    <input type="submit" value="Complete">
+                                </div> -->
+                                <input type="text" id="json" name="json" value="test" style="display: none">
+                                <div id="save-container">
+                                    <button id="save" type="submit" style="display: none">Save Form</button>
+                                </div>
+                            </form>
+                            <button id="save-button" class="button-save">Save Form</button>
+                        </div>
+                    </div>  
+                </body>
+            </html>
+        HTML;
         $this->getFormView($id);
     }
 
@@ -96,16 +95,29 @@ class FormsViewUI{
 
     public function getView(){
         echo $this->view;
+        $this->saveForm();
     }
 
-    private function verifyData($id, $json){
+    private function verifyData($id){
         return true;
     }
 
-    public function saveForm($id, $json, $updatedBy, $updatedDate){
-        $verify = $this->verifyData($id, $json);
-        if ($verify) {
-            $this->db->updateForm($id, $json);
+    public function saveForm(){
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+
+            $id = $_GET['id'];
+            $json = $_POST['json'];
+            $formName = $_POST['form-name'];
+            $formType = $_POST['form-type'];
+            $user = $_GET['user'];
+
+            $verify = $this->verifyData($id);
+            if ($verify) {
+                $isSaved = $this->db->saveForm($id, $formName, $formType, $user, $json);
+                if($isSaved){
+                    header("Location: index.php?view=forms&user=$user");
+                }
+            }
         }
     }
 
