@@ -1,4 +1,5 @@
 <?php
+ob_start();
 
 class FormsUI{
 
@@ -20,17 +21,20 @@ class FormsUI{
                 Are you sure want to delete this data?
                 <form method="POST">
                     <input type="text" name="formId" id="form-id" style="display: none;">
-                    <a href='index.php?view=forms&user=0360f0640c7b9a551d66578beebeb33a54f8957b70fe3df5137475ae994536df4ebec9abdf7e1e94eaeb65fc4d23055db9ec713df967aaa027299f850b0df998'>No</a>
-                    <button>Yes</button>
-                </form>
-            </div>
-            <div>
-                <div>
+                    
     HTML;
 
     public function __construct($db){
         $this->db = $db;
         $user = $_GET['user'];
+        $this->view .= "<a href='index.php?view=forms&user=$user'>No</a>";
+        $this->view .= <<<HTML
+            <button>Yes</button>
+                </form>
+            </div>
+            <div>
+                <div>
+        HTML;
         $this->view .= "<a href='index.php?view=forms&user=$user'>Forms</a>";
         $this->view .= "<a href='index.php?view=templates&user=$user'>Templates</a>";
         $this->view .= "<a href='index.php?view=submissions&user=$user'>Submission</a>";
@@ -77,11 +81,12 @@ class FormsUI{
     private function deleteConfirm(){
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
            $formId = $_POST['formId'];
+           $user = $_GET['user'];
            if ($formId != 0) {
                 $deleteSuccess = $this->db->deleteForm($formId);
                 if ($deleteSuccess) {
                     echo "<script>alert('Delete Successful');</script>";
-                    header("Location: index.php?view=forms&user=0360f0640c7b9a551d66578beebeb33a54f8957b70fe3df5137475ae994536df4ebec9abdf7e1e94eaeb65fc4d23055db9ec713df967aaa027299f850b0df998");
+                    header("refresh");
                 }
                 else {
                     echo "<script>alert('Something Wrong');</script>";
