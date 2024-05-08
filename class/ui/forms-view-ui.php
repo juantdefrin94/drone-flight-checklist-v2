@@ -18,7 +18,7 @@ class FormsViewUI{
             <body>
                 <div>
                     <nav>
-                        <a href=""><i class='fa-solid fa-arrow-left-long fa-lg' style='color:#bb9d93; margin-right:30px;'></i></a>
+                        <a href="index.php?view=forms&user=0360f0640c7b9a551d66578beebeb33a54f8957b70fe3df5137475ae994536df4ebec9abdf7e1e94eaeb65fc4d23055db9ec713df967aaa027299f850b0df998'"><i class='fa-solid fa-arrow-left-long fa-lg' style='color:#bb9d93; margin-right:30px;'></i></a>
                         <h1></h1>
                     </nav>
                     
@@ -38,6 +38,8 @@ class FormsViewUI{
                     <div>
                         <form>
                             <div id="container-field">
+                                
+                            <select name="" id=""></select>
                                 <!-- <div class="field-box">
                                     <div class="header-field">
                                         Statement

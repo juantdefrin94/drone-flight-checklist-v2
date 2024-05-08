@@ -47,6 +47,10 @@ $(document).ready(function () {
                                 <option value="multiple">Multiple Choice</option>
                                 <option value="checklist">Checklist</option>
                                 <option value="longtext">Long Text</option>
+                                <option value="date">Date</option>
+                                <option value="time">Time</option>
+                                <option value="datetime">Date Time</option>
+                                <option value="dropdown">Dropdown</option>
                             </select>
                         </div>
                         <div class="delete-margin">
@@ -80,6 +84,7 @@ $(document).ready(function () {
                         </div>
                     </div>
             `;
+            // for edit
             if (data.type === 'text') {
                 html = html + `
                         <div id="answer-${question}" class="text-field bot-field">
@@ -128,6 +133,34 @@ $(document).ready(function () {
                         </div>
                     </div>
                 `;
+            } else if (data.type === 'date') {
+                html = html + `
+                        <div id="answer-${question}" class="longtext-field bot-field">
+                            <textarea type="text" class="answer-input-text" placeholder="The answer will be here . . ." disabled></textarea>
+                        </div>
+                    </div>
+                `;
+            } else if (data.type === 'time') {
+                html = html + `
+                        <div id="answer-${question}" class="longtext-field bot-field">
+                            <textarea type="text" class="answer-input-text" placeholder="The answer will be here . . ." disabled></textarea>
+                        </div>
+                    </div>
+                `;
+            } else if (data.type === 'datetime') {
+                html = html + `
+                        <div id="answer-${question}" class="longtext-field bot-field">
+                            <textarea type="text" class="answer-input-text" placeholder="The answer will be here . . ." disabled></textarea>
+                        </div>
+                    </div>
+                `;
+            } else if (data.type === 'dropdown') {
+                html = html + `
+                        <div id="answer-${question}" class="longtext-field bot-field">
+                            <textarea type="text" class="answer-input-text" placeholder="The answer will be here . . ." disabled></textarea>
+                        </div>
+                    </div>
+                `;
             }
             return html;
         }
@@ -146,6 +179,7 @@ $(document).ready(function () {
                     if (!answerField[0].classList.contains(val + '-field')) {
                         //value and answer field is not the same
                         let newField = "";
+                        // if there is a change of type
                         if (val === 'text') {
                             newField = `
                                 <div id="answer-${question}" class="text-field bot-field">
@@ -172,6 +206,34 @@ $(document).ready(function () {
                             newField = `
                                 <div id="answer-${question}" class="longtext-field bot-field">
                                     <textarea type="text" class="answer-input-text" placeholder="The answer will be here . . ." disabled></textarea>
+                                </div>
+                            `
+                        } else if (val === 'date') {
+                            newField = `
+                                <div id="answer-${question}" class="date-field bot-field">
+                                    <input type="date">
+                                </div>
+                            `
+                        } else if (val === 'time') {
+                            newField = `
+                                <div id="answer-${question}" class="time-field bot-field">
+                                    <input type="time">
+                                </div>
+                            `
+                        } else if (val === 'datetime') {
+                            newField = `
+                                <div id="answer-${question}" class="datetime-field bot-field">
+                                    <input type="datetime-local">
+                                </div>
+                            `
+                        } else if (val === 'dropdown') {
+                            newField = `
+                                <div id="answer-${question}" class="dropdown-field bot-field">
+                                    <select>
+                                        <option value="a" selected>a</option>
+                                        <option value="b">b</option>
+                                        <option value="c">c</option>
+                                    </select>
                                 </div>
                             `
                         }
