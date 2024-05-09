@@ -61,13 +61,14 @@ class MasterDatabase {
         $sql = "SELECT * FROM `form` ORDER BY updatedDate DESC";
         $result = mysqli_query($this->conn, $sql);
         $resString = "";
+        $user = $_GET['user'];
 
         if (mysqli_num_rows($result) > 0) {
             // output data of each row
             $no = 1;
             while($row = mysqli_fetch_assoc($result)) {
                 $num = $no % 2 == 0 ? 'even' : 'odd';
-                $resString .= "<tr class='table-data ". $num . "' id='data-" . $row['id'] . "'><td>" . $no . "</td>" . "<td>" . $row["formName"] . "</td>" . "<td>" . $row["formType"] . "</td>" . "<td>" . $row["updatedBy"] . "</td>" . "<td>" . $row["updatedDate"] . "</td>" . "<td><a href='../views/flight-form.php?mode=edit&id=". $row['id'] . "&name=" . $row["formName"] . "'><i id='edit-".$row['id'] . "' class='fa-solid fa-pen-to-square action-icon'></i></a><i id='delete-".$row['id'] . "' class='fa-solid fa-trash action-icon delete-data'></i></td>" . "</tr>";
+                $resString .= "<tr class='table-data ". $num . "' id='data-" . $row['id'] . "'><td>" . $no . "</td>" . "<td>" . $row["formName"] . "</td>" . "<td>" . $row["formType"] . "</td>" . "<td>" . $row["updatedBy"] . "</td>" . "<td>" . $row["updatedDate"] . "</td>" . "<td><a href='index.php?view=viewForms&user=". $user . "&id=". $row['id'] . "'><i id='edit-".$row['id'] . "' class='fa-solid fa-pen-to-square action-icon'></i></a><i id='delete-".$row['id'] . "' class='fa-solid fa-trash action-icon delete-data'></i></td>" . "</tr>";
                 $no = $no + 1;
             }
         } else {
@@ -84,10 +85,24 @@ class MasterDatabase {
     }
 
     function fetchDetailForm($id){
-        if($id != 0){
+        $sql = "SELECT * FROM form WHERE id='$id'";
+        $result = $this->conn->query($sql);
+        $json = "";
 
+        
+        if ($result->num_rows === 1) {
+            // output data of each row
+            $row = mysqli_fetch_assoc($result);
+            if($row['id'] === $id){
+                $formName = $row['formName'];
+                $formType = $row['formType'];
+                $updatedBy = $row['updatedBy'];
+                $updatedDate = $row['updatedDate'];
+                $formData = $row['formData'];
+                $json = "{\"formName\": \"$formName\", \"formType\": \"$formType\", \"updatedBy\": \"$updatedBy\", \"updatedDate\": \"$updatedDate\", \"formData\": $formData}";
+            }
         }
-        return "";
+        return $json;
     }
 
     function saveForm($id, $formName, $formType, $user, $json){
@@ -95,15 +110,18 @@ class MasterDatabase {
         $currentDateTime = new DateTime();
         $date = $currentDateTime->format("Y-m-d H:i:s");
 
-        echo "<script>alert('$id');</script>";
+        
+        $sql = "";
         if($id == 0){
             $sql = "INSERT INTO `form`(`id`, `formName`, `formType`, `updatedBy`, `updatedDate`, `formData`) VALUES (NULL,'$formName','$formType','$user','$date','$json')";
-
-            if ($this->conn->query($sql) === TRUE){
-                return true;
-            }
-            return false;
+        }else{
+            $sql = "UPDATE `form` SET `formName` = '$formName', `formType` = '$formType', `updatedBy` = '$user', `updatedDate` = '$date', `formData` = '$json' WHERE `id` = $id"; 
         }
+
+        if ($this->conn->query($sql) === TRUE){
+            return true;
+        }
+        return false;
     }
 
     function deleteForm($id){

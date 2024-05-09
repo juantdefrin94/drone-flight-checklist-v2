@@ -31,7 +31,7 @@ class FormsViewUI{
                         <div>
                             <form method="POST">
                                 <h3>Form Name</h3>
-                                <input type="text" name="form-name">
+                                <input type="text" name="form-name" id="form-name">
                                 <div>
                                     <select id="form-type-dropdown">
                                         <option value="assessment">Assessment</option>
@@ -74,7 +74,16 @@ class FormsViewUI{
                                     <input type="submit" value="Save" />
                                     <input type="submit" value="Complete">
                                 </div> -->
-                                <input type="text" id="json" name="json" value="test" style="display: none">
+        HTML;
+        $json = "";
+        $formId = $_GET['id'];
+        if($formId != 0){
+            //edit form
+            $json = $this->db->fetchDetailForm($formId);
+        }
+        $this->view .= "<input type='text' id='json' name='json' value='$json' style='display: none'>";
+        $this->view .= "<input type='text' id='form-id' name='form-id' value='$formId' style='display: none'>";
+        $this->view .= <<<HTML
                                 <div id="save-container">
                                     <button id="save" type="submit" style="display: none">Save Form</button>
                                 </div>
@@ -85,12 +94,6 @@ class FormsViewUI{
                 </body>
             </html>
         HTML;
-        $this->getFormView($id);
-    }
-
-    private function getFormView($id){
-        $formList = $this->db->fetchDetailForm($id);
-        $this->view .= $formList;
     }
 
     public function getView(){
