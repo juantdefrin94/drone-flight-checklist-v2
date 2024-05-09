@@ -22,26 +22,33 @@ class TemplatesViewUI{
                     
                     <div>
                         <h3>Template Name</h3>
-                        <input type="text">
+                        <input type="text" id="template-name" name="template-name">
                     </div>
                     
+                    
+    HTML;
+
+    public function __construct($db, $id){
+        $this->db = $db;
+        $json = $this->db->getAllForm();
+        $this->view.=<<<html
                     <div>
                         Assesment Form
-                        <select>
+                        <select id="assessment-id">
                             <option value=""></option>
                         </select>
                     </div>
 
                     <div>
                         Pre-Fligt Form
-                        <select>
+                        <select id="pre-id">
                             <option value=""></option>
                         </select>
                     </div>
 
                     <div>
                         Post-Flight Form
-                        <select>
+                        <select id="post-id">
                             <option value=""></option>
                         </select>
                     </div>
@@ -52,10 +59,7 @@ class TemplatesViewUI{
                 </div>  
             </body>
         </html>
-    HTML;
-
-    public function __construct($db, $id){
-        $this->db = $db;
+        html;
         $this->getTemplateView($id);
     }
 
@@ -78,5 +82,7 @@ class TemplatesViewUI{
             $this->db->saveTemplate($id, $templateName, $assessmsnetId, $preId, $postId);
         }
     }
+
+
 
 }

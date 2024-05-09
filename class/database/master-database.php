@@ -151,6 +151,27 @@ class MasterDatabase {
         return $resString;
     }
 
+    function getAllForm(){
+        $sql = "SELECT id, formName, formType FROM `form` ORDER BY updatedDate DESC";
+        $result = mysqli_query($this->conn, $sql);
+        $user = $_GET['user'];
+        $json = "";
+
+        if (mysqli_num_rows($result) > 0) {
+            $json = "[";
+            while($row = mysqli_fetch_assoc($result)) {
+                $id = $row['id'];
+                $formName = $row['formName'];
+                $formType = $row['formType'];
+                $json .= "{\"id\": \"$id\", \"formName\" : \"$formName\", \"formType\" : \"$formType\"},";
+            }
+            $json = substr($json, 0, -1);
+            $json .= "]";
+        }
+
+        return $json;
+    }
+
     function fetchTemplateSearch($query){
         return "string";
     }
