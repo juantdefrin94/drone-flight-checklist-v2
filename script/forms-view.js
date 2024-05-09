@@ -5,6 +5,23 @@ $(document).ready(function () {
     function init(){
         handleNewField();
         handleSetJson();
+        loadData();
+    }
+
+    function loadData(){
+        let $formId = $('#form-id')[0].value;
+        if($formId != 0){
+            let $json = JSON.parse($('#json')[0].value);
+            let $formData = $json.formData;
+            let i = 1;
+            let questionId = 0;
+            for(let data in $formData){
+                questionId = parseInt(data.match(/\d+/)[0]);
+                generateField(questionId, $formData[data]);
+            }
+            $('#form-name')[0].value = $json.formName;
+            question = questionId + 1;
+        }
     }
 
     function handleSetJson(){
@@ -130,7 +147,14 @@ $(document).ready(function () {
                     <div class="top-field">
                         <div class="header-field">
                             Statement
-                            <input type="text" class="title-field-input-text">
+                            <input type="text" class="title-field-input-text" value="${data.question}" id="statement-${question}">
+                        </div>
+                        <div id="required-${question}" style="display: flex;">
+                            Required : 
+                            <input type="radio" id="yes-${question}" name="req-${question}" value="Yes" ${data.required ? "checked" : ""}>
+                            <label for="req-${question}">Yes</label><br>
+                            <input type="radio" id="no-${question}" name="req-${question}" value="No" ${data.required ? "" : "checked"}>
+                            <label for="req-${question}">No</label><br>
                         </div>
                         <div class="header-field">
                             Type of Answer
@@ -139,6 +163,10 @@ $(document).ready(function () {
                                 <option value="multiple" ${data.type === "multiple" ? "selected" : ""}>Multiple Choice</option>
                                 <option value="checklist" ${data.type === "checklist" ? "selected" : ""}>Checklist</option>
                                 <option value="longtext" ${data.type === "longtext" ? "selected" : ""}>Long Text</option>
+                                <option value="date" ${data.type === "date" ? "selected" : ""}>Date</option>
+                                <option value="time" ${data.type === "time" ? "selected" : ""}>Time</option>
+                                <option value="datetime" ${data.type === "datetime" ? "selected" : ""}>Date Time</option>
+                                <option value="dropdown" ${data.type === "dropdown" ? "selected" : ""}>Dropdown</option>
                             </select>
                         </div>
                         <div class="delete-margin">
@@ -158,11 +186,11 @@ $(document).ready(function () {
                 html = html + `
                         <div id="answer-${question}" class="multiple-field">
                         <div id="multiple-container-${question}">`
-                $.each(data.answer, function (_, ans){
-                    let lowAns = ans.toLowerCase();
+                $.each(data.option, function (_, opt){
+                    let lowOpt = opt.toLowerCase();
                     html = html + `
-                        <input type="radio" id="${lowAns}-${question}" name="multiple-${question}" value="${ans}">
-                        <label for="${lowAns}-${question}">${ans}</label><br> 
+                        <input type="radio" id="${lowOpt}-${question}" name="multiple-${question}" value="${opt}">
+                        <label for="${lowOpt}-${question}">${opt}</label><br> 
                     `
                 });
                 html = html + `
@@ -175,11 +203,11 @@ $(document).ready(function () {
                 html = html + `
                         <div id="answer-${question}" class="checklist-field">
                         <div id="checklist-container-${question}">`
-                $.each(data.answer, function (_, ans){
-                    let lowAns = ans.toLowerCase();
+                $.each(data.option, function (_, opt){
+                    let lowOpt = opt.toLowerCase();
                     html = html + `
-                        <input type="checkbox" id="${lowAns}-${question}" name="checklist-${question}" value="${ans}">
-                        <label for="${lowAns}-${question}">${ans}</label><br> 
+                        <input type="checkbox" id="${lowOpt}-${question}" name="checklist-${question}" value="${opt}">
+                        <label for="${lowOpt}-${question}">${opt}</label><br> 
                     `
                 });
                 html = html + `
@@ -218,9 +246,18 @@ $(document).ready(function () {
                 `;
             } else if (data.type === 'dropdown') {
                 html = html + `
-                        <div id="answer-${question}" class="longtext-field bot-field">
-                            <textarea type="text" class="answer-input-text" placeholder="The answer will be here . . ." disabled></textarea>
-                        </div>
+                    <div id="answer-${question}" class="dropdown-field bot-field">
+                        <select id="dropdown-container-${question}">
+                `;
+                $.each(data.option, function(_, opt){
+                    html = html + `
+                        <option value="${opt}">${opt}</option>
+                    `
+                });       
+                html = html + `
+                        </select>
+                        <input type="text" name="new-option-${question}" id="new-option-${question}">
+                        <button id="add-dropdown-${question}">Add New Value</button>
                     </div>
                 `;
             }
