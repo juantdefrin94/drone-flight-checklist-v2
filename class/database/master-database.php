@@ -154,7 +154,6 @@ class MasterDatabase {
     function getAllForm(){
         $sql = "SELECT id, formName, formType FROM `form` ORDER BY updatedDate DESC";
         $result = mysqli_query($this->conn, $sql);
-        $user = $_GET['user'];
         $json = "";
 
         if (mysqli_num_rows($result) > 0) {
@@ -177,11 +176,28 @@ class MasterDatabase {
     }
 
     function fetchDetailTemplate($id){
-        return "string";
+        if($id != 0){
+            return "string";
+        }
     }
 
-    function updateTemplate($id, $templateName, $assessmentId, $preId, $postId){
-        return true;
+    function saveTemplate($id, $templateName, $assessmentId, $preId, $postId, $user){
+        $user = base64_decode($user);
+        $currentDateTime = new DateTime();
+        $date = $currentDateTime->format("Y-m-d H:i:s");
+
+        $sql = "";
+        if($id == 0){
+            $sql = "INSERT INTO `template`(`id`, `templateName`, `assessnentId`, `preId`, `postId`, `updatedBy`, `updatedDate`) VALUES (NULL,'$templateName','$assessmentId','$preId','$postId','$user','$date')";
+        }else{
+            $sql = "UPDATE `template` SET `templateName`='$templateName',`assessnentId`='$assessmentId',`preId`='$preId',`postId`='$postId',`updatedBy`='$user',`updatedDate`='$date' WHERE `id` = $id"; 
+        }
+
+        if ($this->conn->query($sql) === TRUE){
+            return true;
+        }
+        
+        return false;
     }
 
     function deleteTemplate($id){
