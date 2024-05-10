@@ -20,21 +20,31 @@ class TemplatesUI{
                 Are you sure want to delete this data?
                 <form method="POST">
                     <input type="text" name="templateId" id="template-id" style="display: none;">
-                    <a href='index.php?view=templates&user=anVhbnRkZWZyaW4='>No</a>
-                    <button>Yes</button>
+    HTML;
+
+    public function __construct($db){
+        $this->db = $db;
+        $user = $_GET['user'];
+        $this->view .= "<a href='index.php?view=templates&user=$user'>No</a>";
+        $this->view .= <<<HTML
+            <button>Yes</button>
                 </form>
             </div>
             <div>
                 <div>
-                    <a href="index.php?view=forms&user=anVhbnRkZWZyaW4=">Forms</a>
-                    <a href="index.php?view=templates&user=anVhbnRkZWZyaW4=">Templates</a>
-                    <a href="index.php?view=submissions&user=anVhbnRkZWZyaW4=">Submission</a>
-                    <a href="index.php">Logout</a>
+        HTML;
+        $this->view .= "<a href='index.php?view=forms&user=$user'>Forms</a>";
+        $this->view .= "<a href='index.php?view=templates&user=$user'>Templates</a>";
+        $this->view .= "<a href='index.php?view=submissions&user=$user'>Submission</a>";
+        $this->view .= <<<HTML
+            <a href="index.php">Logout</a>
                 </div>
                 <div>
                     Template List
-                    <button>Create New Template</button>
-                    <input type="text" placeholder="Search...">
+        HTML;
+        $this->view .= "<a href='index.php?view=viewTemplates&user=$user&id=0'>Create New Template</a>";
+        $this->view .= <<<HTML
+            <input type="text" placeholder="Search...">
                     <table>
                         <tr>
                             <th>No</th>
@@ -43,10 +53,7 @@ class TemplatesUI{
                             <th>Updated Date</th>
                             <th>Action</th>
                         </tr>
-    HTML;
-
-    public function __construct($db){
-        $this->db = $db;
+        HTML;
         $this->getAllData();
     }
 
