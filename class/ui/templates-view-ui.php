@@ -19,17 +19,6 @@ class TemplatesViewUI{
             <body>
                 <div>
                     <nav>
-                        <a href=""><i class='fa-solid fa-arrow-left-long fa-lg' style='color:#bb9d93; margin-right:30px;'></i></a>
-                        <h1></h1>
-                    </nav>
-                    
-                    <form method="POST">
-                        <div>
-                            <h3>Template Name</h3>
-                            <input type="text" id="template-name" name="template-name">
-                        </div>
-                    
-                    
     HTML;
 
     function filterForm($item, $type){
@@ -38,13 +27,27 @@ class TemplatesViewUI{
 
     public function __construct($db, $id){
         $this->db = $db;
+
+        $user = $_GET['user'];
+        $this->view .= "<a href='index.php?view=templates&user=$user'><i class='fa-solid fa-arrow-left-long fa-lg' style='color:#bb9d93; margin-right:30px;'></i></a>";
+        $this->view .= <<<HTML
+                    </nav>
+                    
+                    <form method="POST">
+                        <div>
+                            <h3>Template Name</h3>
+                            <input type="text" id="template-name" name="template-name">
+                        </div>
+        HTML;
+
         $json = $this->db->getAllForm();
         $json = json_decode($json);
 
         $this->view.=<<<HTML
-                    <div>
-                        Assesment Form
-                        <select id="assessment-select">
+                        <div>
+                            Assesment Form
+                            <select id="assessment-select">
+                                <option disabled selected value="empty"> -- select an option -- </option>
         HTML;
 
         foreach ($json as $opt){
@@ -56,12 +59,13 @@ class TemplatesViewUI{
         }
 
         $this->view .= <<<HTML
-                    </select>
-                </div>
+                            </select>
+                        </div>
 
-                <div>
-                    Pre-Fligt Form
-                    <select id="pre-select">
+                        <div>
+                            Pre-Fligt Form
+                            <select id="pre-select">
+                                <option disabled selected value="empty"> -- select an option -- </option>
         HTML;
 
         foreach ($json as $opt){
@@ -79,6 +83,7 @@ class TemplatesViewUI{
                         <div>
                             Post-Flight Form
                             <select id="post-select">
+                                <option disabled selected value="empty"> -- select an option -- </option>
         HTML;
 
         foreach ($json as $opt){
@@ -90,30 +95,35 @@ class TemplatesViewUI{
         }
 
         $this->view .= <<<HTML
-                                </select>
-                            </div>
+                            </select>
+                        </div>
 
-                            <input type="text" name="assessment-id" id="assessment-id" >
-                            <input type="text" name="pre-id" id="pre-id">
-                            <input type="text" name="post-id" id="post-id">
+                        <input type="text" name="assessment-id" id="assessment-id" style="display: none">
+                        <input type="text" name="pre-id" id="pre-id" style="display: none">
+                        <input type="text" name="post-id" id="post-id" style="display: none">
 
-                            <div>
-                                <button id="save" type="submit" style="display: none">Save Template</button>
-                            </div>
+                        <div>
+                            <button id="save" type="submit" style="display: none">Save Template</button>
+                        </div>
 
-                        </form>
-
-                        <button id="save-button">Save Template</button>
-                    </div>  
-                </body>
-            </html>
+                    </form>
         HTML;
-        $this->getTemplateView($id);
-    }
 
-    private function getTemplateView($id){
-        $templateList = $this->db->fetchDetailTemplate($id);
-        $this->view .= $templateList;
+        $id = $_GET['id'];
+
+        $json = "";
+        if($id != 0){
+            $json = $this->db->fetchDetailTemplate($id);
+        }
+
+        $this->view .= "<input type='text' id='template-id' style='display: none' value='$id'>";
+        $this->view .= "<input type='text' id='json' style='display: none' value='$json'>";
+        $this->view .= <<<HTML
+                    <button id="save-button">Save Template</button>
+                        </div>  
+                    </body>
+                </html>
+        HTML;
     }
 
     public function getView(){
@@ -133,9 +143,11 @@ class TemplatesViewUI{
             $preId = $_POST['pre-id'];
             $postId = $_POST['post-id'];
 
+
             $verify = $this->verifyData($id, $templateName, $assessmsnetId, $preId, $postId);
             if ($verify) {
                 $user = $_GET['user'];
+
                 $isSaved = $this->db->saveTemplate($id, $templateName, $assessmsnetId, $preId, $postId, $user);
                 if($isSaved){
                     header("Location: index.php?view=templates&user=$user");
@@ -143,4 +155,7 @@ class TemplatesViewUI{
             }
         }
     }
+
+
+
 }
