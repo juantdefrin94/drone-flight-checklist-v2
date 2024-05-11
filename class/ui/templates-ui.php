@@ -35,7 +35,7 @@ class TemplatesUI{
         HTML;
         $this->view .= "<a href='index.php?view=forms&user=$user&query'>Forms</a>";
         $this->view .= "<a href='index.php?view=templates&user=$user&query'>Templates</a>";
-        $this->view .= "<a href='index.php?view=submissions&user=$user'>Submission</a>";
+        $this->view .= "<a href='index.php?view=submissions&user=$user&query'>Submission</a>";
         $this->view .= <<<HTML
             <a href="index.php">Logout</a>
                 </div>
