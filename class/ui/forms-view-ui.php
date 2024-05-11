@@ -24,7 +24,7 @@ class FormsViewUI{
     public function __construct($db, $id){
         $this->db = $db;
         $user = $_GET['user'];
-        $this->view .= "<a href='index.php?view=forms&user=$user'><i class='fa-solid fa-arrow-left-long fa-lg' style='color:#bb9d93; margin-right:30px;'></i></a>";
+        $this->view .= "<a href='index.php?view=forms&user=$user&query'><i class='fa-solid fa-arrow-left-long fa-lg' style='color:#bb9d93; margin-right:30px;'></i></a>";
         $this->view .= <<<HTML
                 <h1></h1>
                         </nav>
@@ -118,7 +118,7 @@ class FormsViewUI{
             if ($verify) {
                 $isSaved = $this->db->saveForm($id, $formName, $formType, $user, $json);
                 if($isSaved){
-                    header("Location: index.php?view=forms&user=$user");
+                    header("Location: index.php?view=forms&user=$user&query");
                 }
             }
         }

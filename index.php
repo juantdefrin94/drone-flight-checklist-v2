@@ -13,7 +13,7 @@ include 'class/database/master-database.php';
 class Main{
 
     private $masterDatabase = null;
-    public $masterUI = null;
+    private $masterUI = null;
 
     public function __construct(){
         $this->masterDatabase = new MasterDatabase();
@@ -27,39 +27,39 @@ class Main{
             // Route based on action
             switch ($action) {
                 case 'login':
-                    $masterUI = new LoginUI($this->masterDatabase);
-                    $masterUI->getView();
+                    $this->masterUI = new LoginUI($this->masterDatabase);
+                    $this->masterUI->getView();
                     break;
                 case 'register':
-                    $masterUI = new RegisterUI($this->masterDatabase);
-                    $masterUI->getView();
+                    $this->masterUI = new RegisterUI($this->masterDatabase);
+                    $this->masterUI->getView();
                     break;
                 case 'forms':
-                    $masterUI = new FormsUI($this->masterDatabase);
-                    $masterUI->getView();
+                    $this->masterUI = new FormsUI($this->masterDatabase);
+                    $this->masterUI->getView();
                     break;
                 case 'viewForms':
                     $id = $_GET['id'];
-                    $masterUI = new FormsViewUI($this->masterDatabase, $id);
-                    $masterUI->getView();
+                    $this->masterUI = new FormsViewUI($this->masterDatabase, $id);
+                    $this->masterUI->getView();
                     break;
                 case 'templates':
-                    $masterUI = new TemplatesUI($this->masterDatabase);
-                    $masterUI->getView();
+                    $this->masterUI = new TemplatesUI($this->masterDatabase);
+                    $this->masterUI->getView();
                     break;
                 case 'viewTemplates':
                     $id = $_GET['id'];
-                    $masterUI = new TemplatesViewUI($this->masterDatabase, $id);
-                    $masterUI->getView();
+                    $this->masterUI = new TemplatesViewUI($this->masterDatabase, $id);
+                    $this->masterUI->getView();
                     break;
                 case 'submissions':
-                    $masterUI = new SubmissionsUI($this->masterDatabase);
-                    $masterUI->getView();
+                    $this->masterUI = new SubmissionsUI($this->masterDatabase);
+                    $this->masterUI->getView();
                     break;
                 case 'viewSubmissions':
                     $id = $_GET['id'];
-                    $masterUI = new SubmissionsViewUI($this->masterDatabase, $id);
-                    $masterUI->getView();
+                    $this->masterUI = new SubmissionsViewUI($this->masterDatabase, $id);
+                    $this->masterUI->getView();
                     break;
                 default:
                     break;

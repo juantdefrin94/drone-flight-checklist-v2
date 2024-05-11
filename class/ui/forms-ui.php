@@ -19,7 +19,7 @@ class FormsUI{
         <body>
             <div id="modal" style="display: none;">
                 Are you sure want to delete this data?
-                <form method="POST">
+                <form method="POST" name="delete-form">
                     <input type="text" name="formId" id="form-id" style="display: none;">
                     
     HTML;
@@ -27,16 +27,16 @@ class FormsUI{
     public function __construct($db){
         $this->db = $db;
         $user = $_GET['user'];
-        $this->view .= "<a href='index.php?view=forms&user=$user'>No</a>";
+        $this->view .= "<a href='index.php?view=forms&user=$user&query'>No</a>";
         $this->view .= <<<HTML
-            <button>Yes</button>
+                    <button>Yes</button>
                 </form>
             </div>
             <div>
                 <div>
         HTML;
-        $this->view .= "<a href='index.php?view=forms&user=$user'>Forms</a>";
-        $this->view .= "<a href='index.php?view=templates&user=$user'>Templates</a>";
+        $this->view .= "<a href='index.php?view=forms&user=$user&query'>Forms</a>";
+        $this->view .= "<a href='index.php?view=templates&user=$user&query'>Templates</a>";
         $this->view .= "<a href='index.php?view=submissions&user=$user'>Submission</a>";
         $this->view .= <<<HTML
                 <a href="index.php">Logout</a>
@@ -46,7 +46,12 @@ class FormsUI{
         HTML;
         $this->view .= "<a href='index.php?view=viewForms&user=$user&id=0'>Create New Form</a>";
         $this->view .= <<<HTML
-            <input type="text" placeholder="Search...">
+            <div style="display: flex">
+                <form method="POST" name="search-form">
+                    <input type="text" placeholder="Search..." name="query">
+                    <button id="search" type="submit">Search</button>
+                </form>
+            </div>
                 <table>
                     <tr>
                         <th>No</th>
@@ -62,37 +67,57 @@ class FormsUI{
     }
 
     private function getAllData(){
-        $formList = $this->db->fetchAllForms();
+        $query = "";
+        if(isset($_GET['query'])){
+            $query = $_GET['query'];
+        }
+        $formList = $this->db->fetchAllForms($query);
         $this->view .= $formList;
     }
 
     public function getView(){
+        $this->view .= "</table>";
+        $this->handleSubmit();
         $this->view .= <<<HTML
-                </table>
                 </div>
             </div>
             </body>
             </html>
         HTML;
         echo $this->view;
-        $this->deleteConfirm();
+    }
+
+    private function handleSubmit(){
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+           if(isset($_POST['formId'])) {
+              $formId = $_POST['formId'];
+              if($formId != ""){
+                  $this->deleteConfirm();
+              }
+           } else if(isset($_POST['query'])) {
+              $query = $_POST['query'];
+              $this->reconstructData($query);
+           }
+        }
     }
 
     private function deleteConfirm(){
-        if ($_SERVER["REQUEST_METHOD"] == "POST") {
-           $formId = $_POST['formId'];
-           $user = $_GET['user'];
-           if ($formId != 0) {
-                $deleteSuccess = $this->db->deleteForm($formId);
-                if ($deleteSuccess) {
-                    echo "<script>alert('Delete Successful');</script>";
-                    header("refresh");
-                }
-                else {
-                    echo "<script>alert('Something Wrong');</script>";
-                } 
-           }
+        $formId = $_POST['formId'];
+        if ($formId != 0) {
+            $deleteSuccess = $this->db->deleteForm($formId);
+            if ($deleteSuccess) {
+                echo "<script>alert('Delete Successful');</script>";
+                header("refresh");
+            }
+            else {
+                echo "<script>alert('Something Wrong');</script>";
+            } 
         }
+    }
+
+    private function reconstructData($query){
+        $user = $_GET['user'];
+        header("Location: index.php?view=forms&user=$user&query=$query");
     }
 
 }
