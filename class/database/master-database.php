@@ -136,13 +136,14 @@ class MasterDatabase {
         $sql = "SELECT * FROM `template` ORDER BY updatedDate DESC";
         $result = mysqli_query($this->conn, $sql);
         $resString = "";
+        $user = $_GET['user'];
 
         if (mysqli_num_rows($result) > 0) {
             // output data of each row
             $no = 1;
             while($row = mysqli_fetch_assoc($result)) {
                 $num = $no % 2 == 0 ? 'even' : 'odd';
-                $resString .= "<tr class='table-data ". $num . "' id='data-" . $row['id'] . "'><td>" . $no . "</td>" . "<td>" . $row["templateName"] . "</td>" . "<td>" . $row["updatedBy"] . "</td>" . "<td>" . $row["updatedDate"] . "</td>" . "<td><a href=''><i id='edit-".$row['id'] . "' class='fa-solid fa-pen-to-square action-icon'></i></a><i id='delete-".$row['id'] . "' class='fa-solid fa-trash action-icon delete-data'></i></td>" . "</tr>";
+                $resString .= "<tr class='table-data ". $num . "' id='data-" . $row['id'] . "'><td>" . $no . "</td>" . "<td>" . $row["templateName"] . "</td>" . "<td>" . $row["updatedBy"] . "</td>" . "<td>" . $row["updatedDate"] . "</td>" . "<td><a href='index.php?view=viewTemplates&user=$user&id=" . $row['id'] . "'><i id='edit-".$row['id'] . "' class='fa-solid fa-pen-to-square action-icon'></i></a><i id='delete-".$row['id'] . "' class='fa-solid fa-trash action-icon delete-data'></i></td>" . "</tr>";
                 $no = $no + 1;
             }
         } else {
@@ -177,7 +178,23 @@ class MasterDatabase {
 
     function fetchDetailTemplate($id){
         if($id != 0){
-            return "string";
+            $sql = "SELECT * FROM template WHERE id='$id'";
+            $result = $this->conn->query($sql);
+            $json = "";
+
+            
+            if ($result->num_rows === 1) {
+                // output data of each row
+                $row = mysqli_fetch_assoc($result);
+                if($row['id'] === $id){
+                    $templateName = $row['templateName'];
+                    $assessmentId = $row['assessmentId'];
+                    $preId = $row['preId'];
+                    $postId = $row['postId'];
+                    $json = "{\"templateName\": \"$templateName\", \"assessmentId\": \"$assessmentId\", \"preId\": \"$preId\", \"postId\": \"$postId\"}";
+                }
+            }
+            return $json;
         }
     }
 
@@ -188,15 +205,15 @@ class MasterDatabase {
 
         $sql = "";
         if($id == 0){
-            $sql = "INSERT INTO `template`(`id`, `templateName`, `assessnentId`, `preId`, `postId`, `updatedBy`, `updatedDate`) VALUES (NULL,'$templateName','$assessmentId','$preId','$postId','$user','$date')";
+            $sql = "INSERT INTO `template`(`id`, `templateName`, `assessmentId`, `preId`, `postId`, `updatedBy`, `updatedDate`) VALUES (NULL,'$templateName','$assessmentId','$preId','$postId','$user','$date')";
         }else{
-            $sql = "UPDATE `template` SET `templateName`='$templateName',`assessnentId`='$assessmentId',`preId`='$preId',`postId`='$postId',`updatedBy`='$user',`updatedDate`='$date' WHERE `id` = $id"; 
+            $sql = "UPDATE `template` SET `templateName`='$templateName',`assessmentId`='$assessmentId',`preId`='$preId',`postId`='$postId',`updatedBy`='$user',`updatedDate`='$date' WHERE `id` = $id";
         }
 
         if ($this->conn->query($sql) === TRUE){
             return true;
         }
-        
+
         return false;
     }
 
