@@ -126,8 +126,8 @@ class MasterDatabase {
         return false;
     }
 
-    function fetchAllTemplate(){
-        $sql = "SELECT * FROM `template` ORDER BY updatedDate DESC";
+    function fetchAllTemplate($query){
+        $sql = "SELECT * FROM `template` WHERE `templateName` LIKE '%$query%' OR `updatedBy` LIKE '%$query%' ORDER BY updatedDate DESC";
         $result = mysqli_query($this->conn, $sql);
         $resString = "";
         $user = $_GET['user'];

@@ -76,15 +76,15 @@ class FormsUI{
     }
 
     public function getView(){
-        $this->view .= "</table>";
-        $this->handleSubmit();
         $this->view .= <<<HTML
+                    </table>
                 </div>
             </div>
-            </body>
-            </html>
+        </body>
+        </html>
         HTML;
         echo $this->view;
+        $this->handleSubmit();
     }
 
     private function handleSubmit(){
