@@ -16,14 +16,23 @@ class SubmissionsUI{
         <body>
            <div>
             <div>
-                <a href="index.php?view=forms&user=anVhbnRkZWZyaW4=">Forms</a>
-                <a href="index.php?view=templates&user=anVhbnRkZWZyaW4=">Templates</a>
-                <a href="index.php?view=submissions&user=anVhbnRkZWZyaW4=">Submission</a>
+    HTML;
+
+    public function __construct($db){
+        $this->db = $db;
+        $user = $_GET['user'];
+        $this->view .= "<a href='index.php?view=forms&user=$user&query'>Forms</a>";
+        $this->view .= "<a href='index.php?view=templates&user=$user&query'>Templates</a>";
+        $this->view .= "<a href='index.php?view=submissions&user=$user&query'>Submission</a>";
+        $this->view .= <<<HTML
                 <a href="index.php">Logout</a>
             </div>
             <div>
                 Submission List
-                <input type="text" placeholder="Search...">
+                <form method="POST">
+                    <input type="text" placeholder="Search..." name="query">
+                    <button type="submit">Search</button>
+                </form>
                 <table>
                     <tr>
                         <th>No</th>
@@ -31,15 +40,16 @@ class SubmissionsUI{
                         <th>Submitted By</th>
                         <th>Submitted Date</th>
                     </tr>
-    HTML;
-
-    public function __construct($db){
-        $this->db = $db;
+        HTML;
         $this->getAllData();
     }
 
     private function getAllData(){
-        $submissionList = $this->db->fetchAllSubmission();
+        $query = "";
+        if(isset($_GET['query'])){
+            $query = $_GET['query'];
+        }
+        $submissionList = $this->db->fetchAllSubmission($query);
         $this->view .= $submissionList;
     }
 
@@ -52,8 +62,15 @@ class SubmissionsUI{
             </html>
         HTML;
         echo $this->view;
+        $this->search();
     }
 
-    
+    private function search(){
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+            $user = $_GET['user'];
+            $query = $_POST['query'];
+            header("Location: index.php?view=submissions&user=$user&query=$query");
+        }
+    }
 
 }

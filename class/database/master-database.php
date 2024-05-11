@@ -219,8 +219,8 @@ class MasterDatabase {
         return false;
     }
 
-    function fetchAllSubmission(){
-        $sql = "SELECT * FROM `submission` ORDER BY submittedDate DESC";
+    function fetchAllSubmission($query){
+        $sql = "SELECT * FROM `submission` WHERE `submissionName` LIKE '%$query%' OR `submittedBy` LIKE '%$query%' ORDER BY submittedDate DESC";
         $result = mysqli_query($this->conn, $sql);
         $resString = "";
 
