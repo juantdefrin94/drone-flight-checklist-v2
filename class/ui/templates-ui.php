@@ -16,7 +16,7 @@ class TemplatesUI{
             <title>Template List Page</title>
         </head>
         <body>
-            <div id="modal" style="display: none;">
+            <div id="modal" style="display: none;" name="delete-template">
                 Are you sure want to delete this data?
                 <form method="POST">
                     <input type="text" name="templateId" id="template-id" style="display: none;">
@@ -44,7 +44,10 @@ class TemplatesUI{
         HTML;
         $this->view .= "<a href='index.php?view=viewTemplates&user=$user&id=0'>Create New Template</a>";
         $this->view .= <<<HTML
-            <input type="text" placeholder="Search...">
+            <form method="POST" name="search-template">
+                <input type="text" placeholder="Search..." name="query">
+                <button id="search" type="submit">Search</button>
+            </form>
                     <table>
                         <tr>
                             <th>No</th>
@@ -58,7 +61,11 @@ class TemplatesUI{
     }
 
     private function getAllData(){
-        $templateList = $this->db->fetchAllTemplate();
+        $query = "";
+        if(isset($_GET['query'])){
+            $query = $_GET['query'];
+        }
+        $templateList = $this->db->fetchAllTemplate($query);
         $this->view .= $templateList;
     }
 
@@ -71,22 +78,39 @@ class TemplatesUI{
             </html>
         HTML;
         echo $this->view;
-        $this->deleteConfirm();
+        $this->handleSubmit();
     }
 
-    private function deleteConfirm(){
+    private function handleSubmit(){
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
-           $templateId = $_POST['templateId'];
-           if ($templateId != 0) {
+            if(isset($_POST['templateId'])) {
+                $templateId = $_POST['templateId'];
+                if($templateId != ""){
+                    $this->deleteConfirm();
+                }
+            } else if(isset($_POST['query'])) {
+                $query = $_POST['query'];
+                $this->reconstructData($query);
+            }
+        }
+    }
+    private function deleteConfirm(){
+        $templateId = $_POST['templateId'];
+        $user = $_GET['user'];
+        if ($templateId != 0) {
                 $deleteSuccess = $this->db->deleteTemplate($templateId);
                 if ($deleteSuccess) {
                     echo "<script>alert('Delete Successful');</script>";
-                    header("Location: index.php?view=templates&user=anVhbnRkZWZyaW4=");
+                    header("Location: index.php?view=templates&user=$user&query");
                 }
                 else {
                     echo "<script>alert('Something Wrong');</script>";
                 } 
-           }
         }
+    }
+
+    private function reconstructData($query){
+        $user = $_GET['user'];
+        header("Location: index.php?view=templates&user=$user&query=$query");
     }
 }
