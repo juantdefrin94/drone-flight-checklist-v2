@@ -25,7 +25,7 @@ class TemplatesUI{
     public function __construct($db){
         $this->db = $db;
         $user = $_GET['user'];
-        $this->view .= "<a href='index.php?view=templates&user=$user'>No</a>";
+        $this->view .= "<a href='index.php?view=templates&user=$user&query'>No</a>";
         $this->view .= <<<HTML
             <button>Yes</button>
                 </form>
@@ -33,8 +33,8 @@ class TemplatesUI{
             <div>
                 <div>
         HTML;
-        $this->view .= "<a href='index.php?view=forms&user=$user'>Forms</a>";
-        $this->view .= "<a href='index.php?view=templates&user=$user'>Templates</a>";
+        $this->view .= "<a href='index.php?view=forms&user=$user&query'>Forms</a>";
+        $this->view .= "<a href='index.php?view=templates&user=$user&query'>Templates</a>";
         $this->view .= "<a href='index.php?view=submissions&user=$user'>Submission</a>";
         $this->view .= <<<HTML
             <a href="index.php">Logout</a>

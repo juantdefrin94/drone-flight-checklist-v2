@@ -29,7 +29,7 @@ class TemplatesViewUI{
         $this->db = $db;
 
         $user = $_GET['user'];
-        $this->view .= "<a href='index.php?view=templates&user=$user'><i class='fa-solid fa-arrow-left-long fa-lg' style='color:#bb9d93; margin-right:30px;'></i></a>";
+        $this->view .= "<a href='index.php?view=templates&user=$user&query'><i class='fa-solid fa-arrow-left-long fa-lg' style='color:#bb9d93; margin-right:30px;'></i></a>";
         $this->view .= <<<HTML
                     </nav>
                     
