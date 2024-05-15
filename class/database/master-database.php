@@ -166,10 +166,6 @@ class MasterDatabase {
         return $json;
     }
 
-    function fetchTemplateSearch($query){
-        return "string";
-    }
-
     function fetchDetailTemplate($id){
         if($id != 0){
             $sql = "SELECT * FROM template WHERE id='$id'";
@@ -223,13 +219,14 @@ class MasterDatabase {
         $sql = "SELECT * FROM `submission` WHERE `submissionName` LIKE '%$query%' OR `submittedBy` LIKE '%$query%' ORDER BY submittedDate DESC";
         $result = mysqli_query($this->conn, $sql);
         $resString = "";
+        $user = $_GET['user'];
 
         if (mysqli_num_rows($result) > 0) {
             // output data of each row
             $no = 1;
             while($row = mysqli_fetch_assoc($result)) {
                 $num = $no % 2 == 0 ? 'even' : 'odd';
-                $resString .= "<tr class='table-data ". $num . "' id='data-" . $row['id'] . "'><td>" . $no . "</td>" . "<td>" . $row["submissionName"] . "</td>" . "<td>" . $row["submittedBy"] . "</td>" . "<td>" . $row["submittedDate"] . "</td>" . "</tr>";
+                $resString .= "<tr class='table-data ". $num . "' id='data-" . $row['id'] . "'> '<td>" . $no . "</td>" . "<td>" . $row["submissionName"] . "</td>" . "<td>" . $row["submittedBy"] . "</td>" . "<td>" . $row["submittedDate"] . "</td></tr>";
                 $no = $no + 1;
             }
         } else {
@@ -241,6 +238,23 @@ class MasterDatabase {
     }
 
     function fetchDetailSubmission($id){
-        return "data";
+        $sql = "SELECT * FROM submission WHERE id='$id'";
+        $result = $this->conn->query($sql);
+        $json = "";
+
+        
+        if ($result->num_rows === 1) {
+            // output data of each row
+            $row = mysqli_fetch_assoc($result);
+            if($row['id'] === $id){
+                $submissionName = $row['submissionName'];
+                $templateId = $row['templateId'];
+                $submittedBy = $row['submittedBy'];
+                $submittedDate = $row['submittedDate'];
+                $formData = $row['formData'];
+                $json = "{\"submissionName\": \"$submissionName\", \"templateId\": \"$templateId\", \"submittedBy\": \"$submittedBy\", \"submittedDate\": \"$submittedDate\", \"formData\": $formData}";
+            }
+        }
+        return $json;       
     }
 }
