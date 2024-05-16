@@ -1,6 +1,7 @@
 $(document).ready(function () {
 
     function init(){
+        handleUI();
         handleDelete();
     }
 
@@ -14,6 +15,12 @@ $(document).ready(function () {
                 $('#modal').css("display", "block");
             })
         }
+    }
+
+    function handleUI(){
+        let $sideBar = $('#sidebar-menu');
+        let winHeight = window.screen.height;
+        $sideBar.height(winHeight);
     }
 
     init();
