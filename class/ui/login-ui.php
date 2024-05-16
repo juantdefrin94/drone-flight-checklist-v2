@@ -16,30 +16,32 @@ class LoginUI{
         </head>
         <body>
             <div class="container">
-                <div class="image-container">
-                    <img class="background-login" src="assets/login-background.png" alt="">
-                </div>
-                <form class="login-container" method="POST">
+                <div class="login-box-left">
                     <div class="login-title">Drone<br>Checking System</div>
-                    <div class="login-title-no-bold ">Login to Your Account</div>
-                    <div class="label-input-container">
-                        <label for="" class="label-input">Username</label>
-                        <div class="container-input">
-                            <i class='fa-solid fa-user fa-lg' style='color:#d69883; margin-right:10px;'></i>
-                            <input class="input-style" type="text" name="username" placeholder="example123">
+                    <form class="login-container" method="POST">
+                        <div class="login-statement">Login to Your Account</div>
+                        <div class="label-input-container">
+                            <label class="label-input">Username</label>
+                            <div class="container-input">
+                                <i class='fa-solid fa-user fa-lg' style='color:#5D7C7E; margin-right:15px;'></i>
+                                <input class="input-style" type="text" name="username" placeholder="example123">
+                            </div>
                         </div>
-                    </div>
-                    <div class="label-input-container">
-                        <label for="" class="label-input">Password</label>
-                        <div class="container-input">
-                            <i class='fa-solid fa-lock fa-lg' style='color:#d69883; margin-right:10px;'></i>
-                            <input class="input-style" type="password" name="password" placeholder="**********">
+                        <div class="label-input-container">
+                            <label class="label-input">Password</label>
+                            <div class="container-input">
+                                <i class='fa-solid fa-lock fa-lg' style='color:#5D7C7E; margin-right:15px;'></i>
+                                <input class="input-style" type="password" name="password" placeholder="**********">
+                            </div>
                         </div>
+                        <div><input class="login-button" type="submit" value="Log In"></div>
+                    </form>
+                    <div class="register-link">
+                        Don't have account? <span><a href="index.php?view=register">Register here</a></span> 
                     </div>
-                    <div><input class="login-button" type="submit" value="Log In"></div>
-                </form>
-                <div>
-                    Don't have account? <span><a href="index.php?view=register">Register here</a></span> 
+                </div>
+                <div class="login-box-right">
+                    <img class="login-image" src="asset/main-image.jpg" alt="">
                 </div>
             </div>
         </body>
