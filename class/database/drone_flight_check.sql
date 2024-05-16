@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 03 Bulan Mei 2024 pada 08.25
+-- Waktu pembuatan: 15 Bulan Mei 2024 pada 06.19
 -- Versi server: 10.4.19-MariaDB
 -- Versi PHP: 8.0.7
 
@@ -43,7 +43,10 @@ CREATE TABLE `form` (
 INSERT INTO `form` (`id`, `formName`, `formType`, `updatedBy`, `updatedDate`, `formData`) VALUES
 (1, 'test1', 'assessment', 'juantdefrin', '2002-04-09 00:00:00', '{\"question1\":{\"question\":\"pertanyaan form 1\",\"type\":\"text\",\"option\":[],\"required\":true},\"question2\":{\"question\":\"pertanyaan form 2\",\"type\":\"checklist\",\"option\":[\"checklist1\",\"checklist2\",\"checklist3\"],\"required\":true},\"question3\":{\"question\":\"pertanyaan form 3\",\"type\":\"multiple\",\"option\":[\"multiple1\",\"multiple2\",\"multiple3\"],\"required\":true},\"question4\":{\"question\":\"pertanyaan form 4\",\"type\":\"longtext\",\"option\":[],\"required\":true}}'),
 (2, 'test2', 'pre', 'juantdefrin', '2002-04-09 00:00:00', '{\"question1\":{\"question\":\"pertanyaan form 1\",\"type\":\"text\",\"option\":[],\"required\":true},\"question2\":{\"question\":\"pertanyaan form 2\",\"type\":\"checklist\",\"option\":[\"checklist1\",\"checklist2\",\"checklist3\"],\"required\":true},\"question3\":{\"question\":\"pertanyaan form 3\",\"type\":\"multiple\",\"option\":[\"multiple1\",\"multiple2\",\"multiple3\"],\"required\":true},\"question4\":{\"question\":\"pertanyaan form 4\",\"type\":\"longtext\",\"option\":[],\"required\":true}}'),
-(3, 'test3', 'post', 'juantdefrin', '2002-04-09 00:00:00', '{\"question1\":{\"question\":\"pertanyaan form 1\",\"type\":\"text\",\"option\":[],\"required\":true},\"question2\":{\"question\":\"pertanyaan form 2\",\"type\":\"checklist\",\"option\":[\"checklist1\",\"checklist2\",\"checklist3\"],\"required\":true},\"question3\":{\"question\":\"pertanyaan form 3\",\"type\":\"multiple\",\"option\":[\"multiple1\",\"multiple2\",\"multiple3\"],\"required\":true},\"question4\":{\"question\":\"pertanyaan form 4\",\"type\":\"longtext\",\"option\":[],\"required\":true}}');
+(3, 'test3', 'post', 'juantdefrin', '2002-04-09 00:00:00', '{\"question1\":{\"question\":\"pertanyaan form 1\",\"type\":\"text\",\"option\":[],\"required\":true},\"question2\":{\"question\":\"pertanyaan form 2\",\"type\":\"checklist\",\"option\":[\"checklist1\",\"checklist2\",\"checklist3\"],\"required\":true},\"question3\":{\"question\":\"pertanyaan form 3\",\"type\":\"multiple\",\"option\":[\"multiple1\",\"multiple2\",\"multiple3\"],\"required\":true},\"question4\":{\"question\":\"pertanyaan form 4\",\"type\":\"longtext\",\"option\":[],\"required\":true}}'),
+(27, 'New Form Assessment Example', 'assessment', 'juantdefrin', '2024-05-08 22:43:15', '{\"question1\":{\"question\":\"Multiple Example\",\"type\":\"multiple\",\"option\":[\"multiple1\",\"multiple2\",\"multiple3\"],\"required\":true},\"question2\":{\"question\":\"Checklist Example\",\"type\":\"checklist\",\"option\":[\"checklist1\",\"checklist2\",\"checklist3\"],\"required\":false},\"question3\":{\"question\":\"Dropdown Example\",\"type\":\"dropdown\",\"option\":[\"dropdown1\",\"dropdown2\",\"dropdown3\"],\"required\":true},\"question4\":{\"question\":\"test text\",\"type\":\"text\",\"option\":[],\"required\":true}}'),
+(32, 'New Form Post', 'post', 'juantdefrin', '2024-05-08 19:39:29', '{\"question1\":{\"question\":\"Is mission success?\",\"type\":\"dropdown\",\"option\":[\"Yes\",\"No\"],\"required\":true}}'),
+(34, '', 'assessment', 'juantdefrin', '2024-05-15 11:16:14', '{\"question1\":{\"question\":\"\",\"type\":\"dropdown\",\"option\":[\"Right Engine\",\"test test test\"],\"required\":true}}');
 
 -- --------------------------------------------------------
 
@@ -65,7 +68,8 @@ CREATE TABLE `submission` (
 --
 
 INSERT INTO `submission` (`id`, `submissionName`, `templateId`, `submittedBy`, `submittedDate`, `formData`) VALUES
-(1, 'Submission_1', 1, 'juantdefrin', '2024-04-09 00:00:00', '[{\"type\":\"assessment\",\"answer\":[{\"questionName\":\"question1\",\"answer\":\"answer1\",\"dataChanged\":\"YYYY/MM/DD HH:MM:SS\"},{\"questionName\":\"question2\",\"answer\":\"answer2\",\"dataChanged\":\"YYYY/MM/DD HH:MM:SS\"}]},{\"type\":\"pre\",\"answer\":[{\"flightNum\":1,\"data\":[{\"questionName\":\"question1\",\"answer\":\"pre1 flight 1\",\"dataChanged\":\"YYYY/MM/DD HH:MM:SS\"},{\"questionName\":\"question2\",\"answer\":\"pre2 flight 1\",\"dataChanged\":\"YYYY/MM/DD HH:MM:SS\"}]},{\"flightNum\":2,\"data\":[{\"questionName\":\"question1\",\"answer\":\"pre1 flight 2\",\"dataChanged\":\"YYYY/MM/DD HH:MM:SS\"},{\"questionName\":\"question2\",\"answer\":\"pre2 flight\",\"dataChanged\":\"YYYY/MM/DD HH:MM:SS\"}]}]},{\"type\":\"post\",\"answer\":[{\"flightNum\":1,\"data\":[{\"questionName\":\"question1\",\"answer\":\"post1 flight 1\",\"dataChanged\":\"YYYY/MM/DD HH:MM:SS\"},{\"questionName\":\"question2\",\"answer\":\"post2 flight 1\",\"dataChanged\":\"YYYY/MM/DD HH:MM:SS\"}]},{\"flightNum\":2,\"data\":[{\"questionName\":\"question1\",\"answer\":\"post1 flight 2\",\"dataChanged\":\"YYYY/MM/DD HH:MM:SS\"},{\"questionName\":\"question2\",\"answer\":\"post2 flight\",\"dataChanged\":\"YYYY/MM/DD HH:MM:SS\"}]}]}]');
+(1, 'Keliling Binus', 1, 'juantdefrin', '2024-04-09 00:00:00', '[{\"type\":\"assessment\",\"answer\":[{\"questionName\":\"apa cuaca hari ini?\",\"answer\":\"cerah\",\"dataChanged\":\"2024/05/13 11:02:02\"},{\"questionName\":\"apakah antena sudah terpasang dengan baik?\",\"answer\":\"iya\",\"dataChanged\":\"2024/05/13 11:02:02\"}]},{\"type\":\"pre\",\"answer\":[{\"flightNum\":1,\"data\":[{\"questionName\":\"apakah kamera sudah dibersihkan?\",\"answer\":\"belum\",\"dataChanged\":\"2024/05/13 11:02:02\"},{\"questionName\":\"apakah kamera sudah di setting?\",\"answer\":\"belum\",\"dataChanged\":\"2024/05/13 11:02:02\"}]},{\"flightNum\":2,\"data\":[{\"questionName\":\"apakah kamera sudah dibersihkan?\",\"answer\":\"sudah\",\"dataChanged\":\"2024/05/13 11:02:02\"},{\"questionName\":\"apakah kamera sudah di setting?\",\"answer\":\"sudah\",\"dataChanged\":\"2024/05/13 11:02:02\"}]}]},{\"type\":\"post\",\"answer\":[{\"flightNum\":1,\"data\":[{\"questionName\":\"waktu landing\",\"answer\":\"12.00\",\"dataChanged\":\"2024/05/13 11:02:02\"},{\"questionName\":\"baterai pada drone\",\"answer\":\"49%\",\"dataChanged\":\"2024/05/13 11:02:02\"}]},{\"flightNum\":2,\"data\":[{\"questionName\":\"waktu landing\",\"answer\":\"14.00\",\"dataChanged\":\"2024/05/13 11:02:02\"},{\"questionName\":\"baterai pada drone\",\"answer\":\"22%\",\"dataChanged\":\"2024/05/13 11:02:02\"}]}]}]'),
+(2, 'Keliling Jakarta', 1, 'juantdefrin', '0000-00-00 00:00:00', '[{\"type\":\"assessment\",\"answer\":[{\"questionName\":\"apa cuaca hari ini?\",\"answer\":\"cerah\",\"dataChanged\":\"2024/05/13 11:02:02\"},{\"questionName\":\"apakah antena sudah terpasang dengan baik?\",\"answer\":\"iya\",\"dataChanged\":\"2024/05/13 11:02:02\"}]},{\"type\":\"pre\",\"answer\":[{\"flightNum\":1,\"data\":[{\"questionName\":\"apakah kamera sudah dibersihkan?\",\"answer\":\"belum\",\"dataChanged\":\"2024/05/13 11:02:02\"},{\"questionName\":\"apakah kamera sudah di setting?\",\"answer\":\"belum\",\"dataChanged\":\"2024/05/13 11:02:02\"}]},{\"flightNum\":2,\"data\":[{\"questionName\":\"apakah kamera sudah dibersihkan?\",\"answer\":\"sudah\",\"dataChanged\":\"2024/05/13 11:02:02\"},{\"questionName\":\"apakah kamera sudah di setting?\",\"answer\":\"sudah\",\"dataChanged\":\"2024/05/13 11:02:02\"}]}]},{\"type\":\"post\",\"answer\":[{\"flightNum\":1,\"data\":[{\"questionName\":\"waktu landing\",\"answer\":\"12.00\",\"dataChanged\":\"2024/05/13 11:02:02\"},{\"questionName\":\"baterai pada drone\",\"answer\":\"49%\",\"dataChanged\":\"2024/05/13 11:02:02\"}]},{\"flightNum\":2,\"data\":[{\"questionName\":\"waktu landing\",\"answer\":\"14.00\",\"dataChanged\":\"2024/05/13 11:02:02\"},{\"questionName\":\"baterai pada drone\",\"answer\":\"22%\",\"dataChanged\":\"2024/05/13 11:02:02\"}]}]}]');
 
 -- --------------------------------------------------------
 
@@ -76,7 +80,7 @@ INSERT INTO `submission` (`id`, `submissionName`, `templateId`, `submittedBy`, `
 CREATE TABLE `template` (
   `id` int(11) NOT NULL,
   `templateName` varchar(255) NOT NULL,
-  `assessnentId` int(11) NOT NULL,
+  `assessmentId` int(11) NOT NULL,
   `preId` int(11) NOT NULL,
   `postId` int(11) NOT NULL,
   `updatedBy` varchar(255) NOT NULL,
@@ -87,8 +91,9 @@ CREATE TABLE `template` (
 -- Dumping data untuk tabel `template`
 --
 
-INSERT INTO `template` (`id`, `templateName`, `assessnentId`, `preId`, `postId`, `updatedBy`, `updatedDate`) VALUES
-(1, 'template_test_1', 1, 2, 3, 'juantdefrin', '2024-04-25 14:23:42');
+INSERT INTO `template` (`id`, `templateName`, `assessmentId`, `preId`, `postId`, `updatedBy`, `updatedDate`) VALUES
+(1, 'template_test_1', 1, 2, 3, 'juantdefrin', '2024-04-25 14:23:42'),
+(2, 'tes template 2', 1, 2, 32, 'juantdefrin', '2024-05-10 23:39:28');
 
 -- --------------------------------------------------------
 
@@ -145,19 +150,19 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT untuk tabel `form`
 --
 ALTER TABLE `form`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
 
 --
 -- AUTO_INCREMENT untuk tabel `submission`
 --
 ALTER TABLE `submission`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT untuk tabel `template`
 --
 ALTER TABLE `template`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
