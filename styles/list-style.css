@@ -42,9 +42,10 @@ body {
 .active-menu {
     background-color: #d4e9ea;
     width: 96%;
+    box-shadow: 3px 3px 10px rgb(179, 178, 178);
 }
 
-.form-container {
+.form-container, .template-container {
     width: 85%;
     margin: 75px;
 }
@@ -54,7 +55,7 @@ body {
     flex-direction: row;
 }
 
-.form-title {
+.form-title, .template-title {
     font-size: 40px;
     font-weight: bold;
     color: #5D7C7E;
@@ -69,7 +70,7 @@ body {
     align-items: center;
 }
 
-.create-button {
+.create-form-button {
     background-color: #5D7C7E;
     color: #d4e9ea;
     width: 200px;
@@ -82,18 +83,30 @@ body {
     font-weight: bold;
 }
 
-.create-button:hover {
+.create-template-button {
+    background-color: #5D7C7E;
+    color: #d4e9ea;
+    width: 225px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.create-form-button:hover, .create-template-button:hover {
     background-color: #5d7c7e9c;
     text-decoration: none;
     font-weight: bold;
 }
 
-.create-button a {
+.create-form-button a, .create-template-button a {
     color: #d4e9ea;
     text-decoration: none;
     font-weight: bold;
 }
-
 
 a,a:link,a:visited,a:hover,a:active {
     text-decoration: none;
@@ -126,12 +139,17 @@ a,a:link,a:visited,a:hover,a:active {
     font-size: 16px;
 }
 
+#search:hover {
+    background-color: #5d7c7e9c;
+    border: none;
+}
+
 #table-header {
     margin-top: 30px;
 }
 
 .table-container {
-    height: 550px;
+    height: 560px;
     overflow-y: scroll;
 }
 

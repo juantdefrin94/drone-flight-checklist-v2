@@ -10,7 +10,7 @@ class FormsUI{
         <head>
             <meta charset="UTF-8">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <link rel="stylesheet" href="styles/form-style.css">
+            <link rel="stylesheet" href="styles/list-style.css">
             <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
             <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
             <script src="script/forms.js"></script>
@@ -47,7 +47,7 @@ class FormsUI{
                 <div class="top-bar">
                     <div class="form-title">Form List</div>
         HTML;
-        $this->view .= "<div class='button-container'><a href='index.php?view=viewForms&user=$user&id=0'><div class='create-button'><i class='fa-solid fa-plus fa-lg' style='color:#d4e9ea;margin-right:15px'></i>Create New Form</div></a></div></div>";
+        $this->view .= "<div class='button-container'><a href='index.php?view=viewForms&user=$user&id=0'><div class='create-form-button'><i class='fa-solid fa-plus fa-lg' style='color:#d4e9ea;margin-right:15px'></i>Create New Form</div></a></div></div>";
         $this->view .= <<<HTML
             <div style="display: flex">
                 <form method="POST" name="search-form" class="search-container">

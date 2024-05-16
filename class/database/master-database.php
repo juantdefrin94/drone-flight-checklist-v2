@@ -68,11 +68,11 @@ class MasterDatabase {
             $no = 1;
             while($row = mysqli_fetch_assoc($result)) {
                 $num = $no % 2 == 0 ? 'even' : 'odd';
-                $resString .= "<tr class='table-data ". $num . "' id='data-" . $row['id'] . "'><td style='text-align:center;'>" . $no . "</td>" . "<td>" . $row["formName"] . "</td>" . "<td style='text-align:center;'>" . $row["formType"] . "</td>" . "<td style='text-align:center;'>" . $row["updatedBy"] . "</td>" . "<td style='text-align:center;'>" . $row["updatedDate"] . "</td>" . "<td style='text-align:center;'><a href='index.php?view=viewForms&user=". $user . "&id=". $row['id'] . "'><i id='edit-".$row['id'] . "' class='fa-solid fa-pen-to-square action-icon'></i></a><i id='delete-".$row['id'] . "' class='fa-solid fa-trash action-icon delete-data'></i></td>" . "</tr>";
+                $resString .= "<tr class='table-data ". $num . "' id='data-" . $row['id'] . "'><td>" . $no . "</td>" . "<td>" . $row["formName"] . "</td>" . "<td>" . $row["formType"] . "</td>" . "<td>" . $row["updatedBy"] . "</td>" . "<td>" . $row["updatedDate"] . "</td>" . "<td><a href='index.php?view=viewForms&user=". $user . "&id=". $row['id'] . "'><i id='edit-".$row['id'] . "' class='fa-solid fa-pen-to-square action-icon'></i></a><i id='delete-".$row['id'] . "' class='fa-solid fa-trash action-icon delete-data'></i></td>" . "</tr>";
                 $no = $no + 1;
             }
         } else {
-            return '<tr class="table-data"><td colspan="5">No Data Available</td></tr>';
+            return '<tr class="table-data"><td colspan="6">No Data Available</td></tr>';
         }
 
         return $resString;
@@ -141,7 +141,7 @@ class MasterDatabase {
                 $no = $no + 1;
             }
         } else {
-            return '<tr class="table-data"><td colspan="4">No Data Available</td></tr>';
+            return '<tr class="table-data"><td colspan="5">No Data Available</td></tr>';
         }
         return $resString;
     }
