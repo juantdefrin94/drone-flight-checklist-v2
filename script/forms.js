@@ -1,7 +1,14 @@
 $(document).ready(function () {
 
     function init(){
+        handleUI();
         handleDelete();
+    }
+
+    function handleUI(){
+        let $sideBar = $('#sidebar-menu');
+        let winHeight = window.screen.height;
+        $sideBar.height(winHeight);
     }
 
     function handleDelete(){
