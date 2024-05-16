@@ -57,12 +57,12 @@ class FormsUI{
             </div>
             <table id="table-header">
                 <tr>
-                    <th>No</th>
-                    <th>Name</th>
-                    <th>Type</th>
-                    <th>Updated By</th>
-                    <th>Updated Date</th>
-                    <th>Action</th>
+                    <th class="col-1">No</th>
+                    <th class="col-2" style="text-align: center;">Name</th>
+                    <th class="col-3">Type</th>
+                    <th class="col-4">Updated By</th>
+                    <th class="col-5">Updated Date</th>
+                    <th class="col-6">Action</th>
                 </tr>
             </table>
             <div class="table-container">
