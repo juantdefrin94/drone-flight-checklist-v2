@@ -55,15 +55,19 @@ class FormsUI{
                     <button id="search" type="submit"><i class='fa-solid fa-magnifying-glass fa-sm' style='color:#d4e9ea;margin-right:15px;'></i>Search</button>
                 </form>
             </div>
+            <table id="table-header">
+                <tr>
+                    <th>No</th>
+                    <th>Name</th>
+                    <th>Type</th>
+                    <th>Updated By</th>
+                    <th>Updated Date</th>
+                    <th>Action</th>
+                </tr>
+            </table>
+            <div class="table-container">
                 <table>
-                    <tr>
-                        <th>No</th>
-                        <th>Name</th>
-                        <th>Type</th>
-                        <th>Updated By</th>
-                        <th>Updated Date</th>
-                        <th>Action</th>
-                    </tr>
+                    
         HTML;
                 
         $this->getAllData();
@@ -80,7 +84,8 @@ class FormsUI{
 
     public function getView(){
         $this->view .= <<<HTML
-                    </table>
+                        </table>
+                    </div>
                 </div>
             </div>
         </body>
