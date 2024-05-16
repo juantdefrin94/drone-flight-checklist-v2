@@ -151,11 +151,9 @@ a,a:link,a:visited,a:hover,a:active {
 .table-container {
     max-height: 560px;
     overflow-y: scroll;
+    scrollbar-width: thin;
 }
 
-.table-container::-webkit-scrollbar{
-    width: 2.5px;
-}
 
 table {
     width: 100%;
