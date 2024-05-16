@@ -226,7 +226,7 @@ class MasterDatabase {
             $no = 1;
             while($row = mysqli_fetch_assoc($result)) {
                 $num = $no % 2 == 0 ? 'even' : 'odd';
-                $resString .= "<tr class='table-data ". $num . "' id='data-" . $row['id'] . "'> '<td>" . $no . "</td>" . "<td>" . $row["submissionName"] . "</td>" . "<td>" . $row["submittedBy"] . "</td>" . "<td>" . $row["submittedDate"] . "</td></tr>";
+                $resString .= "<tr class='table-data ". $num . "' id='data-" . $row['id'] . "'> <td class='col-1'>" . $no . "</td>" . "<td class='col-2'>" . $row["submissionName"] . "</td>" . "<td class='col-4'>" . $row["submittedBy"] . "</td>" . "<td class='col-5'>" . $row["submittedDate"] . "</td></tr>";
                 $no = $no + 1;
             }
         } else {

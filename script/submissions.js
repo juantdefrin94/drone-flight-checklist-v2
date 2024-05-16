@@ -1,6 +1,7 @@
 $(document).ready(function () {
 
     function init(){
+        handleUI();
         addEventRow();
     }
 
@@ -15,6 +16,12 @@ $(document).ready(function () {
                 window.location.href = `index.php?view=viewSubmissions&user=${user}&id=${id}`;
             })
         }
+    }
+
+    function handleUI(){
+        let $sideBar = $('#sidebar-menu');
+        let winHeight = window.screen.height;
+        $sideBar.height(winHeight);
     }
 
     init();
