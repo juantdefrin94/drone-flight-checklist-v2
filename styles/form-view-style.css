@@ -91,6 +91,8 @@
     font-size: 16px;
 }
 
+/* FOR NEW FIELD */
+
 .container-field {
     display: flex;
     flex-direction: row;
@@ -101,13 +103,14 @@
     width: 85%;
     height: auto;
     box-shadow: 3px 3px 10px rgb(196, 196, 196);
-    padding: 10px 20px 20px 20px;
+    padding: 20px 20px 20px 20px;
     border-radius: 7px 0 0 7px;
 }
 
-.statement-answer {
+
+.statement-type {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
 }
 
 .statement {
@@ -115,56 +118,41 @@
     margin-bottom: 30px;
 }
 
-.title-field-input-text {
+.statement-title {
+    color: #5D7C7E;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.statement-input {
     border: none;
     border-bottom: solid 2px #5D7C7E;
     border-radius: 3px;
     height: 35px;
     width: 80%;
-    padding: 5px 10px;
+    padding: 5px 5px;
     font-size: 16px;
 }
 
-.required-answer {
-    display: flex;
-    flex-direction: row;
-    margin-bottom: 20px;
-}
-
-.required, .answer {
+.type-answer {
     display: flex;
     flex-direction: column;
     width: 50%;
 }
 
-.required-title, .answer-title {
+/* answer example */
+
+.answer-title {
     color: #5D7C7E;
     font-size: 18px;
     font-weight: bold;
-    margin-bottom: 15px;
-}
-
-.required-option {
-    display: flex;
-    flex-direction: row;
-    height: 40px;
-    align-items: center;
-}
-
-.radio-label {
-    margin-left: 5px;
-    color: #5D7C7E;
-    font-size: 16px;
-}
-
-.answer {
-    margin: 20px 0;
+    margin-bottom: 10px;
 }
 
 .answer-option select {
     color: #5D7C7E;
-    height: 40px;
-    width: 50%;
+    height: 38px;
+    width: 80%;
     border: solid 2px #5D7C7E;
     border-radius: 5px;
     padding-left: 15px;
@@ -177,19 +165,25 @@
 }
 
 .answer-input {
-    /* margin-bottom: 35px; */
+    margin-bottom: 20px;
     width: 100%;
 }
 
 .answer-input-text {
     display: flex;
     align-items: center;
-    width: 38%;
+    width: 40%;
     height: 35px;
     padding: 0 15px;
     border: solid 2px #5D7C7E;
     border-radius: 5px;
 }
+
+.answer-input-text:hover {
+    cursor: not-allowed;
+}
+
+/* delete field */
 
 .delete-button {
     background-color: rgba(255, 0, 0, 0.781);
@@ -201,7 +195,7 @@
     box-shadow: 3px 3px 10px rgb(196, 196, 196);
 }
 
-.delete-button:hover{
+.delete-button:hover {
     cursor: pointer;
 }
 
@@ -218,7 +212,70 @@
     cursor: pointer;
 }
 
-#add-new-field, .button-save {
+/* toggle css */
+
+.toggle {
+    cursor: pointer;
+    display: inline-block;
+    margin-top: 10px;
+}
+
+.toggle-label {
+    color: #5D7C7E;
+    font-size: 18px;
+    font-weight: bold;
+    margin-right: 10px;
+}
+
+.toggle-switch {
+    display: inline-block;
+    background: #ccc;
+    border-radius: 16px;
+    width: 58px;
+    height: 32px;
+    position: relative;
+    vertical-align: middle;
+    transition: background 0.25s;
+}
+
+.toggle-switch:before,
+.toggle-switch:after {
+    content: "";
+}
+
+.toggle-switch:before {
+    display: block;
+    background: linear-gradient(to bottom, #fff 0%, #eee 100%);
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    position: absolute;
+    top: 4px;
+    left: 4px;
+    transition: left 0.25s;
+}
+
+.toggle:hover .toggle-switch:before {
+    background: linear-gradient(to bottom, #fff 0%, #fff 100%);
+}
+
+.toggle-checkbox:checked+.toggle-switch {
+    background: #56c080;
+}
+
+.toggle-checkbox:checked+.toggle-switch:before {
+    left: 30px;
+}
+
+.toggle-checkbox {
+    position: absolute;
+    visibility: hidden;
+}
+
+/* button new field and save */
+
+#add-new-field,
+.button-save {
     background-color: #5D7C7E;
     color: #d4e9ea;
     width: 180px;
@@ -237,7 +294,8 @@
     margin-top: 35px;
 }
 
-#add-new-field:hover, .button-save:hover {
+#add-new-field:hover,
+.button-save:hover {
     background-color: #5d7c7eb7;
     cursor: pointer;
 }
@@ -247,4 +305,3 @@
     justify-content: center;
     margin-top: 30px;
 }
-
