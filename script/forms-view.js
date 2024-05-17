@@ -6,6 +6,8 @@ $(document).ready(function () {
         handleNewField();
         handleSetJson();
         loadData();
+        handleUI();
+        $('#add-new-field').click();
     }
 
     function loadData(){
@@ -106,40 +108,49 @@ $(document).ready(function () {
     function generateStringField(question, data) {
         if ($.isEmptyObject(data)) {
             return `
-                <div class="field-box" id="question-${question}">
-                    <div class="top-field">
-                        <div class="header-field">
-                            Statement
-                            <input type="text" class="title-field-input-text" id="statement-${question}">
+                <div class="container-field">
+                    <div class="field-box" id="question-${question}">
+                            <div class="left-field">
+                                <div class="statement">
+                                    <input type="text" class="title-field-input-text" id="statement-${question}" placeholder="Please input your question or statement here">
+                                </div>
+                                
+                                <div id="required-${question}" style="display: flex;" class="required">
+                                    <div class="required-title">Required</div>
+                                    <div class="required-option">
+                                        <input type="radio" id="yes-${question}" name="req-${question}" value="Yes" checked>
+                                        <label class="radio-label" for="req-${question}">Yes</label>
+                                        <input type="radio" id="no-${question}" name="req-${question}" value="No" style="margin-left:15px;">
+                                        <label class="radio-label" for="req-${question}">No</label>
+                                    </div>
+                                </div>
+                                <div class="answer">
+                                    <div class="answer-title">Type of Answer</div>
+                                    <div class="answer-option">
+                                        <select id="type-${question}" class="title-field-input-dropdown">
+                                            <option value="text" selected>Text</option>
+                                            <option value="multiple">Multiple Choice</option>
+                                            <option value="checklist">Checklist</option>
+                                            <option value="longtext">Long Text</option>
+                                            <option value="date">Date</option>
+                                            <option value="time">Time</option>
+                                            <option value="datetime">Date Time</option>
+                                            <option value="dropdown">Dropdown</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            
+
+                                <div id="answer-${question}" class="text-field bot-field answer-input">
+                                    <input type="text" class="answer-input-text" placeholder="The answer will be here . . ." disabled />
+                                </div>
+                            </div>
                         </div>
-                        <div id="required-${question}" style="display: flex;">
-                            Required : 
-                            <input type="radio" id="yes-${question}" name="req-${question}" value="Yes" checked>
-                            <label for="req-${question}">Yes</label><br>
-                            <input type="radio" id="no-${question}" name="req-${question}" value="No">
-                            <label for="req-${question}">No</label><br>
-                        </div>
-                        <div class="header-field">
-                            Type of Answer
-                            <select id="type-${question}" class="title-field-input-dropdown">
-                                <option value="text" selected>Text</option>
-                                <option value="multiple">Multiple Choice</option>
-                                <option value="checklist">Checklist</option>
-                                <option value="longtext">Long Text</option>
-                                <option value="date">Date</option>
-                                <option value="time">Time</option>
-                                <option value="datetime">Date Time</option>
-                                <option value="dropdown">Dropdown</option>
-                            </select>
-                        </div>
-                        <div class="delete-margin">
-                            <button class="delete-field" id="delete-${question}"><i class='fa-regular fa-circle-xmark fa-2x' style='color:#ffffff'></i></button>
+                        <div class="delete-button">
+                            <button class="delete-field" id="delete-${question}"><i class='fa-regular fa-circle-xmark fa-3x' style='color:#ffffff'></i></button>
                         </div>
                     </div>
-                    <div id="answer-${question}" class="text-field bot-field">
-                        <input type="text" class="answer-input-text" placeholder="The answer will be here . . ." disabled />
-                    </div>
-                </div>
+                
             `
         } else {
             let html = `
@@ -393,6 +404,14 @@ $(document).ready(function () {
                 }
             });
         }
+    }
+
+    function handleUI(){
+        let $container = $('#container');
+        let topBarHeight = $('#top-bar').height();
+        let winHeight = window.screen.height;
+        let height = winHeight - topBarHeight;
+        $container.height(height);
     }
 
     init();
