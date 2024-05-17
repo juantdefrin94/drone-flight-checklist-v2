@@ -10,7 +10,7 @@ class FormsViewUI{
             <head>
                 <meta charset="UTF-8">
                 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                <link rel="stylesheet" href="styles/login-style.css">
+                <link rel="stylesheet" href="styles/form-view-style.css">
                 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
                 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
                 <script src="script/forms-view.js"></script>
@@ -18,65 +18,51 @@ class FormsViewUI{
             </head>
             <body>
                 <div>
-                    <nav>
+                    <nav class="top-bar" id="top-bar">
     HTML;
 
     public function __construct($db, $id){
         $this->db = $db;
         $user = $_GET['user'];
-        $this->view .= "<a href='index.php?view=forms&user=$user&query'><i class='fa-solid fa-arrow-left-long fa-lg' style='color:#bb9d93; margin-right:30px;'></i></a>";
+        $formId = $_GET['id'];
+        $isCreate = $formId == 0 ? "Create New" : "Edit";
+        $this->view .= "<div class='back-button'><a href='index.php?view=forms&user=$user&query'><i class='fa-solid fa-arrow-left-long fa-2x' style='color:#d4e9ea; margin-right:30px;'></i></a></div>";
+        $this->view .= "<div class='header-title'><h1>$isCreate Form</h1></div>";
         $this->view .= <<<HTML
-                <h1></h1>
                         </nav>
-                        <div>
-                            <form method="POST">
-                                <h3>Form Name</h3>
-                                <input type="text" name="form-name" id="form-name">
-                                <div>
-                                    <select id="form-type-dropdown">
-                                        <option value="assessment">Assessment</option>
-                                        <option value="pre">Pre-Flight</option>
-                                        <option value="post">Post-Flight</option>
-                                    </select>
-                                    <input type="text" name="form-type" id="form-type" style="display: none">
-                                </div>
-                                <div id="container-field">
-                                    <!-- <div class="field-box">
-                                        <div class="header-field">
-                                            Statement
-                                            <input type="text" class="title-field-input-text">
-                                        </div>
-                                        <div class="header-field">
-                                            Type of Answer
-                                                <option value="text" selected>Text</option>
-                                                <option value="multiple">Multiple Choice</option>
-                                                <option value="checklist">Checklist</option>
-                                                <option value="longtext">Long Text</option>
-                                            </select>
-                                        </div>
-                                        <div class="delete-margin">
-                                            <button class="delete-field"><i class='fa-regular fa-circle-xmark fa-2x' style='color:#ffffff'></i></button>
-                                        </div>
-                                    </div> -->
-                                </div>
-                                <div class="button-new-field" style="text-align: center; margin-top: 20px">
-                                    <button id="add-new-field">
-                                        <b>
-                                            <div class="button-container">
-                                                <span class="plus-icon"><i class='fa-solid fa-plus fa-lg' style='color:#ffffff; margin-right: 15px'></i></span>Add New Field
-                                            </div>
-                                        </b>
-                                    </button>
-                                </div>
+                        <div id="container">
+                            <div class="content-box">
+                                <form method="POST">
+                                    <div class="title-label">
+                                        <div class="header-input">Form Name</div>
+                                        <div class="header-input">Form Type</div>
+                                        
+                                    </div>
 
-                                <!-- <button>Pre-Flight and Post-Flight Form</button> -->
-                                <!-- <div class="right-button">
-                                    <input type="submit" value="Save" />
-                                    <input type="submit" value="Complete">
-                                </div> -->
+                                    <div class="input-label">
+                                        <div class="content-input">
+                                            <input type="text" name="form-name" id="form-name">
+                                        </div>
+                                        <div class="content-input">
+                                            <select id="form-type-dropdown">
+                                                <option value="assessment">Assessment</option>
+                                                <option value="pre">Pre-Flight</option>
+                                                <option value="post">Post-Flight</option>
+                                            </select>
+                                            <input type="text" name="form-type" id="form-type" style="display: none">
+                                        </div>
+                                    </div>
+                                    
+                                    <div id="container-field">
+                                    <!-- for show the data -->
+                                    </div>
+                                   
+                                    <button id="add-new-field">
+                                        <i class='fa-solid fa-plus fa-lg' style='color:#d4e9ea;margin-right:15px'></i>Add New Field
+                                    </button>
+                            
         HTML;
         $json = "";
-        $formId = $_GET['id'];
         if($formId != 0){
             //edit form
             $json = $this->db->fetchDetailForm($formId);
@@ -84,11 +70,13 @@ class FormsViewUI{
         $this->view .= "<input type='text' id='json' name='json' value='$json' style='display: none'>";
         $this->view .= "<input type='text' id='form-id' name='form-id' value='$formId' style='display: none'>";
         $this->view .= <<<HTML
-                                <div id="save-container">
+                                   
                                     <button id="save" type="submit" style="display: none">Save Form</button>
+                                </form>
+                                <div id="save-container">
+                                    <button id="save-button" class="button-save">Save Form</button>
                                 </div>
-                            </form>
-                            <button id="save-button" class="button-save">Save Form</button>
+                            </div>
                         </div>
                     </div>  
                 </body>

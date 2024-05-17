@@ -1,0 +1,246 @@
+* {
+    margin: 0;
+    padding: 0;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
+.top-bar {
+    height: 100px;
+    width: 100%;
+    background-color: #5D7C7E;
+    color: #d4e9ea;
+    box-shadow: 5px 5px 10px rgb(196, 196, 196);
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.back-button {
+    position: absolute;
+    margin-left: 50px;
+}
+
+.header-title {
+    width: 100%;
+    text-align: center;
+    font-size: 18px;
+}
+
+#container {
+    background-color: #d4e9ea;
+    display: flex;
+    justify-content: center;
+}
+
+.content-box {
+    background-color: #FFFFFF;
+    width: 50%;
+    height: auto;
+    margin-top: 4%;
+    box-shadow: 5px 5px 10px rgb(196, 196, 196);
+    padding: 4%;
+}
+
+.title-label {
+    display: flex;
+    flex-direction: row;
+}
+
+.input-label {
+    display: flex;
+    flex-direction: row;
+}
+
+.header-input {
+    color: #5D7C7E;
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    margin-right: 5%;
+    width: 45%;
+}
+
+.content-input {
+    width: 45%;
+    margin-right: 5%;
+}
+
+#form-name {
+    border: solid 2px #5D7C7E;
+    height: 40px;
+    width: 95%;
+    margin-bottom: 40px;
+    border-radius: 5px;
+    box-shadow: 3px 3px 10px rgb(196, 196, 196);
+    padding: 0 15px;
+}
+
+#form-type-dropdown {
+    color: #5D7C7E;
+    height: 45px;
+    width: 100%;
+    border: solid 2px #5D7C7E;
+    border-radius: 5px;
+    box-shadow: 3px 3px 10px rgb(196, 196, 196);
+    padding-left: 15px;
+    appearance: none;
+    background-image: url("../asset/arrow-down.svg");
+    background-size: 20px;
+    background-repeat: no-repeat;
+    background-position: calc(100% - 15px) center;
+    font-size: 16px;
+}
+
+.container-field {
+    display: flex;
+    flex-direction: row;
+    height: auto;
+}
+
+.field-box {
+    width: 85%;
+    height: auto;
+    box-shadow: 3px 3px 10px rgb(196, 196, 196);
+    padding: 10px 20px 20px 20px;
+    border-radius: 7px 0 0 7px;
+}
+
+.statement-answer {
+    display: flex;
+    flex-direction: column;
+}
+
+.statement {
+    width: 60%;
+    margin-bottom: 30px;
+}
+
+.title-field-input-text {
+    border: none;
+    border-bottom: solid 2px #5D7C7E;
+    border-radius: 3px;
+    height: 35px;
+    width: 80%;
+    padding: 5px 10px;
+    font-size: 16px;
+}
+
+.required-answer {
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 20px;
+}
+
+.required, .answer {
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+}
+
+.required-title, .answer-title {
+    color: #5D7C7E;
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+.required-option {
+    display: flex;
+    flex-direction: row;
+    height: 40px;
+    align-items: center;
+}
+
+.radio-label {
+    margin-left: 5px;
+    color: #5D7C7E;
+    font-size: 16px;
+}
+
+.answer {
+    margin: 20px 0;
+}
+
+.answer-option select {
+    color: #5D7C7E;
+    height: 40px;
+    width: 50%;
+    border: solid 2px #5D7C7E;
+    border-radius: 5px;
+    padding-left: 15px;
+    appearance: none;
+    background-image: url("../asset/arrow-down.svg");
+    background-size: 20px;
+    background-repeat: no-repeat;
+    background-position: calc(100% - 15px) center;
+    font-size: 16px;
+}
+
+.answer-input {
+    /* margin-bottom: 35px; */
+    width: 100%;
+}
+
+.answer-input-text {
+    display: flex;
+    align-items: center;
+    width: 38%;
+    height: 35px;
+    padding: 0 15px;
+    border: solid 2px #5D7C7E;
+    border-radius: 5px;
+}
+
+.delete-button {
+    background-color: rgba(255, 0, 0, 0.781);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 0 7px 7px 0;
+    width: 6%;
+    box-shadow: 3px 3px 10px rgb(196, 196, 196);
+}
+
+.delete-field {
+    background-color: #ff0000;
+    border: solid 1px #ff0000;
+    border-radius: 100px;
+}
+
+.delete-field:hover {
+    background-color: #ff00007c;
+    border: solid 1px #ff00007c;
+    border-radius: 100px;
+    cursor: pointer;
+}
+
+#add-new-field, .button-save {
+    background-color: #5D7C7E;
+    color: #d4e9ea;
+    width: 180px;
+    height: 45px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 16px;
+    border: none;
+}
+
+#add-new-field {
+    margin-top: 35px;
+}
+
+#add-new-field:hover, .button-save:hover {
+    background-color: #5d7c7eb7;
+    cursor: pointer;
+}
+
+#save-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 30px;
+}
+
