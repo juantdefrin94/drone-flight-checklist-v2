@@ -1,0 +1,29 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+.group{
+    display: flex;
+    flex-direction: column;
+}
+
+.group:hover{
+    cursor: pointer;
+}
+
+.group-title{
+    width: 100%;
+    text-align: center;
+    background-color: #5d7c7e;
+}
+
+.drop-symbol{
+    position: absolute;
+    right: 0;
+    margin-right: 10px;
+}
+
+.group-open{
+    transform: rotate(180deg);
+}
