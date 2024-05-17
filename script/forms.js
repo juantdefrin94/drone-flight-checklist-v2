@@ -3,6 +3,7 @@ $(document).ready(function () {
     function init(){
         handleUI();
         handleDelete();
+        handleRowAction();
     }
 
     function handleUI(){
@@ -20,6 +21,20 @@ $(document).ready(function () {
                 $('#form-id').val(id);
                 $('#modal').css("display", "block");
             })
+        }
+    }
+
+    function handleRowAction(){
+        let $tableData = $('.table-data');
+        let length = $tableData.length;
+        let user = $('#user')[0].value;
+        for(let i = 0; i < length; i++){
+            let rowId = $tableData[i].id;
+            let $rowEl = $('#' + rowId);
+            let id = rowId.split('-')[1];
+            $rowEl.on('click', function (){
+                window.location.href = `index.php?view=viewForms&user=${user}&id=${id}`;
+            });
         }
     }
 

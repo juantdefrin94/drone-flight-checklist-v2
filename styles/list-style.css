@@ -204,9 +204,17 @@ tr {
     color: #5D7C7E;
 }
 
+.odd:hover{
+    background-color: #e3f2f3c2;
+}
+
 .even {
     background-color: #d4e9ea;
     color: #5D7C7E;
+}
+
+.even:hover{
+    background-color: #d4e9ead1;
 }
 
 .odd a{
@@ -219,6 +227,6 @@ tr {
     margin-right: 20px;
 }
 
-.delete-data:hover{
+.delete-data:hover, .table-data:hover{
     cursor: pointer;
 }
