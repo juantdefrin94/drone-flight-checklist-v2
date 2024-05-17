@@ -219,3 +219,6 @@ tr {
     margin-right: 20px;
 }
 
+.delete-data:hover{
+    cursor: pointer;
+}
