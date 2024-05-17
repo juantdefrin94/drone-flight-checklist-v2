@@ -201,6 +201,10 @@
     box-shadow: 3px 3px 10px rgb(196, 196, 196);
 }
 
+.delete-button:hover{
+    cursor: pointer;
+}
+
 .delete-field {
     background-color: #ff0000;
     border: solid 1px #ff0000;

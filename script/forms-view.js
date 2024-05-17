@@ -146,8 +146,8 @@ $(document).ready(function () {
                                 </div>
                             </div>
                         </div>
-                        <div class="delete-button">
-                            <button class="delete-field" id="delete-${question}"><i class='fa-regular fa-circle-xmark fa-3x' style='color:#ffffff'></i></button>
+                        <div class="delete-button" id="delete-${question}">
+                            <button class="delete-field"><i class='fa-regular fa-circle-xmark fa-3x' style='color:#ffffff'></i></button>
                         </div>
                     </div>
                 
@@ -180,8 +180,8 @@ $(document).ready(function () {
                                 <option value="dropdown" ${data.type === "dropdown" ? "selected" : ""}>Dropdown</option>
                             </select>
                         </div>
-                        <div class="delete-margin">
-                            <button class="delete-field" id="delete-${question}"><i class='fa-regular fa-circle-xmark fa-2x' style='color:#ffffff'></i></button>
+                        <div class="delete-margin" id="delete-${question}>
+                            <button class="delete-field"><i class='fa-regular fa-circle-xmark fa-2x' style='color:#ffffff'></i></button>
                         </div>
                     </div>
             `;
@@ -367,6 +367,7 @@ $(document).ready(function () {
             $delete.on('click', function (e) {
                 e.preventDefault();
                 getElement(questionId).remove();
+                getElement(deleteId).remove();
             })
         }
     }
