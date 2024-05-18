@@ -59,13 +59,7 @@ $(document).ready(function () {
                         option.push(container[i].value);
                     }
                 }
-                let required = $("#required-" + id + " input");
-                for(let i = 0; i < 2; i++){
-                    if(required[i].checked){
-                        required = required[i].value;
-                    }
-                }
-                let isRequired = required === "Yes" ? true : false;
+                let isRequired = $("#required-" + id);     
 
                 jsonTemp[questionId] = {
                     "question": statement,
@@ -108,7 +102,7 @@ $(document).ready(function () {
     function generateStringField(question, data) {
         if ($.isEmptyObject(data)) {
             return `
-                <div class="container-field">
+                <div class="container-field" id="container-field-${question}">
                     <div class="field-box" id="question-${question}">
                             <div class="top-field">
                                 <div class="statement-type">
@@ -142,11 +136,10 @@ $(document).ready(function () {
 
                                 <label class="toggle">
                                     <span class="toggle-label">Required</span>
-                                    <input id="required-${question}" class="toggle-checkbox" type="checkbox">
+                                    <input id="required-${question}" class="toggle-checkbox" type="checkbox" checked>
                                     <div class="toggle-switch"></div>               
                                 </label>
                                 
-
                             </div>
                         </div>
                         <div class="delete-button" id="delete-${question}">
@@ -302,10 +295,12 @@ $(document).ready(function () {
                             `;
                         } else if (val === 'multiple') {
                             newField = `
-                                <div id="answer-${question}" class="multiple-field">
+                                <div id="answer-${question}" class="multiple-field">        
                                     <div id="multiple-container-${question}"></div>
-                                    <input type="text" name="new-option-${question}" id="new-option-${question}">
-                                    <button id="add-multiple-${question}">Add New Option</button>
+                                    <div class="option-field">
+                                        <input class="multiple-input" type="text" name="new-option-${question}" id="new-option-${question}">
+                                        <button class="add-option-button" id="add-multiple-${question}">Add Option</button>
+                                    </div>
                                 </div>
                             `;
                             addEvent = true;
@@ -313,41 +308,47 @@ $(document).ready(function () {
                             newField = `
                                 <div id="answer-${question}" class="checklist-field">
                                     <div id="checklist-container-${question}"></div>
-                                    <input type="text" name="new-option-${question}" id="new-option-${question}">
-                                    <button id="add-checklist-${question}">Add New Option</button>
+                                    <div class="option-field">
+                                        <input class="checklist-input" type="text" name="new-option-${question}" id="new-option-${question}">
+                                        <button class="add-option-button" id="add-checklist-${question}">Add Option</button>
+                                    </div>
                                 </div>
                             `;
                             addEvent = true;
                         } else if (val === 'longtext') {
                             newField = `
                                 <div id="answer-${question}" class="longtext-field bot-field">
-                                    <textarea type="text" class="answer-input-text" placeholder="The answer will be here . . ." disabled></textarea>
+                                    <textarea type="text" class="answer-input-area" placeholder="The answer will be here . . ." disabled></textarea>
                                 </div>
                             `;
                         } else if (val === 'date') {
                             newField = `
                                 <div id="answer-${question}" class="date-field bot-field">
-                                    <input type="date" disabled>
+                                    <input class="date-input" type="date" disabled>
                                 </div>
                             `;
                         } else if (val === 'time') {
                             newField = `
                                 <div id="answer-${question}" class="time-field bot-field">
-                                    <input type="time disabled">
+                                    <input class="time-input" type="time" disabled>
                                 </div>
                             `;
                         } else if (val === 'datetime') {
                             newField = `
                                 <div id="answer-${question}" class="datetime-field bot-field">
-                                    <input type="datetime-local" disabled>
+                                    <input class="date-time-input" type="datetime-local" disabled>
                                 </div>
                             `;
                         } else if (val === 'dropdown') {
                             newField = `
                                 <div id="answer-${question}" class="dropdown-field bot-field">
-                                    <select id="dropdown-container-${question}"></select>
-                                    <input type="text" name="new-option-${question}" id="new-option-${question}">
-                                    <button id="add-dropdown-${question}">Add New Value</button>
+                                    <select id="dropdown-container-${question}">
+                                        <option value="" disabled selected>Select option</option>
+                                    </select>
+                                    <div class="value-field">
+                                        <input class="dropdown-input" type="text" name="new-option-${question}" id="new-option-${question}">
+                                        <button class="add-value-button" id="add-dropdown-${question}">Add Value</button>
+                                    </div>
                                 </div>
                             `;
                             addEvent = true;
@@ -364,13 +365,12 @@ $(document).ready(function () {
 
     function addEventDeleteQuestion(question) {
         let deleteId = "#delete-" + question;
-        let questionId = "#question-" + question;
+        let containerId = "#container-field-" + question;
         let $delete = getElement(deleteId);
         if ($delete) {
             $delete.on('click', function (e) {
                 e.preventDefault();
-                getElement(questionId).remove();
-                getElement(deleteId).remove();
+                getElement(containerId).remove();
             })
         }
     }
@@ -392,8 +392,8 @@ $(document).ready(function () {
                     let type = val === "multiple" ? "radio" : val === "checklist" ? "checkbox" : "dropdown";
                     if(type === "checkbox" || type === "radio"){
                         newField = `
-                                <input type="${type}" id="${newId}" name="${val}-${question}" value="${newOptVal}">
-                                <label for="${newId}">${newOptVal}</label><br>
+                                <input class="options" type="${type}" id="${newId}" name="${val}-${question}" value="${newOptVal}" disabled>
+                                <label class="options-label" for="${newId}">${newOptVal}</label><br>
                             `;
                     }else{
                         newField = `

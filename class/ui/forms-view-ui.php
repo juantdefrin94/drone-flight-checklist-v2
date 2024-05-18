@@ -41,7 +41,7 @@ class FormsViewUI{
 
                                     <div class="input-label">
                                         <div class="content-input">
-                                            <input type="text" name="form-name" id="form-name">
+                                            <input type="text" name="form-name" id="form-name" required>
                                         </div>
                                         <div class="content-input">
                                             <select id="form-type-dropdown">

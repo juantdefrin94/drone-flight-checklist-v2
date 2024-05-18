@@ -10,7 +10,7 @@ class TemplatesViewUI{
             <head>
                 <meta charset="UTF-8">
                 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                <link rel="stylesheet" href="styles/login-style.css">
+                <link rel="stylesheet" href="styles/template-view-style.css">
                 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
                 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
                 <script src="script/templates-view.js"></script>
@@ -18,26 +18,32 @@ class TemplatesViewUI{
             </head>
             <body>
                 <div>
-                    <nav>
+                    <nav class="top-bar" id="top-bar">
     HTML;
-
+    
     function filterForm($item, $type){
         return $item['formType'] === $type;
     }
-
+    
     public function __construct($db, $id){
         $this->db = $db;
-
+        
         $user = $_GET['user'];
-        $this->view .= "<a href='index.php?view=templates&user=$user&query'><i class='fa-solid fa-arrow-left-long fa-lg' style='color:#bb9d93; margin-right:30px;'></i></a>";
+        $id = $_GET['id'];
+        $isCreate = $id == 0 ? "Create New" : "Edit";
+        $this->view .= "<a class='back-button' href='index.php?view=templates&user=$user&query'><i class='fa-solid fa-arrow-left-long fa-2x' style='color:#d4e9ea; margin-right:30px;'></i></a>";
+        $this->view .= "<div class='header-title'><h1>$isCreate Template</h1></div>";
         $this->view .= <<<HTML
                     </nav>
-                    
-                    <form method="POST">
-                        <div>
-                            <h3>Template Name</h3>
-                            <input type="text" id="template-name" name="template-name">
-                        </div>
+                    <div id="container">
+                        <div class="content-box">
+                            <form method="POST">
+                                    <div>
+                                        <div class="label-title">Template Name</div>
+                                        <input type="text" id="template-name" name="template-name">
+                                    </div>
+                        
+                            
         HTML;
 
         $json = $this->db->getAllForm();
@@ -95,21 +101,20 @@ class TemplatesViewUI{
         }
 
         $this->view .= <<<HTML
-                            </select>
-                        </div>
+                                    </select>
+                                </div>
 
-                        <input type="text" name="assessment-id" id="assessment-id" style="display: none">
-                        <input type="text" name="pre-id" id="pre-id" style="display: none">
-                        <input type="text" name="post-id" id="post-id" style="display: none">
+                                <input type="text" name="assessment-id" id="assessment-id" style="display: none">
+                                <input type="text" name="pre-id" id="pre-id" style="display: none">
+                                <input type="text" name="post-id" id="post-id" style="display: none">
 
-                        <div>
-                            <button id="save" type="submit" style="display: none">Save Template</button>
-                        </div>
+                                <div>
+                                    <button id="save" type="submit" style="display: none">Save Template</button>
+                                </div>
 
-                    </form>
+                            </form>
         HTML;
 
-        $id = $_GET['id'];
 
         $json = "";
         if($id != 0){
@@ -119,7 +124,9 @@ class TemplatesViewUI{
         $this->view .= "<input type='text' id='template-id' style='display: none' value='$id'>";
         $this->view .= "<input type='text' id='json' style='display: none' value='$json'>";
         $this->view .= <<<HTML
-                    <button id="save-button">Save Template</button>
+                                    <button id="save-button">Save Template</button>
+                                </div>
+                            </div>
                         </div>  
                     </body>
                 </html>
