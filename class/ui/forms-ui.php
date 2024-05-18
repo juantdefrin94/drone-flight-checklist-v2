@@ -34,7 +34,7 @@ class FormsUI{
     public function __construct($db){
         $this->db = $db;
         $user = $_GET['user'];
-        $this->view .= "<input type='text' id='user' name='user' style='display: none;'/>";
+        $this->view .= "<input type='text' id='user' name='user' style='display: none;' value='$user'/>";
         $this->view .= "<div class='confirm-button'><a href='index.php?view=forms&user=$user&query'><div class='no-button'>No</div></a>";
         $this->view .= <<<HTML
                                     <button class="yes-button">Yes</button>

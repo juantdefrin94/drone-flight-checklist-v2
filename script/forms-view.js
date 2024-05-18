@@ -58,7 +58,7 @@ $(document).ready(function () {
                         option.push(container[i].value);
                     }
                 }
-                let isRequired = $("#required-" + id);     
+                let isRequired = $("#required-" + id)[0].checked;     
 
                 jsonTemp[questionId] = {
                     "question": statement,
@@ -156,7 +156,7 @@ $(document).ready(function () {
                                 <div class="statement">
                                     <div class="statement-title">Statement/Question</div>
                                     <div>
-                                        <input type="text" class="statement-input" id="statement-${question}" placeholder="Please input your question or statement here">
+                                        <input type="text" class="statement-input" id="statement-${question}" placeholder="Please input your question or statement here" value="${data.question}">
                                     </div>
                                 </div> 
                             
@@ -267,7 +267,7 @@ $(document).ready(function () {
             html = html + `
                                 <label class="toggle">
                                     <span class="toggle-label">Required</span>
-                                    <input id="required-${question}" class="toggle-checkbox" type="checkbox" checked>
+                                    <input id="required-${question}" class="toggle-checkbox" type="checkbox" ${data.required ? "checked" : ""}>
                                     <div class="toggle-switch"></div>               
                                 </label>
                                 
