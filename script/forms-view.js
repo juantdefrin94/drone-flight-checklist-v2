@@ -225,25 +225,25 @@ $(document).ready(function () {
             } else if (data.type === 'longtext') {
                 html = html + `
                             <div id="answer-${question}" class="longtext-field bot-field">
-                                <textarea type="text" class="answer-input-text" placeholder="The answer will be here . . ." disabled></textarea>
+                                <textarea type="text" class="answer-input-area" placeholder="The answer will be here . . ." disabled></textarea>
                             </div>
                 `;
             } else if (data.type === 'date') {
                 html = html + `
-                            <div id="answer-${question}" class="longtext-field bot-field">
-                                <textarea type="text" class="answer-input-text" placeholder="The answer will be here . . ." disabled></textarea>
+                            <div id="answer-${question}" class="date-field bot-field">
+                                <input class="date-input" type="date" disabled>
                             </div>
                 `;
             } else if (data.type === 'time') {
                 html = html + `
-                            <div id="answer-${question}" class="longtext-field bot-field">
-                                <textarea type="text" class="answer-input-text" placeholder="The answer will be here . . ." disabled></textarea>
+                            <div id="answer-${question}" class="time-field bot-field">
+                                <input class="time-input" type="time" disabled>
                             </div>
                 `;
             } else if (data.type === 'datetime') {
                 html = html + `
-                            <div id="answer-${question}" class="longtext-field bot-field">
-                                <textarea type="text" class="answer-input-text" placeholder="The answer will be here . . ." disabled></textarea>
+                            <div id="answer-${question}" class="datetime-field bot-field">
+                                <input class="date-time-input" type="datetime-local" disabled>
                             </div>
                 `;
             } else if (data.type === 'dropdown') {
@@ -258,8 +258,10 @@ $(document).ready(function () {
                 });       
                 html = html + `
                                 </select>
-                                <input type="text" name="new-option-${question}" id="new-option-${question}">
-                                <button id="add-dropdown-${question}">Add New Value</button>
+                                <div class="value-field">
+                                    <input class="dropdown-input" type="text" name="new-option-${question}" id="new-option-${question}">
+                                    <button class="add-value-button" id="add-dropdown-${question}">Add Value</button>
+                                </div>
                             </div>
                 `;
             }
