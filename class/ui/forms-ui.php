@@ -21,10 +21,11 @@ class FormsUI{
                 <div class="delete-container">
                     <div class="delete-confirmation">
                         <div class="delete-title">
-                            <h2>Verification</h2>
+                            <h2>Confirmation</h2>
+                            <i class='fa-solid fa-circle-exclamation fa-5x' style='color:#ffc107; margin: 20px 0 10px 0;'></i>
                         </div>
                         <div class="delete-content">
-                            <b>Are you sure want to delete this data?</b>
+                            Are you sure want to delete this data?
                             <form method="POST" name="delete-form">
                                 <input type="text" name="formId" id="form-id" style="display: none;">
                     
@@ -34,9 +35,10 @@ class FormsUI{
         $this->db = $db;
         $user = $_GET['user'];
         $this->view .= "<input type='text' id='user' name='user' style='display: none;'/>";
-        $this->view .= "<a href='index.php?view=forms&user=$user&query'>No</a>";
+        $this->view .= "<div class='confirm-button'><a href='index.php?view=forms&user=$user&query'><div class='no-button'>No</div></a>";
         $this->view .= <<<HTML
-                                <button>Yes</button>
+                                    <button class="yes-button">Yes</button>
+                                </div>
                             </form>
                         </div>
                     </div>

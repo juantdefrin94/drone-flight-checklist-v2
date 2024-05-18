@@ -68,7 +68,7 @@ class MasterDatabase {
             $no = 1;
             while($row = mysqli_fetch_assoc($result)) {
                 $num = $no % 2 == 0 ? 'even' : 'odd';
-                $resString .= "<tr class='table-data ". $num . "' id='data-" . $row['id'] . "'><td class='col-1'>" . $no . "</td>" . "<td class='col-2'>" . $row["formName"] . "</td>" . "<td class='col-3'>" . $row["formType"] . "</td>" . "<td class='col-4'>" . $row["updatedBy"] . "</td>" . "<td class='col-5'>" . $row["updatedDate"] . "</td>" . "<td class='col-6'><a href='index.php?view=viewForms&user=". $user . "&id=". $row['id'] . "'><i id='edit-".$row['id'] . "' class='fa-solid fa-pen-to-square action-icon'></i></a><i id='delete-".$row['id'] . "' class='fa-solid fa-trash action-icon delete-data'></i></td>" . "</tr>";
+                $resString .= "<tr class='table-data ". $num . "' id='data-" . $row['id'] . "'><td class='col-1'>" . $no . "</td>" . "<td class='col-2'>" . $row["formName"] . "</td>" . "<td class='col-3'>" . $row["formType"] . "</td>" . "<td class='col-4'>" . $row["updatedBy"] . "</td>" . "<td class='col-5'>" . $row["updatedDate"] . "</td>" . "<td class='col-6'><a href='index.php?view=viewForms&user=". $user . "&id=". $row['id'] . "'><i id='edit-".$row['id'] . "' class='fa-solid fa-pen-to-square fa-lg action-icon edit-icon'></i></a><i id='delete-".$row['id'] . "' class='fa-solid fa-trash fa-lg action-icon delete-data delete-icon'></i></td>" . "</tr>";
                 $no = $no + 1;
             }
         } else {
@@ -137,7 +137,7 @@ class MasterDatabase {
             $no = 1;
             while($row = mysqli_fetch_assoc($result)) {
                 $num = $no % 2 == 0 ? 'even' : 'odd';
-                $resString .= "<tr class='table-data ". $num . "' id='data-" . $row['id'] . "'><td class='col-1'>" . $no . "</td>" . "<td class='col-2'>" . $row["templateName"] . "</td>" . "<td class='col-4'>" . $row["updatedBy"] . "</td>" . "<td class='col-5'>" . $row["updatedDate"] . "</td>" . "<td class='col-6'><a href='index.php?view=viewTemplates&user=$user&id=" . $row['id'] . "'><i id='edit-".$row['id'] . "' class='fa-solid fa-pen-to-square action-icon'></i></a><i id='delete-".$row['id'] . "' class='fa-solid fa-trash action-icon delete-data'></i></td>" . "</tr>";
+                $resString .= "<tr class='table-data ". $num . "' id='data-" . $row['id'] . "'><td class='col-1'>" . $no . "</td>" . "<td class='col-2'>" . $row["templateName"] . "</td>" . "<td class='col-4'>" . $row["updatedBy"] . "</td>" . "<td class='col-5'>" . $row["updatedDate"] . "</td>" . "<td class='col-6'><a href='index.php?view=viewTemplates&user=$user&id=" . $row['id'] . "'><i id='edit-".$row['id'] . "' class='fa-solid fa-pen-to-square fa-lg action-icon edit-icon'></i></a><i id='delete-".$row['id'] . "' class='fa-solid fa-trash fa-lg action-icon delete-data delete-icon'></i></td>" . "</tr>";
                 $no = $no + 1;
             }
         } else {
