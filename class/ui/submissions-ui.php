@@ -29,9 +29,9 @@ class SubmissionsUI{
                 <div id="sidebar-menu">
                     <div class="absolute">
         HTML;
-        $this->view .= "<div class='menu'><a href='index.php?view=forms&user=$user&query'>Forms</a></div>";
-        $this->view .= "<div class='menu'><a href='index.php?view=templates&user=$user&query'>Templates</a></div>";
-        $this->view .= "<div class='menu active-menu'><a href='index.php?view=submissions&user=$user&query'>Submission</a></div>";
+        $this->view .= "<div class='menu'><a href='index.php?view=forms&user=$user&query&delete='>Forms</a></div>";
+        $this->view .= "<div class='menu'><a href='index.php?view=templates&user=$user&query&delete='>Templates</a></div>";
+        $this->view .= "<div class='menu active-menu'><a href='index.php?view=submissions&user=$user&query='>Submission</a></div>";
         $this->view .= <<<HTML
                     <div class='menu'><a href="index.php">Logout</a></div>
                 </div>

@@ -23,7 +23,7 @@ class SubmissionsViewUI{
     public function __construct($db, $id){
         $this->db = $db;
         $user = $_GET['user'];
-        $this->view .= "<a class='back-button' href='index.php?view=submissions&user=$user&query'><i class='fa-solid fa-arrow-left-long fa-2x' style='color:#d4e9ea; margin-right:30px;'></i></a>";
+        $this->view .= "<a class='back-button' href='index.php?view=submissions&user=$user&query='><i class='fa-solid fa-arrow-left-long fa-2x' style='color:#d4e9ea; margin-right:30px;'></i></a>";
         $this->view .= <<<HTML
                         <div class='header-title'><h1>View Submission</h1></div>
                     </nav>
