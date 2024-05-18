@@ -2,6 +2,7 @@ $(document).ready(function () {
 
     function init(){
         handleUI();
+        handleModal();
         handleDelete();
         handleRowAction();
     }
@@ -12,6 +13,13 @@ $(document).ready(function () {
         $sideBar.height(winHeight);
     }
 
+    function handleModal(){
+        let $modal = $('#modal');
+        $modal.on('click', function (){
+            $modal.css("display", "none");
+        })
+    }
+
     function handleDelete(){
         let $tableData = $('.table-data');
         for(let i = 0; i < $tableData.length; i++){
@@ -20,7 +28,7 @@ $(document).ready(function () {
             $('#delete-' + id).on("click", function(e){
                 e.stopPropagation();
                 $('#form-id').val(id);
-                $('#modal').css("display", "block");
+                $('#modal').css("display", "flex");
             })
         }
     }

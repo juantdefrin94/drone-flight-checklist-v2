@@ -384,7 +384,7 @@
 }
 
 #add-new-field:hover,
-.button-save:hover {
+#save-button:hover {
     background-color: #5d7c7eb7;
     cursor: pointer;
 }

@@ -17,9 +17,15 @@ class TemplatesUI{
         </head>
         <body>
             <div id="modal" style="display: none;" name="delete-template">
-                Are you sure want to delete this data?
-                <form method="POST">
-                    <input type="text" name="templateId" id="template-id" style="display: none;">
+                <div class="delete-container">
+                    <div class="delete-confirmation">
+                        <div class="delete-title">
+                            <h2>Verification</h2>
+                        </div>
+                        <div class="delete-content">
+                            <b>Are you sure want to delete this data?</b>
+                            <form method="POST">
+                                <input type="text" name="templateId" id="template-id" style="display: none;">
     HTML;
 
     public function __construct($db){
@@ -28,8 +34,11 @@ class TemplatesUI{
         $this->view .= "<input type='text' id='user' name='user' style='display: none;'/>";
         $this->view .= "<a href='index.php?view=templates&user=$user&query'>No</a>";
         $this->view .= <<<HTML
-            <button>Yes</button>
-                </form>
+                                <button>Yes</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
             </div>
             <div class="container">
                 <div id="sidebar-menu">

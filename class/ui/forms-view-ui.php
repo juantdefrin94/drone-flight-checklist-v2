@@ -74,7 +74,7 @@ class FormsViewUI{
                                     <button id="save" type="submit" style="display: none">Save Form</button>
                                 </form>
                                 <div id="save-container">
-                                    <button id="save-button" class="button-save">Save Form</button>
+                                    <button id="save-button">Save Form</button>
                                 </div>
                             </div>
                         </div>
