@@ -4,6 +4,13 @@
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 }
 
+#form-name:focus, #form-type-dropdown:focus, .statement-input:focus, .answer-option select:focus, .dropdown-field select:focus {
+    outline: none;
+    color: #5D7C7E;
+}
+
+/* nav bar / top bar */
+
 .top-bar {
     height: 100px;
     width: 100%;
@@ -26,19 +33,24 @@
     font-size: 18px;
 }
 
+/* form */
+
 #container {
     background-color: #d4e9ea;
     display: flex;
     justify-content: center;
+    position: fixed;
+    width: 100%;
 }
 
 .content-box {
     background-color: #FFFFFF;
     width: 50%;
-    height: auto;
-    margin-top: 4%;
+    height: 660px;
+    margin-top: 2%;
     box-shadow: 5px 5px 10px rgb(196, 196, 196);
-    padding: 4%;
+    padding: 2% 4%;
+    overflow-y: scroll;
 }
 
 .title-label {
@@ -69,10 +81,10 @@
     border: solid 2px #5D7C7E;
     height: 40px;
     width: 95%;
-    margin-bottom: 40px;
     border-radius: 5px;
     box-shadow: 3px 3px 10px rgb(196, 196, 196);
     padding: 0 15px;
+    color: #5D7C7E;
 }
 
 #form-type-dropdown {
@@ -97,6 +109,7 @@
     display: flex;
     flex-direction: row;
     height: auto;
+    margin-top: 45px;
 }
 
 .field-box {
@@ -106,7 +119,6 @@
     padding: 20px 20px 20px 20px;
     border-radius: 7px 0 0 7px;
 }
-
 
 .statement-type {
     display: flex;
@@ -132,6 +144,7 @@
     width: 80%;
     padding: 5px 5px;
     font-size: 16px;
+    color: #5D7C7E;
 }
 
 .type-answer {
@@ -165,7 +178,6 @@
 }
 
 .answer-input {
-    margin-bottom: 20px;
     width: 100%;
 }
 
@@ -183,6 +195,84 @@
     cursor: not-allowed;
 }
 
+.multiple-field, .checklist-field {
+    display: flex;
+    flex-direction: column;
+}
+
+.options {
+    margin-bottom: 15px;
+}
+
+.options:hover {
+    cursor: not-allowed;
+}
+
+.options-label {
+    color: #5D7C7E;
+}
+
+.option-field, .value-field {
+    display: flex;
+}
+
+.multiple-input, .checklist-input, .dropdown-input {
+    width: 30%;
+    height: 35px;
+    padding: 0 15px;
+    border: solid 2px #5D7C7E;
+    border-radius: 5px;
+}
+
+.add-option-button, .add-value-button {
+    width: 15%;
+    background-color: #5D7C7E;
+    color: #d4e9ea;
+    text-align: center;
+    font-weight: bold;
+    margin-left: 15px;
+    height: 39px;
+    border: none;
+    border-radius: 5px;
+}
+
+.answer-input-area {
+    display: flex;
+    align-items: center;
+    width: 40%;
+    max-width: 87%;
+    height: 80px;
+    max-height: 300px;
+    padding: 15px 15px;
+    border: solid 2px #5D7C7E;
+    border-radius: 5px;
+}
+
+.date-input, .time-input, .date-time-input {
+    width: 40%;
+    height: 35px;
+    padding: 0 15px;
+    border: solid 2px #5D7C7E;
+    border-radius: 5px;
+    color: #5D7C7E;
+}
+
+.dropdown-field select {
+    margin-bottom: 20px;
+    color: #5D7C7E;
+    height: 38px;
+    width: 34%;
+    border: solid 2px #5D7C7E;
+    border-radius: 5px;
+    padding-left: 15px;
+    appearance: none;
+    background-image: url("../asset/arrow-down.svg");
+    background-size: 20px;
+    background-repeat: no-repeat;
+    background-position: calc(100% - 15px) center;
+    font-size: 16px;
+}
+
 /* delete field */
 
 .delete-button {
@@ -197,18 +287,17 @@
 
 .delete-button:hover {
     cursor: pointer;
+    background-color: #ff00007c;
 }
 
 .delete-field {
-    background-color: #ff0000;
-    border: solid 1px #ff0000;
-    border-radius: 100px;
+    background-color: transparent;
+    border: none;
 }
 
 .delete-field:hover {
-    background-color: #ff00007c;
-    border: solid 1px #ff00007c;
-    border-radius: 100px;
+    background-color: transparent;
+    border: none;
     cursor: pointer;
 }
 
@@ -217,7 +306,7 @@
 .toggle {
     cursor: pointer;
     display: inline-block;
-    margin-top: 10px;
+    margin-top: 30px;
 }
 
 .toggle-label {
