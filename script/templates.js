@@ -4,6 +4,7 @@ $(document).ready(function () {
         handleUI();
         handleModal();
         handleDelete();
+        handleDeleteInfo();
         handleRowAction();
     }
     
@@ -31,6 +32,13 @@ $(document).ready(function () {
                 $('#modal').css("display", "flex");
             })
         }
+    }
+
+    function handleDeleteInfo(){
+        let $deleteAlertEl = $('#delete-alert')[0];
+        $deleteAlertEl.classList.remove('show');
+        void $deleteAlertEl.offsetWidth;
+        $deleteAlertEl.classList.add('show');
     }
 
 

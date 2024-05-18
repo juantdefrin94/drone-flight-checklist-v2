@@ -35,7 +35,7 @@ class FormsUI{
         $this->db = $db;
         $user = $_GET['user'];
         $this->view .= "<input type='text' id='user' name='user' style='display: none;' value='$user'/>";
-        $this->view .= "<div class='confirm-button'><a href='index.php?view=forms&user=$user&query'><div class='no-button'>No</div></a>";
+        $this->view .= "<div class='confirm-button'><a href='index.php?view=forms&user=$user&query=&delete='><div class='no-button'>No</div></a>";
         $this->view .= <<<HTML
                                     <button class="yes-button">Yes</button>
                                 </div>
@@ -48,14 +48,20 @@ class FormsUI{
                 <div id="sidebar-menu">
                     <div class="absolute">
         HTML;
-        $this->view .= "<div class='menu active-menu'><a href='index.php?view=forms&user=$user&query'>Forms</a></div>";
-        $this->view .= "<div class='menu'><a href='index.php?view=templates&user=$user&query'>Templates</a></div>";
-        $this->view .= "<div class='menu'><a href='index.php?view=submissions&user=$user&query'>Submission</a></div>";
+        $this->view .= "<div class='menu active-menu'><a href='index.php?view=forms&user=$user&query=&delete='>Forms</a></div>";
+        $this->view .= "<div class='menu'><a href='index.php?view=templates&user=$user&query=&delete='>Templates</a></div>";
+        $this->view .= "<div class='menu'><a href='index.php?view=submissions&user=$user&query='>Submission</a></div>";
         $this->view .= <<<HTML
                     <div class='menu'><a href="index.php">Logout</a></div>
                 </div>
             </div>
             <div class="form-container">
+        HTML;
+        $isDelete = $_GET['delete'];
+        if($isDelete){
+            $this->view .= "<div id='delete-alert'>Delete Successful!</div>";
+        }
+        $this->view .= <<<HTML
                 <div class="top-bar">
                     <div class="form-title">Form List</div>
         HTML;
@@ -123,11 +129,11 @@ class FormsUI{
 
     private function deleteConfirm(){
         $formId = $_POST['formId'];
+        $user = $_GET['user'];
         if ($formId != 0) {
             $deleteSuccess = $this->db->deleteForm($formId);
             if ($deleteSuccess) {
-                echo "<script>alert('Delete Successful');</script>";
-                header("refresh");
+                header("Location: index.php?view=forms&user=$user&query=&delete=1");
             }
             else {
                 echo "<script>alert('Something Wrong');</script>";
@@ -137,7 +143,7 @@ class FormsUI{
 
     private function reconstructData($query){
         $user = $_GET['user'];
-        header("Location: index.php?view=forms&user=$user&query=$query");
+        header("Location: index.php?view=forms&user=$user&query=$query&delete=");
     }
 
 }

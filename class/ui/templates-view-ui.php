@@ -31,7 +31,7 @@ class TemplatesViewUI{
         $user = $_GET['user'];
         $id = $_GET['id'];
         $isCreate = $id == 0 ? "Create New" : "Edit";
-        $this->view .= "<a class='back-button' href='index.php?view=templates&user=$user&query'><i class='fa-solid fa-arrow-left-long fa-2x' style='color:#d4e9ea; margin-right:30px;'></i></a>";
+        $this->view .= "<a class='back-button' href='index.php?view=templates&user=$user&query=&delete='><i class='fa-solid fa-arrow-left-long fa-2x' style='color:#d4e9ea; margin-right:30px;'></i></a>";
         $this->view .= "<div class='header-title'><h1>$isCreate Template</h1></div>";
         $this->view .= <<<HTML
                     </nav>
@@ -159,7 +159,7 @@ class TemplatesViewUI{
 
                 $isSaved = $this->db->saveTemplate($id, $templateName, $assessmsnetId, $preId, $postId, $user);
                 if($isSaved){
-                    header("Location: index.php?view=templates&user=$user");
+                    header("Location: index.php?view=templates&user=$user&query=&delete=");
                 }
             }
         }

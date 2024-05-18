@@ -26,7 +26,7 @@ class FormsViewUI{
         $user = $_GET['user'];
         $formId = $_GET['id'];
         $isCreate = $formId == 0 ? "Create New" : "Edit";
-        $this->view .= "<div class='back-button'><a href='index.php?view=forms&user=$user&query'><i class='fa-solid fa-arrow-left-long fa-2x' style='color:#d4e9ea; margin-right:30px;'></i></a></div>";
+        $this->view .= "<div class='back-button'><a href='index.php?view=forms&user=$user&query=&delete='><i class='fa-solid fa-arrow-left-long fa-2x' style='color:#d4e9ea; margin-right:30px;'></i></a></div>";
         $this->view .= "<div class='header-title'><h1>$isCreate Form</h1></div>";
         $this->view .= <<<HTML
                         </nav>
@@ -106,7 +106,7 @@ class FormsViewUI{
             if ($verify) {
                 $isSaved = $this->db->saveForm($id, $formName, $formType, $user, $json);
                 if($isSaved){
-                    header("Location: index.php?view=forms&user=$user&query");
+                    header("Location: index.php?view=forms&user=$user&query=&delete=");
                 }
             }
         }

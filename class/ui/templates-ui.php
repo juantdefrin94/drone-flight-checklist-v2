@@ -33,7 +33,7 @@ class TemplatesUI{
         $this->db = $db;
         $user = $_GET['user'];
         $this->view .= "<input type='text' id='user' name='user' style='display: none;'/>";
-        $this->view .= "<div class='confirm-button'><a href='index.php?view=templates&user=$user&query'><div class='no-button'>No</div></a>";
+        $this->view .= "<div class='confirm-button'><a href='index.php?view=templates&user=$user&query=&delete='><div class='no-button'>No</div></a>";
         $this->view .= <<<HTML
                                     <button class="yes-button">Yes</button>
                                 </div> 
@@ -46,17 +46,21 @@ class TemplatesUI{
                 <div id="sidebar-menu">
                     <div class="absolute">
         HTML;
-        $this->view .= "<div class='menu'><a href='index.php?view=forms&user=$user&query'>Forms</a></div>";
-        $this->view .= "<div class='menu active-menu'><a href='index.php?view=templates&user=$user&query'>Templates</a></div>";
-        $this->view .= "<div class='menu'><a href='index.php?view=submissions&user=$user&query'>Submission</a></div>";
+        $this->view .= "<div class='menu'><a href='index.php?view=forms&user=$user&query=&delete='>Forms</a></div>";
+        $this->view .= "<div class='menu active-menu'><a href='index.php?view=templates&user=$user&query=&delete='>Templates</a></div>";
+        $this->view .= "<div class='menu'><a href='index.php?view=submissions&user=$user&query='>Submission</a></div>";
         $this->view .= <<<HTML
                     <div class='menu'><a href="index.php">Logout</a></div>
                     </div>
                 </div>
                 <div class="template-container">
                     <div class="top-bar">
-                        <div class="template-title">Template List</div>
         HTML;
+        $isDelete = $_GET['delete'];
+        if($isDelete){
+            $this->view .= "<div id='delete-alert'>Delete Successful!</div>";
+        }
+        $this->view .= "<div class='template-title'>Template List</div>";
         $this->view .= "<div class='button-container'><a href='index.php?view=viewTemplates&user=$user&id=0'><div class='create-template-button'><i class='fa-solid fa-plus fa-lg' style='color:#d4e9ea;margin-right:15px'></i>Create New Template</div></a></div></div>";
         $this->view .= <<<HTML
         <div style="display:flex">
@@ -122,8 +126,7 @@ class TemplatesUI{
         if ($templateId != 0) {
                 $deleteSuccess = $this->db->deleteTemplate($templateId);
                 if ($deleteSuccess) {
-                    echo "<script>alert('Delete Successful');</script>";
-                    header("Location: index.php?view=templates&user=$user&query");
+                    header("Location: index.php?view=templates&user=$user&query=&delete=1");
                 }
                 else {
                     echo "<script>alert('Something Wrong');</script>";
@@ -133,6 +136,6 @@ class TemplatesUI{
 
     private function reconstructData($query){
         $user = $_GET['user'];
-        header("Location: index.php?view=templates&user=$user&query=$query");
+        header("Location: index.php?view=templates&user=$user&query=$query&delete=");
     }
 }
