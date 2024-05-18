@@ -3,6 +3,7 @@ $(document).ready(function (){
     function init(){
         handleSetData();
         loadData();
+        handleUI();
     }
 
     function loadData(){
@@ -37,6 +38,14 @@ $(document).ready(function (){
 
             $save.click();
         })
+    }
+
+    function handleUI(){
+        let $container = $('#container');
+        let topBarHeight = $('#top-bar').height();
+        let winHeight = window.screen.height;
+        let height = winHeight - topBarHeight;
+        $container.height(height);
     }
 
     init();

@@ -40,7 +40,7 @@ class TemplatesViewUI{
                             <form method="POST">
                                     <div>
                                         <div class="label-title">Template Name</div>
-                                        <input type="text" id="template-name" name="template-name">
+                                        <input type="text" id="template-name" name="template-name" required>
                                     </div>
                         
                             
@@ -50,10 +50,11 @@ class TemplatesViewUI{
         $json = json_decode($json);
 
         $this->view.=<<<HTML
-                        <div>
-                            Assesment Form
-                            <select id="assessment-select">
-                                <option disabled selected value="empty"> -- select an option -- </option>
+                        <div class="select-container">
+                            <div class="assessment-container">
+                                <div class="assessment-label">Assesment Form</div>
+                                <select id="assessment-select">
+                                    <option disabled selected value="empty"> -- select an option -- </option>
         HTML;
 
         foreach ($json as $opt){
@@ -65,13 +66,13 @@ class TemplatesViewUI{
         }
 
         $this->view .= <<<HTML
-                            </select>
-                        </div>
+                                </select>
+                            </div>
 
-                        <div>
-                            Pre-Fligt Form
-                            <select id="pre-select">
-                                <option disabled selected value="empty"> -- select an option -- </option>
+                            <div class="pre-container">
+                                <div class="pre-label">Pre-Fligt Form</div>
+                                <select id="pre-select">
+                                    <option disabled selected value="empty"> -- select an option -- </option>
         HTML;
 
         foreach ($json as $opt){
@@ -83,13 +84,13 @@ class TemplatesViewUI{
         }
 
         $this->view .= <<<HTML
-                            </select>
-                        </div>
+                                </select>
+                            </div>
 
-                        <div>
-                            Post-Flight Form
-                            <select id="post-select">
-                                <option disabled selected value="empty"> -- select an option -- </option>
+                            <div class="post-container">
+                                <div class="post-label">Post-Fligt Form</div>
+                                <select id="post-select">
+                                    <option disabled selected value="empty"> -- select an option -- </option>
         HTML;
 
         foreach ($json as $opt){
@@ -101,16 +102,15 @@ class TemplatesViewUI{
         }
 
         $this->view .= <<<HTML
-                                    </select>
+                                        </select>
+                                    </div>
                                 </div>
 
                                 <input type="text" name="assessment-id" id="assessment-id" style="display: none">
                                 <input type="text" name="pre-id" id="pre-id" style="display: none">
                                 <input type="text" name="post-id" id="post-id" style="display: none">
 
-                                <div>
-                                    <button id="save" type="submit" style="display: none">Save Template</button>
-                                </div>
+                                <button id="save" type="submit" style="display: none">Save Template</button>
 
                             </form>
         HTML;
@@ -124,7 +124,9 @@ class TemplatesViewUI{
         $this->view .= "<input type='text' id='template-id' style='display: none' value='$id'>";
         $this->view .= "<input type='text' id='json' style='display: none' value='$json'>";
         $this->view .= <<<HTML
-                                    <button id="save-button">Save Template</button>
+                                    <div id="save-container">
+                                        <button id="save-button">Save Template</button>
+                                    </div>
                                 </div>
                             </div>
                         </div>  

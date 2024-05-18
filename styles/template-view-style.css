@@ -4,6 +4,11 @@
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 }
 
+#template-name:focus, #assessment-select:focus, #pre-select:focus, #post-select:focus {
+    outline: none;
+    color: #5D7C7E;
+}
+
 .top-bar {
     height: 100px;
     width: 100%;
@@ -30,15 +35,17 @@
     background-color: #d4e9ea;
     display: flex;
     justify-content: center;
+    position: fixed;
+    width: 100%;
 }
 
 .content-box {
     background-color: #FFFFFF;
     width: 50%;
-    height: 100%;
-    margin-top: 4%;
+    height: 320px;
+    margin-top: 2%;
     box-shadow: 5px 5px 10px rgb(196, 196, 196);
-    padding: 4%;
+    padding: 2% 4%;
 }
 
 .label-title {
@@ -51,8 +58,70 @@
     margin-top: 20px;
     border: solid 2px #5D7C7E;
     height: 40px;
-    width: 70%;
+    width: 95%;
     border-radius: 5px;
     box-shadow: 3px 3px 10px rgb(196, 196, 196);
     padding: 0 15px;
+    color: #5D7C7E;
 }
+
+.select-container {
+    display: flex;
+    flex-direction: row;
+    margin: 45px 0;
+}
+
+.assessment-container, .pre-container, .post-container {
+    width: 33%;
+    margin-right: 20px;
+}
+
+.assessment-label, .pre-label, .post-label {
+    color: #5D7C7E;
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+#assessment-select, #pre-select, #post-select {
+    color: #5D7C7E;
+    height: 45px;
+    width: 100%;
+    border: solid 2px #5D7C7E;
+    border-radius: 5px;
+    box-shadow: 3px 3px 10px rgb(196, 196, 196);
+    padding-left: 15px;
+    appearance: none;
+    background-image: url("../asset/arrow-down.svg");
+    background-size: 20px;
+    background-repeat: no-repeat;
+    background-position: calc(100% - 15px) center;
+    font-size: 16px;
+}
+
+#save-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 30px;
+}
+
+#save-button {
+    background-color: #5D7C7E;
+    color: #d4e9ea;
+    width: 180px;
+    height: 45px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 16px;
+    border: none;
+}
+
+#save-button:hover {
+    background-color: #5d7c7eb7;
+    cursor: pointer;
+}
+
