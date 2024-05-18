@@ -364,7 +364,7 @@
 /* button new field and save */
 
 #add-new-field,
-.button-save {
+#save-button {
     background-color: #5D7C7E;
     color: #d4e9ea;
     width: 180px;

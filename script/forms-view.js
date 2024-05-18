@@ -7,7 +7,6 @@ $(document).ready(function () {
         handleSetJson();
         loadData();
         handleUI();
-        $('#add-new-field').click();
     }
 
     function loadData(){
@@ -150,124 +149,136 @@ $(document).ready(function () {
             `
         } else {
             let html = `
-                <div class="field-box" id="question-${question}">
-                    <div class="top-field">
-                        <div class="header-field">
-                            Statement
-                            <input type="text" class="title-field-input-text" value="${data.question}" id="statement-${question}">
-                        </div>
-                        <div id="required-${question}" style="display: flex;">
-                            Required : 
-                            <input type="radio" id="yes-${question}" name="req-${question}" value="Yes" ${data.required ? "checked" : ""}>
-                            <label for="req-${question}">Yes</label><br>
-                            <input type="radio" id="no-${question}" name="req-${question}" value="No" ${data.required ? "" : "checked"}>
-                            <label for="req-${question}">No</label><br>
-                        </div>
-                        <div class="header-field">
-                            Type of Answer
-                            <select id="type-${question}" class="title-field-input-dropdown">
-                                <option value="text" ${data.type === "text" ? "selected" : ""}>Text</option>
-                                <option value="multiple" ${data.type === "multiple" ? "selected" : ""}>Multiple Choice</option>
-                                <option value="checklist" ${data.type === "checklist" ? "selected" : ""}>Checklist</option>
-                                <option value="longtext" ${data.type === "longtext" ? "selected" : ""}>Long Text</option>
-                                <option value="date" ${data.type === "date" ? "selected" : ""}>Date</option>
-                                <option value="time" ${data.type === "time" ? "selected" : ""}>Time</option>
-                                <option value="datetime" ${data.type === "datetime" ? "selected" : ""}>Date Time</option>
-                                <option value="dropdown" ${data.type === "dropdown" ? "selected" : ""}>Dropdown</option>
-                            </select>
-                        </div>
-                        <div class="delete-margin" id="delete-${question}>
-                            <button class="delete-field"><i class='fa-regular fa-circle-xmark fa-2x' style='color:#ffffff'></i></button>
-                        </div>
-                    </div>
+                <div class="container-field" id="container-field-${question}">
+                    <div class="field-box" id="question-${question}">
+                        <div class="top-field">
+                            <div class="statement-type">
+                                <div class="statement">
+                                    <div class="statement-title">Statement/Question</div>
+                                    <div>
+                                        <input type="text" class="statement-input" id="statement-${question}" placeholder="Please input your question or statement here">
+                                    </div>
+                                </div> 
+                            
+                                <div class="type-answer">
+                                    <div class="answer-title">Type of Answer</div>
+                                    <div class="answer-option">
+                                        <select id="type-${question}" class="title-field-input-dropdown">
+                                            <option value="text" ${data.type === "text" ? "selected" : ""}>Text</option>
+                                            <option value="multiple" ${data.type === "multiple" ? "selected" : ""}>Multiple Choice</option>
+                                            <option value="checklist" ${data.type === "checklist" ? "selected" : ""}>Checklist</option>
+                                            <option value="longtext" ${data.type === "longtext" ? "selected" : ""}>Long Text</option>
+                                            <option value="date" ${data.type === "date" ? "selected" : ""}>Date</option>
+                                            <option value="time" ${data.type === "time" ? "selected" : ""}>Time</option>
+                                            <option value="datetime" ${data.type === "datetime" ? "selected" : ""}>Date Time</option>
+                                            <option value="dropdown" ${data.type === "dropdown" ? "selected" : ""}>Dropdown</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
             `;
             // for edit
             if (data.type === 'text') {
                 html = html + `
-                        <div id="answer-${question}" class="text-field bot-field">
-                            <input type="text" class="answer-input-text" placeholder="The answer will be here . . ." disabled />
-                        </div>
-                    </div>
+                            <div id="answer-${question}" class="text-field bot-field">
+                                <input type="text" class="answer-input-text" placeholder="The answer will be here . . ." disabled />
+                            </div>
                 `;
             } else if (data.type === 'multiple') {
                 html = html + `
-                        <div id="answer-${question}" class="multiple-field">
-                        <div id="multiple-container-${question}">`
+                            <div id="answer-${question}" class="multiple-field">
+                                <div id="multiple-container-${question}">`
                 $.each(data.option, function (_, opt){
                     let lowOpt = opt.toLowerCase();
                     html = html + `
-                        <input type="radio" id="${lowOpt}-${question}" name="multiple-${question}" value="${opt}">
-                        <label for="${lowOpt}-${question}">${opt}</label><br> 
+                                    <input class="options" type="radio" id="${lowOpt}-${question}" name="multiple-${question}" value="${opt}">
+                                    <label class="options-label" for="${lowOpt}-${question}">${opt}</label><br> 
                     `
                 });
                 html = html + `
-                    </div>
-                    <input type="text" name="new-option-${question}" id="new-option-${question}">
-                    <button id="add-multiple-${question}">Add New Option</button>
-                </div>
+                                </div>
+                                <div class="option-field">
+                                    <input class="multiple-input" type="text" name="new-option-${question}" id="new-option-${question}">
+                                    <button class="add-option-button" id="add-multiple-${question}">Add Option</button>
+                                </div>
+                            </div>
                 `;
             } else if (data.type === 'checklist') {
                 html = html + `
-                        <div id="answer-${question}" class="checklist-field">
-                        <div id="checklist-container-${question}">`
+                            <div id="answer-${question}" class="checklist-field">
+                                <div id="checklist-container-${question}">`
                 $.each(data.option, function (_, opt){
                     let lowOpt = opt.toLowerCase();
                     html = html + `
-                        <input type="checkbox" id="${lowOpt}-${question}" name="checklist-${question}" value="${opt}">
-                        <label for="${lowOpt}-${question}">${opt}</label><br> 
+                                    <input class="options" type="checkbox" id="${lowOpt}-${question}" name="checklist-${question}" value="${opt}">
+                                    <label class="options-label" for="${lowOpt}-${question}">${opt}</label><br> 
                     `
                 });
                 html = html + `
-                    </div>
-                    <input type="text" name="new-option-${question}" id="new-option-${question}">
-                    <button id="add-checklist-${question}">Add New Option</button>
-                </div>
+                                </div>
+                                <div class="option-field">
+                                    <input class="checklist-input" type="text" name="new-option-${question}" id="new-option-${question}">
+                                    <button class="add-option-button" id="add-checklist-${question}">Add Option</button>
+                                </div>
+                            </div>
                 `;
             } else if (data.type === 'longtext') {
                 html = html + `
-                        <div id="answer-${question}" class="longtext-field bot-field">
-                            <textarea type="text" class="answer-input-text" placeholder="The answer will be here . . ." disabled></textarea>
-                        </div>
-                    </div>
+                            <div id="answer-${question}" class="longtext-field bot-field">
+                                <textarea type="text" class="answer-input-text" placeholder="The answer will be here . . ." disabled></textarea>
+                            </div>
                 `;
             } else if (data.type === 'date') {
                 html = html + `
-                        <div id="answer-${question}" class="longtext-field bot-field">
-                            <textarea type="text" class="answer-input-text" placeholder="The answer will be here . . ." disabled></textarea>
-                        </div>
-                    </div>
+                            <div id="answer-${question}" class="longtext-field bot-field">
+                                <textarea type="text" class="answer-input-text" placeholder="The answer will be here . . ." disabled></textarea>
+                            </div>
                 `;
             } else if (data.type === 'time') {
                 html = html + `
-                        <div id="answer-${question}" class="longtext-field bot-field">
-                            <textarea type="text" class="answer-input-text" placeholder="The answer will be here . . ." disabled></textarea>
-                        </div>
-                    </div>
+                            <div id="answer-${question}" class="longtext-field bot-field">
+                                <textarea type="text" class="answer-input-text" placeholder="The answer will be here . . ." disabled></textarea>
+                            </div>
                 `;
             } else if (data.type === 'datetime') {
                 html = html + `
-                        <div id="answer-${question}" class="longtext-field bot-field">
-                            <textarea type="text" class="answer-input-text" placeholder="The answer will be here . . ." disabled></textarea>
-                        </div>
-                    </div>
+                            <div id="answer-${question}" class="longtext-field bot-field">
+                                <textarea type="text" class="answer-input-text" placeholder="The answer will be here . . ." disabled></textarea>
+                            </div>
                 `;
             } else if (data.type === 'dropdown') {
                 html = html + `
-                    <div id="answer-${question}" class="dropdown-field bot-field">
-                        <select id="dropdown-container-${question}">
+                            <div id="answer-${question}" class="dropdown-field bot-field">
+                                <select id="dropdown-container-${question}">
                 `;
                 $.each(data.option, function(_, opt){
                     html = html + `
-                        <option value="${opt}">${opt}</option>
+                                    <option value="${opt}">${opt}</option>
                     `
                 });       
                 html = html + `
-                        </select>
-                        <input type="text" name="new-option-${question}" id="new-option-${question}">
-                        <button id="add-dropdown-${question}">Add New Value</button>
-                    </div>
+                                </select>
+                                <input type="text" name="new-option-${question}" id="new-option-${question}">
+                                <button id="add-dropdown-${question}">Add New Value</button>
+                            </div>
                 `;
             }
+
+            html = html + `
+                                <label class="toggle">
+                                    <span class="toggle-label">Required</span>
+                                    <input id="required-${question}" class="toggle-checkbox" type="checkbox" checked>
+                                    <div class="toggle-switch"></div>               
+                                </label>
+                                
+                            </div>
+                        </div>
+                        <div class="delete-button" id="delete-${question}">
+                            <button class="delete-field"><i class='fa-solid fa-trash-can fa-2x' style='color:#ffffff'></i></button>
+                        </div>
+                    </div>
+                </div>
+            `
             return html;
         }
     }
