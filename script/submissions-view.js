@@ -20,11 +20,36 @@ $(document).ready(function () {
             let length = assessment.answer.length;
 
             let $assessmentAnswer = $('#assessment-answer');
-            let answerString = `<div><div class='group' id='group-${groupNum}'><div class='group-title'>Assessment</div><div class='drop-symbol' id='symbol-${groupNum}'><i class='fa-solid fa-caret-up'></i></div><div id='group-${groupNum}-answer' style='display: none;'>`;
+            let answerString = `
+                <div>
+                    <div class='group' id='group-${groupNum}'>
+                        <div class='group-title'>
+                                <div class="assessment-group-title">
+                                    Assessment
+                                </div>  
+                                <div class='drop-symbol' id='symbol-${groupNum}'>
+                                    <i class='fa-solid fa-caret-up fa-2x' style='color:#d4e9ea;'></i>
+                                </div>                       
+                        </div>
+                    
+                    <div class="all-question" id='group-${groupNum}-answer' style='display: none;'>
+                        <table>
+                            <tr>
+                                <th class="col-1">Question / Statement</th>
+                                <th class="col-2">Answer</th>
+                                <th class="col-3">Data Changed</th>
+                            </tr>
+                    `;
             for(let i = 0; i < length; i++){
-                answerString += `<div>${assessment.answer[i].questionName} : ${assessment.answer[i].answer}</div>`
+                answerString += `
+                <tr>
+                    <td class="col-1">${assessment.answer[i].questionName}</td>
+                    <td class="col-2">${assessment.answer[i].answer}</td>
+                    <td class="col-3">${assessment.answer[i].dataChanged}</td>
+                </tr>
+                `
             }
-            answerString += "</div></div>";
+            answerString += "</table></div></div>";
             $assessmentAnswer.append(answerString);
             groupNum++;
         }
@@ -39,12 +64,36 @@ $(document).ready(function () {
             for(let i = 1; i <= preLength; i++){
                 let text = "Pre-Flight #" + i;
                 
-                let answerString = `<div><div class='group' id='group-${groupNum}'><div class='group-title'>${text}</div><div class='drop-symbol' id='symbol-${groupNum}'><i class='fa-solid fa-caret-up'></i></div><div id='group-${groupNum}-answer' style='display: none;'>`;
+                let answerString = `
+                <div>
+                    <div class='group' id='group-${groupNum}'>
+                        <div class='group-title'>
+                            <div class="pre-group-title">
+                                ${text}
+                            </div>
+                            <div class='drop-symbol' id='symbol-${groupNum}'>
+                                <i class='fa-solid fa-caret-up fa-2x' style='color:#d4e9ea;'></i>
+                            </div>
+                        </div>
+                    
+                    <div class="all-question" id='group-${groupNum}-answer' style='display: none;'>
+                        <table>
+                                <tr>
+                                    <th class="col-1">Question / Statement</th>
+                                    <th class="col-2">Answer</th>
+                                    <th class="col-3">Data Changed</th>
+                                </tr>`;
                 let length = pre.answer[i - 1].data.length;
                 for(let j = 0; j < length; j++){
-                    answerString += `<div>${pre.answer[i - 1].data[j].questionName} : ${pre.answer[i - 1].data[j].answer}</div>`
+                    answerString += `
+                    <tr>
+                        <td class="col-1">${pre.answer[i - 1].data[j].questionName}</td>
+                        <td class="col-2">${pre.answer[i - 1].data[j].answer}</td>
+                        <td class="col-3">${pre.answer[i - 1].data[j].dataChanged}</td>
+                    </tr>
+                    `
                 }
-                answerString += "</div></div>";
+                answerString += "</table></div></div>";
                 $preAnswer.append(answerString);
                 groupNum++;
             }
@@ -60,12 +109,37 @@ $(document).ready(function () {
             for(let i = 1; i <= postLength; i++){
                 let text = "Post-Flight #" + i;
 
-                let answerString = `<div><div class='group' id='group-${groupNum}'><div class='group-title'>${text}</div><div class='drop-symbol' id='symbol-${groupNum}'><i class='fa-solid fa-caret-up'></i></div><div id='group-${groupNum}-answer' style='display: none;'>`;
+                let answerString = `
+                <div>
+                    <div class='group' id='group-${groupNum}'>
+                        <div class='group-title'>
+                            <div class="post-group-title">
+                                ${text}
+                            </div>
+                            <div class='drop-symbol' id='symbol-${groupNum}'>
+                                <i class='fa-solid fa-caret-up fa-2x' style='color:#d4e9ea;'></i>
+                            </div>
+                        </div>
+                        
+                        <div class='all-question' id='group-${groupNum}-answer' style='display: none;'>
+                        <table>
+                            <tr>
+                                <th class="col-1">Question / Statement</th>
+                                <th class="col-2">Answer</th>
+                                <th class="col-3">Data Changed</th>
+                            </tr>
+                        `;
                 let length = post.answer[i - 1].data.length;
                 for(let j = 0; j < length; j++){
-                    answerString += `<div>${post.answer[i - 1].data[j].questionName} : ${post.answer[i - 1].data[j].answer}</div>`
+                    answerString += `
+                    <tr>
+                        <td class="col-1">${post.answer[i - 1].data[j].questionName}</td>
+                        <td class="col-2">${post.answer[i - 1].data[j].answer}</td>
+                        <td class="col-3">${post.answer[i - 1].data[j].dataChanged}</td>
+                    </tr>
+                    `
                 }
-                answerString += "</div></div>";
+                answerString += "</table></div></div>";
                 $postAnswer.append(answerString);
                 groupNum++;
             }
@@ -89,7 +163,7 @@ $(document).ready(function () {
                     $groupAnswer.css('display', 'none');
                 }else{
                     $symbolEl.addClass('group-open');
-                    $groupAnswer.css('display', 'block');
+                    $groupAnswer.css('display', 'flex');
                 }
             })
         }
