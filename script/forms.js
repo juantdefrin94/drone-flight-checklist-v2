@@ -17,7 +17,8 @@ $(document).ready(function () {
         for(let i = 0; i < $tableData.length; i++){
             let idString = $tableData[i].id;
             let id = idString.split("-")[1];
-            $('#delete-' + id).on("click", function(){
+            $('#delete-' + id).on("click", function(e){
+                e.stopPropagation();
                 $('#form-id').val(id);
                 $('#modal').css("display", "block");
             })
