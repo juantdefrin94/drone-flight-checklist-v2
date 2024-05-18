@@ -2,8 +2,22 @@ $(document).ready(function () {
 
     function init(){
         handleUI();
+        handleModal();
         handleDelete();
         handleRowAction();
+    }
+    
+    function handleUI(){
+        let $sideBar = $('#sidebar-menu');
+        let winHeight = window.screen.height;
+        $sideBar.height(winHeight);
+    }
+
+    function handleModal(){
+        let $modal = $('#modal');
+        $modal.on('click', function (){
+            $modal.css("display", "none");
+        })
     }
 
     function handleDelete(){
@@ -14,16 +28,11 @@ $(document).ready(function () {
             $('#delete-' + id).on("click", function(e){
                 e.stopPropagation();
                 $('#template-id').val(id);
-                $('#modal').css("display", "block");
+                $('#modal').css("display", "flex");
             })
         }
     }
 
-    function handleUI(){
-        let $sideBar = $('#sidebar-menu');
-        let winHeight = window.screen.height;
-        $sideBar.height(winHeight);
-    }
 
     function handleRowAction(){
         let $tableData = $('.table-data');
