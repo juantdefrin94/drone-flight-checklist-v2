@@ -52,6 +52,11 @@
     color: #d4e9ea;
 }
 
+.answer-container{
+    overflow-y: scroll;
+    height: 74%;
+}
+
 .group{
     display: flex;
     flex-direction: column;

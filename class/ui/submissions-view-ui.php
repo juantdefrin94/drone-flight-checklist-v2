@@ -42,9 +42,11 @@ class SubmissionsViewUI{
         $this->view .= "<input type='text' id='json' style='display: none;' value='$json'/>";
         $this->view .= "<div class='submission-name'>Submission Name <i class='fa-solid fa-arrow-right-long fa-sm' style='color:#d4e9ea; margin:4px 15px 0 15px;'></i> $submissionName</div>";
         $this->view .= <<<HTML
-                            <div id="assessment-answer"></div>
-                            <div id="pre-answer"></div>
-                            <div id="post-answer"></div>
+                            <div class="answer-container">
+                                <div id="assessment-answer"></div>
+                                <div id="pre-answer"></div>
+                                <div id="post-answer"></div>
+                            </div>
                         </div>  
                     </div>
                 </body>
