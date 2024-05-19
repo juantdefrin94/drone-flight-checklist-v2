@@ -57,7 +57,7 @@ class MasterDatabase {
         return false;
     }
 
-    function getCountData(){
+    function getCountRecentData(){
         $sql = "SELECT COUNT(*) AS submission FROM `form`";
         $result = mysqli_query($this->conn, $sql);
         $resString = "{";
@@ -65,8 +65,25 @@ class MasterDatabase {
         if ($result->num_rows === 1) {
             $row = mysqli_fetch_assoc($result);
             $sub = $row['submission'];
-            $resString .= "\"forms\": $sub,";
+            $resString .= "\"forms\": {\"count\": $sub,";
         }
+
+        $sql = "SELECT * FROM form ORDER BY updatedDate DESC LIMIT 3;";
+        $result = mysqli_query($this->conn, $sql);
+
+        $resString .= "\"recent\": [";
+        if (mysqli_num_rows($result) > 0) {
+            while($row = mysqli_fetch_assoc($result)) {
+                $id = $row['id'];
+                $formName = $row['formName'];
+                $formType = $row['formType'];
+                $updatedBy = $row['updatedBy'];
+                $updatedDate = $row['updatedDate'];
+                $resString .= "{\"id\": $id, \"formName\": \"$formName\", \"formType\": \"$formType\", \"updatedBy\": \"$updatedBy\", \"updatedDate\": \"$updatedDate\"},";
+            }
+            $resString = substr($resString, 0, -1);
+        }
+        $resString .= "]},";
 
         $sql = "SELECT COUNT(*) AS submission FROM `template`";
         $result = mysqli_query($this->conn, $sql);
@@ -74,8 +91,24 @@ class MasterDatabase {
         if ($result->num_rows === 1) {
             $row = mysqli_fetch_assoc($result);
             $sub = $row['submission'];
-            $resString .= "\"templates\": $sub,";
+            $resString .= "\"templates\": {\"count\": $sub,";
         }
+
+        $sql = "SELECT * FROM template ORDER BY updatedDate DESC LIMIT 3;";
+        $result = mysqli_query($this->conn, $sql);
+
+        $resString .= "\"recent\": [";
+        if (mysqli_num_rows($result) > 0) {
+            while($row = mysqli_fetch_assoc($result)) {
+                $id = $row['id'];
+                $templateName = $row['templateName'];
+                $updatedBy = $row['updatedBy'];
+                $updatedDate = $row['updatedDate'];
+                $resString .= "{\"id\": $id, \"templateName\": \"$templateName\", \"updatedBy\": \"$updatedBy\", \"updatedDate\": \"$updatedDate\"},";
+            }
+            $resString = substr($resString, 0, -1);
+        }
+        $resString .= "]},";
 
         $sql = "SELECT COUNT(*) AS submission FROM `submission`";
         $result = mysqli_query($this->conn, $sql);
@@ -83,16 +116,26 @@ class MasterDatabase {
         if ($result->num_rows === 1) {
             $row = mysqli_fetch_assoc($result);
             $sub = $row['submission'];
-            $resString .= "\"submissions\": $sub,";
+            $resString .= "\"submissions\": {\"count\": $sub,";
         }
 
-        $json = "";
-        if($resString != "{"){
-            $json = substr($resString, 0, -1);
-            $json .= "}";
-        }
+        $sql = "SELECT * FROM submission ORDER BY submittedDate DESC LIMIT 3;";
+        $result = mysqli_query($this->conn, $sql);
 
-        return $json;
+        $resString .= "\"recent\": [";
+        if (mysqli_num_rows($result) > 0) {
+            while($row = mysqli_fetch_assoc($result)) {
+                $id = $row['id'];
+                $submissionName = $row['submissionName'];
+                $submittedBy = $row['submittedBy'];
+                $submittedDate = $row['submittedDate'];
+                $resString .= "{\"id\": $id, \"submissionName\": \"$submissionName\", \"submittedBy\": \"$submittedBy\", \"submittedDate\": \"$submittedDate\"},";
+            }
+            $resString = substr($resString, 0, -1);
+        }
+        $resString .= "]}}";
+
+        return $resString;
     }
 
     function fetchAllForms($query){

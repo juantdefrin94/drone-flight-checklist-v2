@@ -44,11 +44,11 @@ class DashboardUI{
                 <div class="top-bar">
                     <div class="form-title">Dashboard</div>
         HTML;
-        $count = $this->db->getCountData();
-        $count = json_decode($count);
-        $forms = $count->forms;
-        $templates = $count->templates;
-        $submissions = $count->submissions;
+        $countRecent = $this->db->getCountRecentData();
+        $countRecent = json_decode($countRecent);
+        $forms = $countRecent->forms->count;
+        $templates = $countRecent->templates->count;
+        $submissions = $countRecent->submissions->count;
 
         $this->view .= <<<HTML
                     </div>
@@ -70,6 +70,107 @@ class DashboardUI{
                             <div class="card-container">
                                 Submission : $submissions
                             </div>
+                        </div>
+                    </div>
+                    <div class="recent-container">
+                        <div class="recent">
+                            <h1>Recent Form</h1>
+                            <table class="table-header">
+                                <tr>
+                                    <th class="col-1">No</th>
+                                    <th class="col-2">Name</th>
+                                    <th class="col-3">Type</th>
+                                    <th class="col-4">Updated By</th>
+                                    <th class="col-5">Updated Date</th>
+                                </tr>
+                            </table>
+                            <table class="table-container">
+        HTML;
+
+        $formRecent = $countRecent->forms->recent;
+        $templateRecent = $countRecent->templates->recent;
+        $submissionRecent = $countRecent->submissions->recent;
+
+        $formLength = count($formRecent);
+        for($i = 0; $i < $formLength; $i++){
+            $no = $i + 1;
+            $currRecent = $formRecent[$i];
+            $oddEven = $no % 2 == 0 ? "even" : "odd";
+            $this->view .= "<tr class='table-data $oddEven'>";
+            $this->view .= <<<HTML
+                                    <td class="col-1">$no</td>
+                                    <td class="col-2">$currRecent->formName</td>
+                                    <td class="col-3">$currRecent->formType</td>
+                                    <td class="col-4">$currRecent->updatedBy</td>
+                                    <td class="col-5">$currRecent->updatedDate</td>
+                                </tr>
+            HTML;
+        }
+
+        $this->view .= <<<HTML
+                            </table>
+                        </div>
+                        <div class="recent">
+                            <h1>Recent Template</h1>
+                            <table class="table-header">
+                                <tr>
+                                    <th class="col-1">No</th>
+                                    <th class="col-2">Name</th>
+                                    <th class="col-4">Updated By</th>
+                                    <th class="col-5">Updated Date</th>
+                                </tr>
+                            </table>
+                            <table class="table-container">
+        HTML;
+
+        $templateLength = count($templateRecent);
+        for($i = 0; $i < $templateLength; $i++){
+            $no = $i + 1;
+            $currRecent = $templateRecent[$i];
+            $oddEven = $no % 2 == 0 ? "even" : "odd";
+            $this->view .= "<tr class='table-data $oddEven'>";
+            $this->view .= <<<HTML
+                                    <td class="col-1">$no</td>
+                                    <td class="col-2">$currRecent->templateName</td>
+                                    <td class="col-4">$currRecent->updatedBy</td>
+                                    <td class="col-5">$currRecent->updatedDate</td>
+                                </tr>
+            HTML;
+        }
+
+        $this->view .= <<<HTML
+                            </table>
+                        </div>
+                        <div class="recent">
+                            <h1>Recent Submission</h1>
+                            <table class="table-header">
+                                <tr>
+                                    <th class="col-1">No</th>
+                                    <th class="col-2">Name</th>
+                                    <th class="col-4">Submitted By</th>
+                                    <th class="col-5">Submitted Date</th>
+                                </tr>
+                            </table>
+                            <table class="table-container">
+        HTML;
+
+        $submissionLength = count($submissionRecent);
+        for($i = 0; $i < $submissionLength; $i++){
+            $no = $i + 1;
+            $currRecent = $submissionRecent[$i];
+            $oddEven = $no % 2 == 0 ? "even" : "odd";
+            $this->view .= "<tr class='table-data $oddEven'>";
+            $this->view .= <<<HTML
+                                    <td class="col-1">$no</td>
+                                    <td class="col-2">$currRecent->submissionName</td>
+                                    <td class="col-4">$currRecent->submittedBy</td>
+                                    <td class="col-5">$currRecent->submittedDate</td>
+                                </tr>
+            HTML;
+        }
+
+        $this->view .= <<<HTML
+                            </table>
                         </div>
                     </div>
                 </div>
