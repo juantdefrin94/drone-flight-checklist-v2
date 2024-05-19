@@ -10,7 +10,7 @@ class DashboardUI{
         <head>
             <meta charset="UTF-8">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <link rel="stylesheet" href="styles/list-style.css">
+            <link rel="stylesheet" href="styles/dashboard-style.css">
             <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
             <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
             <script src="script/dashboard.js"></script>
@@ -42,7 +42,7 @@ class DashboardUI{
         HTML;
         $this->view .= <<<HTML
                 <div class="top-bar">
-                    <div class="form-title">Dashboard</div>
+                    <div class="dashboard-title">Dashboard</div>
         HTML;
         $countRecent = $this->db->getCountRecentData();
         $countRecent = json_decode($countRecent);
@@ -54,37 +54,37 @@ class DashboardUI{
                     </div>
                     <div class="all-card-container">
                         <div class="card">
-                            <h1>Forms</h1>
-                            <div class="card-container">
-                                Submission : $forms
+                            <div class="card-data">
+                                $forms
                             </div>
+                            <div class="card-title">
+                                <div>FORM<br>DATA</div>
+                            </div>
+                            <div class="card-icon"><i class='fa-solid fa-chart-simple fa-3x' style='color:#5D7C7E'></i></div>   
                         </div>
                         <div class="card mid">
-                            <h1>Templates</h1>
-                            <div class="card-container">
-                                Submission : $templates
+                            <div class="card-data">
+                                $templates
                             </div>
+                            <div class="card-title">
+                                <div>TEMPLATE<br>DATA</div>
+                            </div>
+                            <div class="card-icon"><i class='fa-solid fa-chart-simple fa-3x' style='color:#5D7C7E'></i></div> 
                         </div>
                         <div class="card">
-                            <h1>Submission</h1>
-                            <div class="card-container">
-                                Submission : $submissions
+                            <div class="card-data">
+                                $submissions
                             </div>
+                            <div class="card-title">
+                                <div>SUBMISSION<br>DATA</div>
+                            </div>
+                            <div class="card-icon"><i class='fa-solid fa-chart-simple fa-3x' style='color:#5D7C7E'></i></div> 
                         </div>
                     </div>
                     <div class="recent-container">
                         <div class="recent">
-                            <h1>Recent Form</h1>
-                            <table class="table-header">
-                                <tr>
-                                    <th class="col-1">No</th>
-                                    <th class="col-2">Name</th>
-                                    <th class="col-3">Type</th>
-                                    <th class="col-4">Updated By</th>
-                                    <th class="col-5">Updated Date</th>
-                                </tr>
-                            </table>
-                            <table class="table-container">
+                            <div class="recent-title"><i class='fa-solid fa-arrows-rotate fa-lg' style='color:#5d7c7e; margin-right: 25px;'></i>Recent Form (by updated date)</div>
+                            <div class="table-container">
         HTML;
 
         $formRecent = $countRecent->forms->recent;
@@ -96,31 +96,23 @@ class DashboardUI{
             $no = $i + 1;
             $currRecent = $formRecent[$i];
             $oddEven = $no % 2 == 0 ? "even" : "odd";
-            $this->view .= "<tr class='table-data $oddEven'>";
+            $this->view .= "<div class='table-data $oddEven'>";
             $this->view .= <<<HTML
-                                    <td class="col-1">$no</td>
-                                    <td class="col-2">$currRecent->formName</td>
-                                    <td class="col-3">$currRecent->formType</td>
-                                    <td class="col-4">$currRecent->updatedBy</td>
-                                    <td class="col-5">$currRecent->updatedDate</td>
-                                </tr>
+                                    <div class="col-1">$no</div>
+                                    <div class="col-2">$currRecent->formName</div>
+                                    <div class="col-3">$currRecent->formType</div>
+                                    <div class="col-4">$currRecent->updatedBy</div>
+                                    <div class="col-5">$currRecent->updatedDate</div>
+                                </div>
             HTML;
         }
 
         $this->view .= <<<HTML
-                            </table>
+                            </div>
                         </div>
                         <div class="recent">
-                            <h1>Recent Template</h1>
-                            <table class="table-header">
-                                <tr>
-                                    <th class="col-1">No</th>
-                                    <th class="col-2">Name</th>
-                                    <th class="col-4">Updated By</th>
-                                    <th class="col-5">Updated Date</th>
-                                </tr>
-                            </table>
-                            <table class="table-container">
+                            <div class="recent-title"><i class='fa-solid fa-arrows-rotate fa-lg' style='color:#5d7c7e; margin-right: 25px;'></i>Recent Template (by updated date)</div>
+                            <div class="table-container">
         HTML;
 
         $templateLength = count($templateRecent);
@@ -128,30 +120,22 @@ class DashboardUI{
             $no = $i + 1;
             $currRecent = $templateRecent[$i];
             $oddEven = $no % 2 == 0 ? "even" : "odd";
-            $this->view .= "<tr class='table-data $oddEven'>";
+            $this->view .= "<div class='table-data $oddEven'>";
             $this->view .= <<<HTML
-                                    <td class="col-1">$no</td>
-                                    <td class="col-2">$currRecent->templateName</td>
-                                    <td class="col-4">$currRecent->updatedBy</td>
-                                    <td class="col-5">$currRecent->updatedDate</td>
-                                </tr>
+                                    <div class="col-1">$no</div>
+                                    <div class="col-2">$currRecent->templateName</div>
+                                    <div class="col-4">$currRecent->updatedBy</div>
+                                    <div class="col-5">$currRecent->updatedDate</div>
+                                </div>
             HTML;
         }
 
         $this->view .= <<<HTML
-                            </table>
+                            </div>
                         </div>
                         <div class="recent">
-                            <h1>Recent Submission</h1>
-                            <table class="table-header">
-                                <tr>
-                                    <th class="col-1">No</th>
-                                    <th class="col-2">Name</th>
-                                    <th class="col-4">Submitted By</th>
-                                    <th class="col-5">Submitted Date</th>
-                                </tr>
-                            </table>
-                            <table class="table-container">
+                            <div class="recent-title"><i class='fa-solid fa-arrows-rotate fa-lg' style='color:#5d7c7e; margin-right: 25px;'></i>Recent Submission (by updated date)</div>
+                            <div class="table-container">
         HTML;
 
         $submissionLength = count($submissionRecent);
@@ -159,18 +143,18 @@ class DashboardUI{
             $no = $i + 1;
             $currRecent = $submissionRecent[$i];
             $oddEven = $no % 2 == 0 ? "even" : "odd";
-            $this->view .= "<tr class='table-data $oddEven'>";
+            $this->view .= "<div class='table-data $oddEven'>";
             $this->view .= <<<HTML
-                                    <td class="col-1">$no</td>
-                                    <td class="col-2">$currRecent->submissionName</td>
-                                    <td class="col-4">$currRecent->submittedBy</td>
-                                    <td class="col-5">$currRecent->submittedDate</td>
-                                </tr>
+                                    <div class="col-1">$no</div>
+                                    <div class="col-2">$currRecent->submissionName</div>
+                                    <div class="col-4">$currRecent->submittedBy</div>
+                                    <div class="col-5">$currRecent->submittedDate</div>
+                                </div>
             HTML;
         }
 
         $this->view .= <<<HTML
-                            </table>
+                            </div>
                         </div>
                     </div>
                 </div>
