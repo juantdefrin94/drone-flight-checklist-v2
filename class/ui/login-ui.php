@@ -74,7 +74,7 @@ class LoginUI{
             if($verified == 'success'){
                 $validated = $this->db->validateLogin($username, $passwordHash);
                 if($validated == "success"){
-                    header("Location: index.php?view=forms&user=$userEncode&query=&delete=");
+                    header("Location: index.php?view=dashboard&user=$userEncode&query=&delete=");
                     exit;
                 }
             }
