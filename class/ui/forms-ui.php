@@ -48,6 +48,7 @@ class FormsUI{
                 <div id="sidebar-menu">
                     <div class="absolute">
         HTML;
+        $this->view .= "<div class='menu'><a href='index.php?view=dashboard&user=$user'>Dashboard</a></div>";
         $this->view .= "<div class='menu active-menu'><a href='index.php?view=forms&user=$user&query=&delete='>Forms</a></div>";
         $this->view .= "<div class='menu'><a href='index.php?view=templates&user=$user&query=&delete='>Templates</a></div>";
         $this->view .= "<div class='menu'><a href='index.php?view=submissions&user=$user&query='>Submission</a></div>";

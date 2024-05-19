@@ -1,5 +1,6 @@
 <?php
 
+include 'class/ui/dahboard-ui.php';
 include 'class/ui/login-ui.php';
 include 'class/ui/register-ui.php';
 include 'class/ui/forms-ui.php';
@@ -26,6 +27,10 @@ class Main{
             
             // Route based on action
             switch ($action) {
+                case 'dashboard':
+                    $this->ui = new DashboardUI($this->masterDatabase);
+                    $this->ui->getView();
+                    break;
                 case 'login':
                     $this->ui = new LoginUI($this->masterDatabase);
                     $this->ui->getView();

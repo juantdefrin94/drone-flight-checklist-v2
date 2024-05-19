@@ -57,6 +57,44 @@ class MasterDatabase {
         return false;
     }
 
+    function getCountData(){
+        $sql = "SELECT COUNT(*) AS submission FROM `form`";
+        $result = mysqli_query($this->conn, $sql);
+        $resString = "{";
+
+        if ($result->num_rows === 1) {
+            $row = mysqli_fetch_assoc($result);
+            $sub = $row['submission'];
+            $resString .= "\"forms\": $sub,";
+        }
+
+        $sql = "SELECT COUNT(*) AS submission FROM `template`";
+        $result = mysqli_query($this->conn, $sql);
+
+        if ($result->num_rows === 1) {
+            $row = mysqli_fetch_assoc($result);
+            $sub = $row['submission'];
+            $resString .= "\"templates\": $sub,";
+        }
+
+        $sql = "SELECT COUNT(*) AS submission FROM `submission`";
+        $result = mysqli_query($this->conn, $sql);
+
+        if ($result->num_rows === 1) {
+            $row = mysqli_fetch_assoc($result);
+            $sub = $row['submission'];
+            $resString .= "\"submissions\": $sub,";
+        }
+
+        $json = "";
+        if($resString != "{"){
+            $json = substr($resString, 0, -1);
+            $json .= "}";
+        }
+
+        return $json;
+    }
+
     function fetchAllForms($query){
         $sql = "SELECT * FROM `form` WHERE `formName` LIKE '%$query%' OR `formType` LIKE '%$query%' OR `updatedBy` LIKE '%$query%' ORDER BY updatedDate DESC";
         $result = mysqli_query($this->conn, $sql);
