@@ -36,9 +36,11 @@ $(document).ready(function () {
 
     function handleDeleteInfo(){
         let $deleteAlertEl = $('#delete-alert')[0];
-        $deleteAlertEl.classList.remove('show');
-        void $deleteAlertEl.offsetWidth;
-        $deleteAlertEl.classList.add('show');
+        if($deleteAlertEl){
+            $deleteAlertEl.classList.remove('show');
+            void $deleteAlertEl.offsetWidth;
+            $deleteAlertEl.classList.add('show');
+        }
     }
 
     function handleRowAction(){
