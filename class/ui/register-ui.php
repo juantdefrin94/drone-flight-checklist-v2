@@ -71,7 +71,7 @@ class RegisterUI{
         $this->register();
     }
 
-    public function validateForm($email, $username, $password, $confirmPassword){
+    private function validateForm($email, $username, $password, $confirmPassword){
         if ($email == '' || $username == '' || $password == '' || $confirmPassword == '') {
             return "Please fill all data"; 
         }
