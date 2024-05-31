@@ -21,6 +21,7 @@ $(document).ready(function () {
                 generateField(questionId, $formData[data]);
             }
             $('#form-name')[0].value = $json.formName;
+            $('#form-type-dropdown')[0].value = $json.formType;
             question = questionId + 1;
         }
     }
@@ -31,45 +32,66 @@ $(document).ready(function () {
         let $save = $('#save');
 
         $saveButton.on('click', function (){
-            let $fieldBox = $('.field-box');
-            let fieldLength = $fieldBox.length;
-
-            let $formTypeDropdown = $('#form-type-dropdown :selected')[0].value;
-            let $formType = $('#form-type');
-            $formType[0].value = $formTypeDropdown;
-
-            let jsonTemp = {};
-            for(let i = 0; i < fieldLength; i++){
-                let id = $fieldBox[i].id.split('-')[1];
-                let questionId = "question" + id;
-                let statement = $("#statement-" + id)[0].value;
-                let type = $('#answer-' + id)[0].className.split("-")[0];
-                let option = [];
-                if(type === "dropdown"){
-                    let container = $('#' + type + "-container-" + id + " option");
-                    let containerLength = container.length;
-                    for(let i = 0; i < containerLength; i++){
-                        option.push(container[i].value);
-                    }
-                }else if(type === "multiple" || type === "checklist"){
-                    let container = $('#' + type + "-container-" + id + " input");
-                    let containerLength = container.length;
-                    for(let i = 0; i < containerLength; i++){
-                        option.push(container[i].value);
-                    }
-                }
-                let isRequired = $("#required-" + id)[0].checked;     
-
-                jsonTemp[questionId] = {
-                    "question": statement,
-                    "type": type,
-                    "option": option,
-                    "required": isRequired
+            let statementInput = $('.statement-input');
+            let length = statementInput.length;
+            let isEmpty = false;
+            for(let i = 0; i < length; i++){
+                let currEl = statementInput[i];
+                if(currEl.value == ""){
+                    isEmpty = true;
+                    break;
                 }
             }
-            let jsonStructure = JSON.stringify(jsonTemp);
-            $json[0].value = jsonStructure;
-            $save.click();
+
+            let formName = $('#form-name');
+            if(formName[0].value == ""){
+                isEmpty = true;
+            }
+
+            if(!isEmpty){
+                let $fieldBox = $('.field-box');
+                let fieldLength = $fieldBox.length;
+    
+                let $formTypeDropdown = $('#form-type-dropdown :selected')[0].value;
+                let $formType = $('#form-type');
+                $formType[0].value = $formTypeDropdown;
+    
+                let jsonTemp = {};
+                for(let i = 0; i < fieldLength; i++){
+                    let id = $fieldBox[i].id.split('-')[1];
+                    let questionId = "question" + id;
+                    let statement = $("#statement-" + id)[0].value;
+                    let type = $('#answer-' + id)[0].className.split("-")[0];
+                    let option = [];
+                    if(type === "dropdown"){
+                        let container = $('#' + type + "-container-" + id + " option");
+                        let containerLength = container.length;
+                        for(let i = 0; i < containerLength; i++){
+                            option.push(container[i].value);
+                        }
+                    }else if(type === "multiple" || type === "checklist"){
+                        let container = $('#' + type + "-container-" + id + " input");
+                        let containerLength = container.length;
+                        for(let i = 0; i < containerLength; i++){
+                            option.push(container[i].value);
+                        }
+                    }
+                    let isRequired = $("#required-" + id)[0].checked;     
+    
+                    jsonTemp[questionId] = {
+                        "question": statement,
+                        "type": type,
+                        "option": option,
+                        "required": isRequired
+                    }
+                }
+                let jsonStructure = JSON.stringify(jsonTemp);
+                $json[0].value = jsonStructure;
+                $save.click();     
+            }else{
+                alert('Please make sure all component are filled!');
+            }
+
         })
     }
 
@@ -91,6 +113,12 @@ $(document).ready(function () {
         if(!$.isEmptyObject(data)){
             if(data.type === 'multiple' || data.type === 'checklist'){
                 addEventAdd(question, data.type);
+                let answerContainer = $('#answer-' + question + " .option-answer-container input");
+                let answerContainerLength = answerContainer.length;
+                for(let i = 0; i < answerContainerLength; i++){
+                    let id = answerContainer[i].id;
+                    addEventDeleteOptionAnswer(id);
+                }
             }
         }
 
@@ -108,7 +136,7 @@ $(document).ready(function () {
                                     <div class="statement">
                                         <div class="statement-title">Statement/Question</div>
                                         <div>
-                                            <input type="text" class="statement-input" id="statement-${question}" placeholder="Please input your question or statement here">
+                                            <input type="text" class="statement-input" id="statement-${question}" placeholder="Please input your question or statement here" required>
                                         </div>
                                     </div> 
                                     
@@ -156,7 +184,7 @@ $(document).ready(function () {
                                 <div class="statement">
                                     <div class="statement-title">Statement/Question</div>
                                     <div>
-                                        <input type="text" class="statement-input" id="statement-${question}" placeholder="Please input your question or statement here" value="${data.question}">
+                                        <input type="text" class="statement-input" id="statement-${question}" placeholder="Please input your question or statement here" value="${data.question}" required>
                                     </div>
                                 </div> 
                             
@@ -190,9 +218,18 @@ $(document).ready(function () {
                                 <div id="multiple-container-${question}">`
                 $.each(data.option, function (_, opt){
                     let lowOpt = opt.toLowerCase();
+                    let newOptVal = $.trim(lowOpt.replaceAll(/\s+/g, ' '));
+                    let newId = newOptVal.replaceAll(' ', '-') + "-" + question;
                     html = html + `
-                                    <input class="options" type="radio" id="${lowOpt}-${question}" name="multiple-${question}" value="${opt}">
-                                    <label class="options-label" for="${lowOpt}-${question}">${opt}</label><br> 
+                                    <div id="${newId}-answer" class="option-answer-container">
+                                        <div class="left-option">
+                                            <input class="options" type="radio" id="${newId}" name="multiple-${question}" value="${opt}" disabled>
+                                            <label class="options-label" for="${newId}">${opt}</label><br> 
+                                        </div>
+                                        <div class="right-option">
+                                            <button class="delete-answer" id="${newId}-delete"><i class="fa-solid fa-circle-xmark fa-lg" style="color:#ff0000c7"></i></button>
+                                        </div>
+                                    </div>
                     `
                 });
                 html = html + `
@@ -209,9 +246,18 @@ $(document).ready(function () {
                                 <div id="checklist-container-${question}">`
                 $.each(data.option, function (_, opt){
                     let lowOpt = opt.toLowerCase();
+                    let newOptVal = $.trim(lowOpt.replaceAll(/\s+/g, ' '));
+                    let newId = newOptVal.replaceAll(' ', '-') + "-" + question;
                     html = html + `
-                                    <input class="options" type="checkbox" id="${lowOpt}-${question}" name="checklist-${question}" value="${opt}">
-                                    <label class="options-label" for="${lowOpt}-${question}">${opt}</label><br> 
+                                <div id="${newId}-answer" class="option-answer-container">
+                                    <div class="left-option">
+                                        <input class="options" type="checkbox" id="${newId}" name="checklist-${question}" value="${opt}" disabled>
+                                        <label class="options-label" for="${newId}">${opt}</label> 
+                                    </div>
+                                    <div class="right-option">
+                                        <button class="delete-answer" id="${newId}-delete"><i class="fa-solid fa-circle-xmark fa-lg" style="color:#ff0000c7"></i></button>
+                                    </div>
+                                </div>
                     `
                 });
                 html = html + `
@@ -405,8 +451,15 @@ $(document).ready(function () {
                     let type = val === "multiple" ? "radio" : val === "checklist" ? "checkbox" : "dropdown";
                     if(type === "checkbox" || type === "radio"){
                         newField = `
-                                <input class="options" type="${type}" id="${newId}" name="${val}-${question}" value="${newOptVal}" disabled>
-                                <label class="options-label" for="${newId}">${newOptVal}</label><br>
+                                <div class="option-answer-container" id="${newId}-answer">
+                                    <div class="left-option">
+                                        <input class="options" type="${type}" id="${newId}" name="${val}-${question}" value="${newOptVal}" disabled>
+                                        <label class="options-label" for="${newId}">${newOptVal}</label><br>
+                                    </div>
+                                    <div class="right-option">
+                                        <button class="delete-answer" id="${newId}-delete"><i class="fa-solid fa-circle-xmark fa-lg" style="color:#ff0000c7"></i></button>
+                                    </div>
+                                </div>
                             `;
                     }else{
                         newField = `
@@ -417,9 +470,21 @@ $(document).ready(function () {
                     if ($container) {
                         $container.append(newField);
                         getElement(newOptionId)[0].value = null;
+                        addEventDeleteOptionAnswer(newId);
                     }
+
                 }
             });
+        }
+    }
+
+    function addEventDeleteOptionAnswer(newId){
+        let $deleteButton = $('#' + newId + "-delete");
+        if($deleteButton){
+            $deleteButton.on('click', function (e){
+                e.preventDefault();
+                getElement('#' + newId + "-answer").remove();
+            })
         }
     }
 

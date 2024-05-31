@@ -140,10 +140,6 @@ class TemplatesViewUI{
         $this->saveTemplate();
     }
 
-    private function verifyData($id, $templateName, $assessmsnetId, $preId, $postId){
-        return true;
-    }
-
     private function saveTemplate(){
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $id = $_GET['id'];
@@ -152,15 +148,11 @@ class TemplatesViewUI{
             $preId = $_POST['pre-id'];
             $postId = $_POST['post-id'];
 
+            $user = $_GET['user'];
 
-            $verify = $this->verifyData($id, $templateName, $assessmsnetId, $preId, $postId);
-            if ($verify) {
-                $user = $_GET['user'];
-
-                $isSaved = $this->db->saveTemplate($id, $templateName, $assessmsnetId, $preId, $postId, $user);
-                if($isSaved){
-                    header("Location: index.php?view=templates&user=$user&query=&delete=");
-                }
+            $isSaved = $this->db->saveTemplate($id, $templateName, $assessmsnetId, $preId, $postId, $user);
+            if($isSaved){
+                header("Location: index.php?view=templates&user=$user&query=&delete=");
             }
         }
     }

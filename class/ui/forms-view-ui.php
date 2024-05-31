@@ -41,7 +41,7 @@ class FormsViewUI{
 
                                     <div class="input-label">
                                         <div class="content-input">
-                                            <input type="text" name="form-name" id="form-name" required>
+                                            <input type="text" name="form-name" id="form-name">
                                         </div>
                                         <div class="content-input">
                                             <select id="form-type-dropdown">
@@ -89,10 +89,6 @@ class FormsViewUI{
         $this->saveForm();
     }
 
-    private function verifyData($id){
-        return true;
-    }
-
     private function saveForm(){
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
@@ -101,15 +97,13 @@ class FormsViewUI{
             $formName = $_POST['form-name'];
             $formType = $_POST['form-type'];
             $user = $_GET['user'];
-
-            $verify = $this->verifyData($id);
-            if ($verify) {
-                $isSaved = $this->db->saveForm($id, $formName, $formType, $user, $json);
-                if($isSaved){
-                    header("Location: index.php?view=forms&user=$user&query=&delete=");
-                }
+            $isSaved = $this->db->saveForm($id, $formName, $formType, $user, $json);
+            if($isSaved){
+                header("Location: index.php?view=forms&user=$user&query=&delete=");
             }
         }
     }
 
 }
+
+ob_end_flush();
