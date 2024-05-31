@@ -140,7 +140,7 @@ class TemplatesViewUI{
         $this->saveTemplate();
     }
 
-    public function saveTemplate(){
+    private function saveTemplate(){
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $id = $_GET['id'];
             $templateName = $_POST['template-name'];

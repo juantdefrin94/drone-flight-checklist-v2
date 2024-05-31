@@ -89,7 +89,7 @@ class FormsViewUI{
         $this->saveForm();
     }
 
-    public function saveForm(){
+    private function saveForm(){
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             $id = $_GET['id'];
