@@ -28,15 +28,36 @@ $(document).ready(function (){
         let $save = $('#save');
 
         $saveButton.on('click', function (){
+            let isEmpty = false;
+            let templateName = $('#template-name');
+            let alertMsg = "";
+
             let $assessmentDropdown = $('#assessment-select :selected')[0].value;
             let $preDropdown = $('#pre-select :selected')[0].value;
             let $postDropdown = $('#post-select :selected')[0].value;
             
-            $('#assessment-id')[0].value = $assessmentDropdown;
-            $('#pre-id')[0].value = $preDropdown;
-            $('#post-id')[0].value = $postDropdown;
+            if(templateName[0].value == ""){
+                isEmpty = true;
+                alertMsg = "Please make sure all component are filled!";
+            }else{
+                
+                if($assessmentDropdown == "empty" && $preDropdown == "empty" && $postDropdown == "empty"){
+                    isEmpty = true;
+                    alertMsg = "Please choose at least one form!";
+                }
+            }
 
-            $save.click();
+
+            if(isEmpty){
+                alert(alertMsg);
+            }else{
+                $('#assessment-id')[0].value = $assessmentDropdown;
+                $('#pre-id')[0].value = $preDropdown;
+                $('#post-id')[0].value = $postDropdown;
+    
+                $save.click();
+            }
+
         })
     }
 

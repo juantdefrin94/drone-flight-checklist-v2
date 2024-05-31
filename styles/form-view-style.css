@@ -224,6 +224,28 @@
     border-radius: 5px;
 }
 
+.option-answer-container{
+    display: flex;
+    flex-direction: row;
+}
+
+.left-option{
+    width: 48%;
+}
+
+.right-option{
+    width: 10%;
+}
+
+.delete-answer{
+    border: none;
+}
+
+.delete-answer:hover{
+    cursor: pointer;
+    transform: scale(1.1);
+}
+
 .add-option-button, .add-value-button {
     width: 15%;
     background-color: #5D7C7E;
