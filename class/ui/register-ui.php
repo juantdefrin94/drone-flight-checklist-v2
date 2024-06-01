@@ -92,15 +92,15 @@ class RegisterUI{
                 $isUnique = $this->db->validateUnique($username);
                 if($isUnique == 'unique'){
                     $successRegist = $this->db->registUser($email, $username, $passwordHash);
-                    if ($successRegist) {
+                    if ($successRegist) {        
                         header("Location: index.php?view=login");
-                        exit;
                     }
+                }else{
+                    echo "<script>alert('$isUnique');</script>";
                 }
-                echo "<script>alert('$isUnique');</script>"; 
-                return false;
+            }else{
+                echo "<script>alert('$verified');</script>"; 
             }
-            echo "<script>alert('$verified');</script>"; 
         } 
     }
 }

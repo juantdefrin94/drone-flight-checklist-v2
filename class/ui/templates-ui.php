@@ -32,7 +32,7 @@ class TemplatesUI{
     public function __construct($db){
         $this->db = $db;
         $user = $_GET['user'];
-        $this->view .= "<input type='text' id='user' name='user' style='display: none;'/>";
+        $this->view .= "<input type='text' id='user' name='user' value='$user' style='display: none;'/>";
         $this->view .= "<div class='confirm-button'><a href='index.php?view=templates&user=$user&query=&delete='><div class='no-button'>No</div></a>";
         $this->view .= <<<HTML
                                     <button class="yes-button">Yes</button>

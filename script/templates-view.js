@@ -11,9 +11,9 @@ $(document).ready(function (){
         if($formId != 0){
             let $json = JSON.parse($('#json')[0].value);
             let templateName = $json.templateName;
-            let assessmentId = $json.assessmentId;
-            let preId = $json.preId;
-            let postId = $json.postId;
+            let assessmentId = $json.assessmentId != "0" ? $json.assessmentId : "empty";
+            let preId = $json.preId  != "0" ? $json.preId : "empty";
+            let postId = $json.postId  != "0" ? $json.postId : "empty";
             
             $('#template-name')[0].value = templateName;
             $('#assessment-select')[0].value = assessmentId;
