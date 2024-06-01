@@ -13,7 +13,7 @@ class MasterDatabase {
     }
 
     function validateLogin($username, $password){
-        $sql = "SELECT * FROM user WHERE username='$username' and `password`='$password'";
+        $sql = "SELECT * FROM user WHERE username='$username'";
         $result = $this->conn->query($sql);
 
         

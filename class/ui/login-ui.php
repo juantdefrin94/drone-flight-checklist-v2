@@ -76,9 +76,12 @@ class LoginUI{
                 if($validated == "success"){
                     header("Location: index.php?view=dashboard&user=$userEncode&query=&delete=");
                     exit;
+                }else{
+                    echo "<script>alert('$validated');</script>"; 
                 }
+            }else{
+                echo "<script>alert('$verified');</script>"; 
             }
-            echo "<script>alert('$verified');</script>"; 
             return false;
         }
     }
