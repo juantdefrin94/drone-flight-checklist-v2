@@ -4,7 +4,7 @@
 
     include 'connect.php';
 
-    $this->conn = (new Connect())->getConnection();
+    $conn = (new Connect())->getConnection();
     $sql = "SELECT * FROM `template`";
 
     $result = $conn->query($sql);
