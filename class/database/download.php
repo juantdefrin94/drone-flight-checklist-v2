@@ -6,6 +6,7 @@
     
     $templateId = $_POST['templateId'];
 
+    $conn = (new Connect())->getConnection();
     $sql = "SELECT * FROM `template` WHERE `id` = '$templateId'";
 
     $result = $conn->query($sql);
